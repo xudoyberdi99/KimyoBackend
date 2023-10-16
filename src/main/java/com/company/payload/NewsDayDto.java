@@ -34,5 +34,5 @@ public class NewsDayDto {
     @NotBlank(message="Please provide a descriptionKR" )
     private String descriptionKR;
 
-    private Long imageid;
+    private String hashId;
 }

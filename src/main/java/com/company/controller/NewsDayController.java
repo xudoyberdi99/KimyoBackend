@@ -20,7 +20,7 @@ public class NewsDayController {
     private NewsDayService newsDayService;
 
     @PostMapping("/save")
-    public ResponseEntity<?> addNewsDay(@RequestBody NewsDayDto newsDayDto){
+    public ResponseEntity<?> addNewsDay(@Valid @RequestBody NewsDayDto newsDayDto){
         ApiResponse apiResponse=newsDayService.saveNews(newsDayDto);
         return ResponseEntity.status(apiResponse.isSucces()?200:409).body(apiResponse);
     }
@@ -29,7 +29,7 @@ public class NewsDayController {
         ApiResponse apiResponse=newsDayService.editNews(id,newsDayDto);
         return ResponseEntity.status(apiResponse.isSucces()?200:409).body(apiResponse);
     }
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public HttpEntity<?> deleteNews(@PathVariable Long id){
         ApiResponse apiResponse=newsDayService.deleteNews(id);
         return ResponseEntity.status(apiResponse.isSucces()?200:409).body(apiResponse);
