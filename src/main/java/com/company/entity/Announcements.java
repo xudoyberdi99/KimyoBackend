@@ -7,16 +7,15 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import java.util.List;
-import java.util.Set;
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Entity(name = "About")
-public class AboutInstituti extends BaceEntity {
+@Entity(name = "announcements")
+public class Announcements extends BaceEntity {
 
     private String titleUZ;
 

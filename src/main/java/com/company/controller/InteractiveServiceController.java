@@ -32,7 +32,7 @@ public class InteractiveServiceController {
         ApiResponse apiResponse=interaktivService.editinteractiveService(id,interaktivServiceDto);
         return ResponseEntity.status(apiResponse.isSucces()?200:409).body(apiResponse);
     }
-    @DeleteMapping("/deleteservice{id}")
+    @DeleteMapping("/deleteservice/{id}")
     public HttpEntity<?> deleteinteractiveService(@PathVariable Long id){
         ApiResponse apiResponse=interaktivService.deleteinteractiveService(id);
         return ResponseEntity.status(apiResponse.isSucces()?200:409).body(apiResponse);

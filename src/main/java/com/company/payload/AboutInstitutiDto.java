@@ -1,22 +1,14 @@
-package com.company.entity;
+package com.company.payload;
 
-import com.company.entity.bace.BaceEntity;
-import lombok.AllArgsConstructor;
+import com.company.entity.AttachmentEntity;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import java.util.List;
 import java.util.Set;
-@EqualsAndHashCode(callSuper = true)
-@AllArgsConstructor
-@NoArgsConstructor
+
 @Data
-@Entity(name = "About")
-public class AboutInstituti extends BaceEntity {
+public class AboutInstitutiDto {
 
     private String titleUZ;
 
@@ -42,6 +34,5 @@ public class AboutInstituti extends BaceEntity {
 
     private String descriptionKR;
 
-    @OneToMany
-    private List<AttachmentEntity> images;
+    private List<String> images;
 }

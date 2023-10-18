@@ -2,13 +2,10 @@ package com.company.entity;
 
 import com.company.entity.bace.BaceEntity;
 import com.company.entity.enums.FileEnum;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Entity;
-
+@EqualsAndHashCode(callSuper = true)
 @Setter
 @Getter
 @NoArgsConstructor
