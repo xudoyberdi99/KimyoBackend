@@ -33,4 +33,5 @@ public class AnnouncementsDto {
 
     private List<String> images;
 
+
 }

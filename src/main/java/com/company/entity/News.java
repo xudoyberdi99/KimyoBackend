@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Entity(name = "news_day")
+@Entity(name = "news")
 public class News extends BaceEntity {
     @Lob
     @Column(columnDefinition="TEXT", length=10485760)

@@ -5,6 +5,7 @@ import com.company.entity.NewsDay;
 import com.company.payload.ApiResponse;
 import com.company.payload.NewsDayDto;
 import com.company.payload.NewsDto;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -17,5 +18,5 @@ public interface NewsService {
 
     News newsById(Long id);
 
-    List<News> Allnews();
+    Page<News> getAllServices(int page, int size);
 }

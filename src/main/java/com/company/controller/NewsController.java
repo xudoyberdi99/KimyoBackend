@@ -1,13 +1,11 @@
 package com.company.controller;
 
 import com.company.entity.News;
-import com.company.entity.NewsDay;
 import com.company.payload.ApiResponse;
-import com.company.payload.NewsDayDto;
 import com.company.payload.NewsDto;
-import com.company.service.NewsDayService;
 import com.company.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -43,8 +41,8 @@ public class NewsController {
     }
 
     @GetMapping("/allnews")
-    public HttpEntity<?> Allnews(){
-        List<News> news=newsService.Allnews();
-        return ResponseEntity.ok(news);
+    public HttpEntity<?> Allnews(int page, int size){
+        Page<News> getallService=newsService.getAllServices(page,size);
+        return ResponseEntity.ok(getallService);
     }
 }
