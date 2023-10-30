@@ -1,10 +1,8 @@
 package com.company.controller;
 
 import com.company.entity.ActiveStudents;
-import com.company.entity.InteraktivService;
 import com.company.payload.ActiveStudentsDto;
 import com.company.payload.ApiResponse;
-import com.company.payload.InteraktivServiceDto;
 import com.company.service.ActiveStudentsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
