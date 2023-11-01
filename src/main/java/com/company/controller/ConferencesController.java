@@ -23,17 +23,17 @@ public class ConferencesController {
     @PostMapping("/conferenceSave")
     public ResponseEntity<?> conferenceSave(@Valid @RequestBody ConferencesDto conferencesDto){
         ApiResponse apiResponse=conferencesService.conferenceSave(conferencesDto);
-        return ResponseEntity.status(apiResponse.isSucces()?200:409).body(apiResponse);
+        return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
     @PutMapping("/conferenceEdit/{id}")
     public HttpEntity<?> conferenceEdit(@Valid @PathVariable Long id, @RequestBody ConferencesDto conferencesDto){
         ApiResponse apiResponse=conferencesService.conferenceEdit(id,conferencesDto);
-        return ResponseEntity.status(apiResponse.isSucces()?200:409).body(apiResponse);
+        return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
     @DeleteMapping("/conferenceDelete/{id}")
     public HttpEntity<?> conferenceDelete(@PathVariable Long id){
         ApiResponse apiResponse=conferencesService.conferenceDelete(id);
-        return ResponseEntity.status(apiResponse.isSucces()?200:409).body(apiResponse);
+        return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
     @GetMapping("/conferenceGetById/{id}")
     public HttpEntity<?> conferenceGetById(@PathVariable Long id){

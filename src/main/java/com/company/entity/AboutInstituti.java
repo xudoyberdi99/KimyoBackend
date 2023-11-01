@@ -6,9 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 @EqualsAndHashCode(callSuper = true)
@@ -18,28 +16,52 @@ import java.util.Set;
 @Entity(name = "About")
 public class AboutInstituti extends BaceEntity {
 
+    @Lob
+    @Column(columnDefinition="TEXT", length=10485760, nullable = false)
     private String titleUZ;
 
+    @Lob
+    @Column(columnDefinition="TEXT", length=10485760, nullable = false)
     private String titleRU;
 
+    @Lob
+    @Column(columnDefinition="TEXT", length=10485760, nullable = false)
     private String titleEN;
 
+    @Lob
+    @Column(columnDefinition="TEXT", length=10485760, nullable = false)
     private String titleKR;
 
+    @Lob
+    @Column(columnDefinition="TEXT", length=10485760)
     private String shortdescriptionUZ;
 
+    @Lob
+    @Column(columnDefinition="TEXT", length=10485760)
     private String shortdescriptionRU;
 
+    @Lob
+    @Column(columnDefinition="TEXT", length=10485760)
     private String shortdescriptionEN;
 
+    @Lob
+    @Column(columnDefinition="TEXT", length=10485760)
     private String shortdescriptionKR;
 
+    @Lob
+    @Column(columnDefinition="TEXT", length=10485760)
     private String descriptionUZ;
 
+    @Lob
+    @Column(columnDefinition="TEXT", length=10485760)
     private String descriptionRU;
 
+    @Lob
+    @Column(columnDefinition="TEXT", length=10485760)
     private String descriptionEN;
 
+    @Lob
+    @Column(columnDefinition="TEXT", length=10485760)
     private String descriptionKR;
 
     @OneToMany

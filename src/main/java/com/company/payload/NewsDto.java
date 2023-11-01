@@ -3,11 +3,12 @@ package com.company.payload;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 @Data
 public class NewsDto {
-    @NotBlank(message="Please provide a titleUZ" )
+    @NotEmpty(message="Please provide a titleUZ" )
     private String titleUZ;
     @NotBlank(message="Please provide a titleRU" )
     private String titleRU;
@@ -31,5 +32,6 @@ public class NewsDto {
     private String descriptionEN;
     @NotBlank(message="Please provide a descriptionKR" )
     private String descriptionKR;
+    @NotEmpty(message = "Please provide a images")
     private List<String> hashIds;
 }

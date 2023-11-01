@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 
@@ -14,11 +13,9 @@ import javax.persistence.OneToOne;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Entity(name = "students")
-public class ActiveStudents extends BaceEntity {
-    @Column(nullable = false)
-    private String fullName;
-
+@Entity(name = "partners")
+public class Partners extends BaceEntity {
     @OneToOne(optional = false)
-    private AttachmentEntity image;
+    private AttachmentEntity icon;
+    private String description;
 }

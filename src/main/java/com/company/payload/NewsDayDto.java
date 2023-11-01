@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 
 @Data
 public class NewsDayDto {
@@ -33,6 +34,6 @@ public class NewsDayDto {
     private String descriptionEN;
     @NotBlank(message="Please provide a descriptionKR" )
     private String descriptionKR;
-
+    @NotBlank(message = "please provide a images")
     private String hashId;
 }

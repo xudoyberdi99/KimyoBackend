@@ -17,54 +17,54 @@ import javax.persistence.OneToOne;
 @Entity(name = "news_day")
 public class NewsDay extends BaceEntity {
     @Lob
-    @Column(columnDefinition="TEXT", length=10485760)
+    @Column(columnDefinition="TEXT", length=10485760, nullable = false)
     private String titleUZ;
 
     @Lob
-    @Column(columnDefinition="TEXT", length=10485760)
+    @Column(columnDefinition="TEXT", length=10485760, nullable = false)
     private String titleRU;
 
     @Lob
-    @Column(columnDefinition="TEXT", length=10485760)
+    @Column(columnDefinition="TEXT", length=10485760, nullable = false)
     private String titleEN;
 
     @Lob
-    @Column(columnDefinition="TEXT", length=10485760)
+    @Column(columnDefinition="TEXT", length=10485760, nullable = false)
     private String titleKR;
 
     @Lob
-    @Column(columnDefinition="TEXT", length=10485760)
+    @Column(columnDefinition="TEXT")
     private String shortdescriptionUZ;
 
     @Lob
-    @Column(columnDefinition="TEXT", length=10485760)
+    @Column(columnDefinition="TEXT")
     private String shortdescriptionRU;
 
     @Lob
-    @Column(columnDefinition="TEXT", length=10485760)
+    @Column(columnDefinition="TEXT")
     private String shortdescriptionEN;
 
     @Lob
-    @Column(columnDefinition="TEXT", length=10485760)
+    @Column(columnDefinition="TEXT")
     private String shortdescriptionKR;
 
     @Lob
-    @Column(columnDefinition="TEXT", length=10485760)
+    @Column(columnDefinition="TEXT")
     private String descriptionUZ;
 
     @Lob
-    @Column(columnDefinition="TEXT", length=10485760)
+    @Column(columnDefinition="TEXT")
     private String descriptionRU;
 
     @Lob
-    @Column(columnDefinition="TEXT", length=10485760)
+    @Column(columnDefinition="TEXT")
     private String descriptionEN;
 
     @Lob
-    @Column(columnDefinition="TEXT", length=10485760)
+    @Column(columnDefinition="TEXT")
     private String descriptionKR;
 
-    @OneToOne
+    @OneToOne(optional = false)
     private AttachmentEntity images;
 
 

@@ -24,17 +24,17 @@ public class AnnouncementsController {
     @PostMapping("/announcementSave")
     public ResponseEntity<?> announcementSave(@Valid @RequestBody AnnouncementsDto announcementsDto){
         ApiResponse apiResponse=announcementsService.announcementSave(announcementsDto);
-        return ResponseEntity.status(apiResponse.isSucces()?200:409).body(apiResponse);
+        return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
     @PutMapping("/announcementEdit/{id}")
     public HttpEntity<?> announcementEdit(@Valid @PathVariable Long id, @RequestBody AnnouncementsDto announcementsDto){
         ApiResponse apiResponse=announcementsService.announcementEdit(id,announcementsDto);
-        return ResponseEntity.status(apiResponse.isSucces()?200:409).body(apiResponse);
+        return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
     @DeleteMapping("/announcementDelete/{id}")
     public HttpEntity<?> announcementDelete(@PathVariable Long id){
         ApiResponse apiResponse=announcementsService.announcementDelete(id);
-        return ResponseEntity.status(apiResponse.isSucces()?200:409).body(apiResponse);
+        return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
     @GetMapping("/announcementGetById/{id}")
     public HttpEntity<?> announcementGetById(@PathVariable Long id){

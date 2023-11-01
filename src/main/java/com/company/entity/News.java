@@ -16,19 +16,19 @@ import java.util.List;
 @Entity(name = "news")
 public class News extends BaceEntity {
     @Lob
-    @Column(columnDefinition="TEXT", length=10485760)
+    @Column(columnDefinition="TEXT", length=10485760, nullable = false)
     private String titleUZ;
 
     @Lob
-    @Column(columnDefinition="TEXT", length=10485760)
+    @Column(columnDefinition="TEXT", length=10485760, nullable = false)
     private String titleRU;
 
     @Lob
-    @Column(columnDefinition="TEXT", length=10485760)
+    @Column(columnDefinition="TEXT", length=10485760, nullable = false)
     private String titleEN;
 
     @Lob
-    @Column(columnDefinition="TEXT", length=10485760)
+    @Column(columnDefinition="TEXT", length=10485760, nullable = false)
     private String titleKR;
 
     @Lob

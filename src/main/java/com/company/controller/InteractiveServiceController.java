@@ -25,17 +25,17 @@ public class InteractiveServiceController {
     @PostMapping("/addService")
     public ResponseEntity<?> addinteractiveService(@Valid @RequestBody InteraktivServiceDto interaktivServiceDto){
         ApiResponse apiResponse=interaktivService.addinteractiveService(interaktivServiceDto);
-        return ResponseEntity.status(apiResponse.isSucces()?200:409).body(apiResponse);
+        return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
     @PutMapping("/editservice/{id}")
     public HttpEntity<?> editinteractiveService(@Valid @PathVariable Long id, @RequestBody InteraktivServiceDto interaktivServiceDto){
         ApiResponse apiResponse=interaktivService.editinteractiveService(id,interaktivServiceDto);
-        return ResponseEntity.status(apiResponse.isSucces()?200:409).body(apiResponse);
+        return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
     @DeleteMapping("/deleteservice/{id}")
     public HttpEntity<?> deleteinteractiveService(@PathVariable Long id){
         ApiResponse apiResponse=interaktivService.deleteinteractiveService(id);
-        return ResponseEntity.status(apiResponse.isSucces()?200:409).body(apiResponse);
+        return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
     @GetMapping("/getByIdService/{id}")
     public HttpEntity<?> getinteractiveService(@PathVariable Long id){

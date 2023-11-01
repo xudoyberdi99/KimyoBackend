@@ -22,17 +22,17 @@ public class AboutInstitutiController {
     @PostMapping("/aboutInstituti")
     public ResponseEntity<?> AboutInstitutiSave(@Valid @RequestBody AboutInstitutiDto aboutInstitutiDto){
         ApiResponse apiResponse=aboutInstitutiService.AboutInstitutiSave(aboutInstitutiDto);
-        return ResponseEntity.status(apiResponse.isSucces()?200:409).body(apiResponse);
+        return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
     @PutMapping("/editAboutInstituti/{id}")
     public HttpEntity<?> editAboutInstituti(@Valid @PathVariable Long id, @RequestBody AboutInstitutiDto aboutInstitutiDto){
         ApiResponse apiResponse=aboutInstitutiService.editAboutInstituti(id,aboutInstitutiDto);
-        return ResponseEntity.status(apiResponse.isSucces()?200:409).body(apiResponse);
+        return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
     @DeleteMapping("/deleteAboutInstituti/{id}")
     public HttpEntity<?> deleteAbout(@PathVariable Long id){
         ApiResponse apiResponse=aboutInstitutiService.deleteAbout(id);
-        return ResponseEntity.status(apiResponse.isSucces()?200:409).body(apiResponse);
+        return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
     @GetMapping("/getAboutInstituti/{id}")
     public HttpEntity<?> AboutGetById(@PathVariable Long id){

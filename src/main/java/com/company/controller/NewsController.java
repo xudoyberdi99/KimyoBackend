@@ -22,17 +22,17 @@ public class NewsController {
     @PostMapping("/Newssave")
     public ResponseEntity<?> addNews(@Valid @RequestBody NewsDto newsDto){
         ApiResponse apiResponse=newsService.saveNews(newsDto);
-        return ResponseEntity.status(apiResponse.isSucces()?200:409).body(apiResponse);
+        return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
     @PutMapping("/editNews/{id}")
     public HttpEntity<?> editNews(@Valid @PathVariable Long id, @RequestBody NewsDto newsDto){
         ApiResponse apiResponse=newsService.editNews(id,newsDto);
-        return ResponseEntity.status(apiResponse.isSucces()?200:409).body(apiResponse);
+        return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
     @DeleteMapping("/deleteNews/{id}")
     public HttpEntity<?> deleteNews(@PathVariable Long id){
         ApiResponse apiResponse=newsService.deleteNews(id);
-        return ResponseEntity.status(apiResponse.isSucces()?200:409).body(apiResponse);
+        return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
     @GetMapping("/newsById/{id}")
     public HttpEntity<?> newsById(@PathVariable Long id){

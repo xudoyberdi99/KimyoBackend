@@ -4,6 +4,7 @@ import com.company.entity.bace.BaceEntity;
 import com.company.entity.enums.FileEnum;
 import lombok.*;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 @EqualsAndHashCode(callSuper = true)
 @Setter

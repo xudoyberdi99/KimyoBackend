@@ -21,17 +21,17 @@ public class ActiveStudentsController {
     @PostMapping("/addStudents")
     public ResponseEntity<?> addStudents(@Valid @RequestBody ActiveStudentsDto activeStudentsDto){
         ApiResponse apiResponse=activeStudentsService.addStudents(activeStudentsDto);
-        return ResponseEntity.status(apiResponse.isSucces()?200:409).body(apiResponse);
+        return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
     @PutMapping("/editStudents/{id}")
     public HttpEntity<?> editStudents(@Valid @PathVariable Long id, @RequestBody ActiveStudentsDto activeStudentsDto){
         ApiResponse apiResponse=activeStudentsService.editStudents(id,activeStudentsDto);
-        return ResponseEntity.status(apiResponse.isSucces()?200:409).body(apiResponse);
+        return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
     @DeleteMapping("/deleteStudent/{id}")
     public HttpEntity<?> deleteStudent(@PathVariable Long id){
         ApiResponse apiResponse=activeStudentsService.deleteStudent(id);
-        return ResponseEntity.status(apiResponse.isSucces()?200:409).body(apiResponse);
+        return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
     @GetMapping("/getByIdStudents/{id}")
     public HttpEntity<?> getByIdStudents(@PathVariable Long id){
