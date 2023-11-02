@@ -37,13 +37,13 @@ public class PartnersController {
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
     @GetMapping("/partnerById/{id}")
-    public HttpEntity<?> newsById(@PathVariable Long id){
+    public HttpEntity<?> partnersById(@PathVariable Long id){
         Partners partner=partnersService.partnerById(id);
         return ResponseEntity.ok(partner);
     }
 
     @GetMapping("/allpartner")
-    public HttpEntity<?> Allnews(int page, int size){
+    public HttpEntity<?> AllPartners(int page, int size){
         Page<Partners> partners=partnersService.getAllpartner(page,size);
         return ResponseEntity.ok(partners);
     }
