@@ -15,24 +15,20 @@ import javax.persistence.Entity;
 @Data
 @Entity(name = "general_information")
 public class GeneralInformation extends BaceEntity {
-
+    @Column(nullable = false,columnDefinition = "0")
+    private int studentsNumber;
     @Column(nullable = false)
-    private int StudentsNumber;
+    private int proffessorNumber;
     @Column(nullable = false)
-    private int ProffessorNumber;
-    @Column(nullable = false)
-    private int DoktorantNumber;
+    private int doktorantNumber;
     @Column(nullable = false)
     private int independentResearchersNumber;
     @Column(nullable = false)
-    private int AuditoriumNumber;
+    private int auditoriumNumber;
     @Column(nullable = false)
-    private int JointTrainingNumber;
+    private int jointTrainingNumber;
     @Column(nullable = false)
-    private int FieldsofStudyNumber;
+    private int fieldsofStudyNumber;
     @Column(nullable = false)
-    private int FacultyNumber;
-
-
-
+    private int facultyNumber;
 }
