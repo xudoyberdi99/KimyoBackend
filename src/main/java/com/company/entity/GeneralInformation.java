@@ -13,9 +13,9 @@ import javax.persistence.Entity;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Entity(name = "general_information")
+@Entity(name = "information")
 public class GeneralInformation extends BaceEntity {
-    @Column(nullable = false,columnDefinition = "0")
+    @Column(nullable = false)
     private int studentsNumber;
     @Column(nullable = false)
     private int proffessorNumber;

@@ -3,8 +3,6 @@ package com.company.service.ServiceImpl;
 import com.company.entity.GeneralInformation;
 import com.company.payload.ApiResponse;
 import com.company.payload.GeneralInformationDto;
-import com.company.payload.NewsDayDto;
-import com.company.repository.AttachmentRepository;
 import com.company.repository.GeneralInformationRepository;
 import com.company.service.GeneralInformationService;
 import org.springframework.beans.factory.annotation.Autowired;

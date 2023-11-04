@@ -35,8 +35,9 @@ public class RectorToAppealsServiceImpl implements RectorToAppealsService {
         Optional<AttachmentEntity> optional = attachmentRepository.findByHashId(rectorToAppealsDto.getAttachment());
         if (!optional.isPresent()){
             rectorToAppeals.setAttachment(null);
+        }else {
+            rectorToAppeals.setAttachment(optional.get());
         }
-        rectorToAppeals.setAttachment(optional.get());
 
         rectorToAppealsRepository.save(rectorToAppeals);
 
