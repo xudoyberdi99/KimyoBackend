@@ -29,6 +29,7 @@ public class ActiveStudentsServiceImpl implements ActiveStudentsService {
     public ApiResponse addStudents(ActiveStudentsDto activeStudentsDto) {
         ActiveStudents activeStudents=new ActiveStudents();
         activeStudents.setFullName(activeStudentsDto.getFullName());
+
         Optional<AttachmentEntity> optional = attachmentRepository.findByHashId(activeStudentsDto.getHashId());
         if (!optional.isPresent()){
             return new ApiResponse("not found image", false);
