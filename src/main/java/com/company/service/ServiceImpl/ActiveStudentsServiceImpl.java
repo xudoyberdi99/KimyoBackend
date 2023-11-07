@@ -2,6 +2,7 @@ package com.company.service.ServiceImpl;
 
 import com.company.entity.ActiveStudents;
 import com.company.entity.AttachmentEntity;
+import com.company.entity.enums.StudentStatus;
 import com.company.payload.ActiveStudentsDto;
 import com.company.payload.ApiResponse;
 import com.company.repository.ActiveStudentsRepository;
@@ -28,7 +29,14 @@ public class ActiveStudentsServiceImpl implements ActiveStudentsService {
     @Override
     public ApiResponse addStudents(ActiveStudentsDto activeStudentsDto) {
         ActiveStudents activeStudents=new ActiveStudents();
+
         activeStudents.setFullName(activeStudentsDto.getFullName());
+        activeStudents.setDegree(activeStudentsDto.getDegree());
+        activeStudents.setStatus(StudentStatus.valueOf(activeStudentsDto.getStatus()));
+        activeStudents.setDescriptionKR(activeStudentsDto.getDescriptionKR());
+        activeStudents.setDescriptionUZ(activeStudentsDto.getDescriptionUZ());
+        activeStudents.setDescriptionRU(activeStudentsDto.getDescriptionRU());
+        activeStudents.setDescriptionEN(activeStudentsDto.getDescriptionEN());
 
         Optional<AttachmentEntity> optional = attachmentRepository.findByHashId(activeStudentsDto.getHashId());
         if (!optional.isPresent()){
@@ -52,7 +60,15 @@ public class ActiveStudentsServiceImpl implements ActiveStudentsService {
         }
 
         ActiveStudents activeStudents = activeStudentsOptional.get();
+
         activeStudents.setFullName(activeStudentsDto.getFullName());
+        activeStudents.setDegree(activeStudentsDto.getDegree());
+        activeStudents.setStatus(StudentStatus.valueOf(activeStudentsDto.getStatus()));
+        activeStudents.setDescriptionKR(activeStudentsDto.getDescriptionKR());
+        activeStudents.setDescriptionUZ(activeStudentsDto.getDescriptionUZ());
+        activeStudents.setDescriptionRU(activeStudentsDto.getDescriptionRU());
+        activeStudents.setDescriptionEN(activeStudentsDto.getDescriptionEN());
+
         Optional<AttachmentEntity> optional = attachmentRepository.findByHashId(activeStudentsDto.getHashId());
         if (!optional.isPresent()){
             return new ApiResponse("not found image", false);
@@ -80,6 +96,7 @@ public class ActiveStudentsServiceImpl implements ActiveStudentsService {
     @Override
     public Page<ActiveStudents> allStudents(int page, int size) {
         Pageable pageable= PageRequest.of(page,size);
-        return activeStudentsRepository.findAll(pageable);
+//        return activeStudentsRepository.findAll(pageable);
+        return activeStudentsRepository.allStudent(pageable);
     }
 }

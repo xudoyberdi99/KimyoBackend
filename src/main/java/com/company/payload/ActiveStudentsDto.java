@@ -26,6 +26,6 @@ public class ActiveStudentsDto {
     private String DescriptionEN;
     private String DescriptionKR;
 
-    private StudentStatus status;
+    private String status;
 
 }
