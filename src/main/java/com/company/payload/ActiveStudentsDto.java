@@ -21,11 +21,15 @@ public class ActiveStudentsDto {
     private String directionEN;
     private String directionKR;
 
+    @NotBlank(message = "iltimos hashidni kiriting")
     private String DescriptionUZ;
+    @NotBlank(message = "iltimos hashidni kiriting")
     private String DescriptionRU;
+    @NotBlank(message = "iltimos hashidni kiriting")
     private String DescriptionEN;
+    @NotBlank(message = "iltimos hashidni kiriting")
     private String DescriptionKR;
-
+    @NotBlank(message = "Statusini kiriting")
     private String status;
 
 }

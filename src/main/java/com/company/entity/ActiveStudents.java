@@ -23,9 +23,22 @@ public class ActiveStudents extends BaceEntity {
 
     private String degree;
 
+    private String directionUZ;
+    private String directionRU;
+    private String directionEN;
+    private String directionKR;
+
+    @Lob
+    @Column(columnDefinition="TEXT", length=10485760, nullable = false)
     private String DescriptionUZ;
+    @Lob
+    @Column(columnDefinition="TEXT", length=10485760, nullable = false)
     private String DescriptionRU;
+    @Lob
+    @Column(columnDefinition="TEXT", length=10485760, nullable = false)
     private String DescriptionEN;
+    @Lob
+    @Column(columnDefinition="TEXT", length=10485760, nullable = false)
     private String DescriptionKR;
 
     @Enumerated(EnumType.STRING)
