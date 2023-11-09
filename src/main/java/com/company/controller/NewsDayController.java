@@ -14,8 +14,6 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/api")
 public class NewsDayController {
-
-
     @Autowired
     private NewsDayService newsDayService;
 
