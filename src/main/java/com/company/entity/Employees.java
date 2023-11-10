@@ -25,6 +25,7 @@ public class Employees extends BaceEntity {
     @Column(nullable = false)
     private String email;
 
+    private String Fax;
     private String telegramlink;
     private String facebooklink;
     private String instagramlink;
@@ -32,10 +33,33 @@ public class Employees extends BaceEntity {
 
     @Lob
     @Column(columnDefinition="TEXT", length=10485760, nullable = false)
-    private String biography;
+    private String biographyUZ;
 
-    @OneToMany
-    private List<AttachmentEntity> loyhalar;
+    @Lob
+    @Column(columnDefinition="TEXT", length=10485760, nullable = false)
+    private String biographyRU;
+
+    @Lob
+    @Column(columnDefinition="TEXT", length=10485760, nullable = false)
+    private String biographyEN;
+
+    @Lob
+    @Column(columnDefinition="TEXT", length=10485760, nullable = false)
+    private String biographyKR;
+
+    @Lob
+    @Column(columnDefinition="TEXT", length=10485760, nullable = false)
+    private String dutiesUZ;
+    @Lob
+    @Column(columnDefinition="TEXT", length=10485760, nullable = false)
+    private String dutiesRU;
+    @Lob
+    @Column(columnDefinition="TEXT", length=10485760, nullable = false)
+    private String dutiesEN;
+    @Lob
+    @Column(columnDefinition="TEXT", length=10485760, nullable = false)
+    private String dutiesKR;
+
 
     @OneToOne(optional = false)
     private AttachmentEntity  image;

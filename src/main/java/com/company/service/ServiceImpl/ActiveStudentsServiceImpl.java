@@ -37,6 +37,10 @@ public class ActiveStudentsServiceImpl implements ActiveStudentsService {
         activeStudents.setDescriptionUZ(activeStudentsDto.getDescriptionUZ());
         activeStudents.setDescriptionRU(activeStudentsDto.getDescriptionRU());
         activeStudents.setDescriptionEN(activeStudentsDto.getDescriptionEN());
+        activeStudents.setDirectionEN(activeStudentsDto.getDirectionEN());
+        activeStudents.setDirectionRU(activeStudentsDto.getDirectionRU());
+        activeStudents.setDirectionKR(activeStudentsDto.getDirectionKR());
+        activeStudents.setDirectionUZ(activeStudentsDto.getDirectionUZ());
 
         Optional<AttachmentEntity> optional = attachmentRepository.findByHashId(activeStudentsDto.getHashId());
         if (!optional.isPresent()){
@@ -68,6 +72,10 @@ public class ActiveStudentsServiceImpl implements ActiveStudentsService {
         activeStudents.setDescriptionUZ(activeStudentsDto.getDescriptionUZ());
         activeStudents.setDescriptionRU(activeStudentsDto.getDescriptionRU());
         activeStudents.setDescriptionEN(activeStudentsDto.getDescriptionEN());
+        activeStudents.setDirectionEN(activeStudentsDto.getDirectionEN());
+        activeStudents.setDirectionRU(activeStudentsDto.getDirectionRU());
+        activeStudents.setDirectionKR(activeStudentsDto.getDirectionKR());
+        activeStudents.setDirectionUZ(activeStudentsDto.getDirectionUZ());
 
         Optional<AttachmentEntity> optional = attachmentRepository.findByHashId(activeStudentsDto.getHashId());
         if (!optional.isPresent()){
