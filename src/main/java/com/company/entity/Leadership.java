@@ -1,20 +1,20 @@
 package com.company.entity;
 
 import com.company.entity.bace.BaceEntity;
+import com.company.entity.enums.LeadershipStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Entity(name = "employees")
-public class Employees extends BaceEntity {
+@Entity(name = "leadership")
+public class Leadership extends BaceEntity {
     @Column(nullable = false)
     private String fullName;
 
@@ -22,7 +22,7 @@ public class Employees extends BaceEntity {
 
     @Column(nullable = false)
     private String phoneNumber;
-    @Column(nullable = false)
+    @Column(nullable = false,unique = true)
     private String email;
 
     private String Fax;
@@ -48,26 +48,22 @@ public class Employees extends BaceEntity {
     private String biographyKR;
 
     @Lob
-    @Column(columnDefinition="TEXT", length=10485760, nullable = false)
+    @Column(columnDefinition="TEXT", length=10485760)
     private String dutiesUZ;
-
     @Lob
-    @Column(columnDefinition="TEXT", length=10485760, nullable = false)
+    @Column(columnDefinition="TEXT", length=10485760)
     private String dutiesRU;
-
     @Lob
-    @Column(columnDefinition="TEXT", length=10485760, nullable = false)
+    @Column(columnDefinition="TEXT", length=10485760)
     private String dutiesEN;
-
     @Lob
-    @Column(columnDefinition="TEXT", length=10485760, nullable = false)
+    @Column(columnDefinition="TEXT", length=10485760)
     private String dutiesKR;
 
 
     @OneToOne(optional = false)
     private AttachmentEntity  image;
 
-    @ManyToOne(optional = false)
-    private Departments departments;
-
+    @Enumerated(EnumType.STRING)
+    private LeadershipStatus leadershipStatus;
 }

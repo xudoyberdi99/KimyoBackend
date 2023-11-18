@@ -104,7 +104,12 @@ public class ActiveStudentsServiceImpl implements ActiveStudentsService {
     @Override
     public Page<ActiveStudents> allStudents(int page, int size) {
         Pageable pageable= PageRequest.of(page,size);
-//        return activeStudentsRepository.findAll(pageable);
         return activeStudentsRepository.allStudent(pageable);
+    }
+
+    @Override
+    public Page<ActiveStudents> allgraduated(int page, int size) {
+        Pageable pageable= PageRequest.of(page,size);
+        return activeStudentsRepository.allgraduated(pageable    );
     }
 }

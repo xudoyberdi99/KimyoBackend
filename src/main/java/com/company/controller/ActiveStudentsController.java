@@ -43,4 +43,10 @@ public class ActiveStudentsController {
         Page<ActiveStudents> activeStudents=activeStudentsService.allStudents(page,size);
         return ResponseEntity.ok(activeStudents);
     }
+
+    @GetMapping("/allgraduated")
+    public HttpEntity<?> allgraduated(int page, int size){
+        Page<ActiveStudents> activeStudents=activeStudentsService.allgraduated(page,size);
+        return ResponseEntity.ok(activeStudents);
+    }
 }

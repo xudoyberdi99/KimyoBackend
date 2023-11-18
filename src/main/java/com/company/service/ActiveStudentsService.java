@@ -15,4 +15,6 @@ public interface ActiveStudentsService {
     ActiveStudents getByIdStudents(Long id);
 
     Page<ActiveStudents> allStudents(int page, int size);
+
+    Page<ActiveStudents> allgraduated(int page, int size);
 }

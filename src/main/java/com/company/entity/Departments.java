@@ -20,11 +20,12 @@ public class Departments extends BaceEntity {
     private String nameEN;
     private String nameKR;
 
-    @OneToOne
-    private AttachmentEntity image;
 
     private String DescriptionUZ;
     private String DescriptionRU;
     private String DescriptionEN;
     private String DescriptionKR;
+
+    @OneToOne(optional = false)
+    private Leadership leadership;
 }
