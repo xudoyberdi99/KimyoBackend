@@ -27,21 +27,25 @@ public class LeadershipController {
         ApiResponse apiResponse=leadershipService.addLeadership(leadershipDto);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
+
     @PutMapping("/editLeadership/{id}")
     public HttpEntity<?> editLeadership(@Valid @PathVariable Long id, @RequestBody LeadershipDto leadershipDto){
         ApiResponse apiResponse=leadershipService.editLeadership(id,leadershipDto);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
+
     @DeleteMapping("/deleteLeadership/{id}")
     public HttpEntity<?> deleteLeadership(@PathVariable Long id){
         ApiResponse apiResponse=leadershipService.deleteLeadership(id);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
+
     @GetMapping("/leaderShipById/{id}")
     public HttpEntity<?> leaderShipById(@PathVariable Long id){
         Leadership leadership=leadershipService.leaderShipById(id);
         return ResponseEntity.ok(leadership);
     }
+
 
     @GetMapping("/allLeadership")
     public HttpEntity<?> allLeadership(int page, int size){

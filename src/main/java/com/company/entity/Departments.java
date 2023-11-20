@@ -28,4 +28,5 @@ public class Departments extends BaceEntity {
 
     @OneToOne(optional = false)
     private Leadership leadership;
+
 }
