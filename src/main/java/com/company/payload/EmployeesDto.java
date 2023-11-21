@@ -51,6 +51,10 @@ public class EmployeesDto {
     private String dutiesKR;
 
 
-    @OneToOne(optional = false)
-    private AttachmentEntity image;
+
+    private String hashid;
+
+    private Long departmentid;
+
+
 }

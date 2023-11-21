@@ -8,6 +8,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
@@ -23,6 +24,7 @@ public class Leadership extends BaceEntity {
     @Column(nullable = false)
     private String phoneNumber;
     @Column(nullable = false,unique = true)
+    @Email
     private String email;
 
     private String Fax;
