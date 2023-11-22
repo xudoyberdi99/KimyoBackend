@@ -1,10 +1,12 @@
 package com.company.service.ServiceImpl;
 
 import com.company.entity.Departments;
+import com.company.entity.Facultys;
 import com.company.entity.Leadership;
 import com.company.payload.ApiResponse;
 import com.company.payload.DepartmentsDto;
 import com.company.repository.DepartmentsRepository;
+import com.company.repository.FacultyRepository;
 import com.company.repository.LeadershipRepository;
 import com.company.service.DepartmentsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,8 @@ public class DepartmentsServiceImpl implements DepartmentsService {
     private DepartmentsRepository departmentsRepository;
     @Autowired
     private LeadershipRepository leadershipRepository;
+    @Autowired
+    private FacultyRepository facultyRepository;
 
     @Override
     public ApiResponse addDepartment(DepartmentsDto departmentsDto) {
@@ -37,6 +41,11 @@ public class DepartmentsServiceImpl implements DepartmentsService {
             return new ApiResponse("not found leadership", false);
         }
         departments.setLeadership(optionalLeadership.get());
+        Optional<Facultys> facultyRepositoryById = facultyRepository.findById(departmentsDto.getFacultyId());
+        if (!facultyRepositoryById.isPresent()){
+            return new ApiResponse("not found faculty", false);
+        }
+        departments.setFacultys(facultyRepositoryById.get());
         departmentsRepository.save(departments);
         return new ApiResponse("add Department success", true);
     }
@@ -62,6 +71,11 @@ public class DepartmentsServiceImpl implements DepartmentsService {
             return new ApiResponse("not found leadership", false);
         }
         departments.setLeadership(optionalLeadership.get());
+        Optional<Facultys> facultyRepositoryById = facultyRepository.findById(departmentsDto.getFacultyId());
+        if (!facultyRepositoryById.isPresent()){
+            return new ApiResponse("not found faculty", false);
+        }
+        departments.setFacultys(facultyRepositoryById.get());
         departmentsRepository.save(departments);
         return new ApiResponse("add Department success", true);
     }
@@ -84,5 +98,10 @@ public class DepartmentsServiceImpl implements DepartmentsService {
     @Override
     public List<Departments> allDepartments() {
         return departmentsRepository.findAll();
+    }
+
+    @Override
+    public List<Departments> allDepartmentsByFacultyId(Long facultyid) {
+        return departmentsRepository.allDepartmentsByFacultyId(facultyid);
     }
 }

@@ -53,4 +53,10 @@ public class DepartmentsController {
         return ResponseEntity.ok(getalldepartments);
     }
 
+    @GetMapping("/allDepartmentsByFacultyId/{id}")
+    public HttpEntity<?> allDepartmentsByFacultyId(@PathVariable Long id){
+        List<Departments> getalldepartmentsByFacultyId=departmentsService.allDepartmentsByFacultyId(id);
+        return ResponseEntity.ok(getalldepartmentsByFacultyId);
+    }
+
 }

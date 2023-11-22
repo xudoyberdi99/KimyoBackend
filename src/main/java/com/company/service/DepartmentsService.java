@@ -17,4 +17,5 @@ public interface DepartmentsService {
 
     List<Departments> allDepartments();
 
+    List<Departments> allDepartmentsByFacultyId(Long facultyid);
 }

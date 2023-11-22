@@ -7,7 +7,9 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.Set;
 
@@ -19,8 +21,11 @@ import java.util.Set;
 public class Facultys extends BaceEntity {
 
     private String nameUZ;
+
     private String nameRU;
+
     private String nameEN;
+
     private String nameKR;
 
     private String DescriptionUZ;
@@ -29,7 +34,5 @@ public class Facultys extends BaceEntity {
     private String DescriptionKR;
 
     @OneToOne(optional = false)
-    private AttachmentEntity icon;
-
-
+    private Leadership leadership;
 }

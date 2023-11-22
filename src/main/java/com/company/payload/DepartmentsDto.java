@@ -29,4 +29,6 @@ public class DepartmentsDto {
 
     private Long  leadershipId;
 
+    private Long facultyId;
+
 }
