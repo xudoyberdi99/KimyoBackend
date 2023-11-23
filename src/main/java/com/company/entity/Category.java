@@ -15,4 +15,8 @@ import javax.persistence.Entity;
 @Entity(name = "category")
 public class Category extends BaceEntity {
 
+
+    private String name;
+
+    private Category parentId;
 }
