@@ -46,7 +46,12 @@ public class CategoryController {
 
     @GetMapping("/allcategory")
     public HttpEntity<?> allcategory(){
-        List<Conferences> getAllCategory=categoryService.allCategory();
+        List<Category> getAllCategory=categoryService.allCategory();
+        return ResponseEntity.ok(getAllCategory);
+    }
+    @GetMapping("/allParentcategory")
+    public HttpEntity<?> allParentcategory(){
+        List<Category> getAllCategory=categoryService.allParentcategory();
         return ResponseEntity.ok(getAllCategory);
     }
 }

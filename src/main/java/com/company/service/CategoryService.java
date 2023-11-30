@@ -16,5 +16,7 @@ public interface CategoryService {
 
     Category categoryGetById(Long id);
 
-    List<Conferences> allCategory();
+    List<Category> allCategory();
+
+    List<Category> allParentcategory();
 }

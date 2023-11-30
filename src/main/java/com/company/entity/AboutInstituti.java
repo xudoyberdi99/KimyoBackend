@@ -66,4 +66,6 @@ public class AboutInstituti extends BaceEntity {
 
     @OneToMany
     private List<AttachmentEntity> images;
+
+
 }
