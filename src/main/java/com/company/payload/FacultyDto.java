@@ -24,4 +24,6 @@ public class FacultyDto {
 
 
     private Long leadershipId;
+
+    private Long categoryId;
 }

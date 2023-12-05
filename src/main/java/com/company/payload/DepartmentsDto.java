@@ -31,4 +31,5 @@ public class DepartmentsDto {
 
     private Long facultyId;
 
+    private Long categoryId;
 }

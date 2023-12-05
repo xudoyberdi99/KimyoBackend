@@ -65,4 +65,6 @@ public class News extends BaceEntity {
 
     @OneToMany
     private List<AttachmentEntity> images;
+    @ManyToOne
+    private Category category;
 }

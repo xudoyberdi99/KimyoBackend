@@ -43,4 +43,7 @@ public class ActiveStudents extends BaceEntity {
 
     @Enumerated(EnumType.STRING)
     private StudentStatus status;
+
+    @ManyToOne
+    private Category category;
 }

@@ -6,6 +6,7 @@ import lombok.Data;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 public class ActiveStudentsDto {
@@ -31,5 +32,7 @@ public class ActiveStudentsDto {
     private String DescriptionKR;
     @NotBlank(message = "Statusini kiriting")
     private String status;
+    @NotNull
+    private Long categoryid;
 
 }

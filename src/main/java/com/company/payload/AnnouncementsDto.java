@@ -3,6 +3,7 @@ package com.company.payload;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Data
@@ -34,6 +35,6 @@ public class AnnouncementsDto {
     private String descriptionKR;
     @NotBlank(message = "please provide a images")
     private List<String> images;
-
-
+    @NotNull
+    private Long categoryId;
 }

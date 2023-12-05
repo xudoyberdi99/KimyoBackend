@@ -30,4 +30,6 @@ public class InteraktivServiceDto {
     private String descriptionKR;
     @NotBlank(message = "please provide a images")
     private String  icon;
+
+    private Long catgeoryId;
 }

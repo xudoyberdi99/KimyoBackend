@@ -2,11 +2,13 @@ package com.company.service.ServiceImpl;
 
 import com.company.entity.AboutInstituti;
 import com.company.entity.AttachmentEntity;
+import com.company.entity.Category;
 import com.company.payload.AboutInstitutiDto;
 import com.company.payload.ApiResponse;
 import com.company.payload.NewsDayDto;
 import com.company.repository.AboutInstitutiRepository;
 import com.company.repository.AttachmentRepository;
+import com.company.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,8 @@ public class AboutInstitutiService implements com.company.service.AboutInstituti
     private AboutInstitutiRepository aboutInstitutiRepository;
     @Autowired
     private AttachmentRepository attachmentRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @Override
     public ApiResponse AboutInstitutiSave(@Valid AboutInstitutiDto aboutInstitutiDto) {
@@ -46,7 +50,11 @@ public class AboutInstitutiService implements com.company.service.AboutInstituti
             }
         }
         aboutInstituti.setImages(images);
-
+        Optional<Category> categoryOptional = categoryRepository.findById(aboutInstitutiDto.getCategoryid());
+        if (!categoryOptional.isPresent()){
+            return new ApiResponse("not found category", false);
+        }
+        aboutInstituti.setCategory(categoryOptional.get());
         aboutInstitutiRepository.save(aboutInstituti);
         return new ApiResponse(" add about instituti success", true);
     }
@@ -82,7 +90,11 @@ public class AboutInstitutiService implements com.company.service.AboutInstituti
             }
         }
         aboutInstituti.setImages(images);
-
+        Optional<Category> categoryOptional = categoryRepository.findById(aboutInstitutiDto.getCategoryid());
+        if (!categoryOptional.isPresent()){
+            return new ApiResponse("not found category", false);
+        }
+        aboutInstituti.setCategory(categoryOptional.get());
         aboutInstitutiRepository.save(aboutInstituti);
 
         return new ApiResponse("edit about instituti success", true);

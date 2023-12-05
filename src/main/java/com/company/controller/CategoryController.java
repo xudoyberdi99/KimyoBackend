@@ -54,4 +54,10 @@ public class CategoryController {
         List<Category> getAllCategory=categoryService.allParentcategory();
         return ResponseEntity.ok(getAllCategory);
     }
+
+    @GetMapping("/childcategorys/{parentid}")
+    public HttpEntity<?> allchildcategory(@PathVariable Long parentid){
+        List<Category> getAllCategory=categoryService.allchildcategory(parentid);
+        return ResponseEntity.ok(getAllCategory);
+    }
 }

@@ -3,6 +3,7 @@ package com.company.payload;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 public class ConferencesDto {
@@ -24,4 +25,6 @@ public class ConferencesDto {
     private String descriptionEN;
     @NotBlank(message="Please provide a descriptionKR" )
     private String descriptionKR;
+    @NotNull
+    private Long categoryId;
 }

@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Set;
 
@@ -37,4 +38,6 @@ public class AboutInstitutiDto {
     private String descriptionKR;
     @NotBlank(message = "please provide a images")
     private List<String> images;
+    @NotNull
+    private Long categoryid;
 }

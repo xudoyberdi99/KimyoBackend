@@ -67,5 +67,6 @@ public class AboutInstituti extends BaceEntity {
     @OneToMany
     private List<AttachmentEntity> images;
 
-
+    @OneToOne(optional = false,fetch = FetchType.LAZY)
+    private Category category;
 }

@@ -33,4 +33,6 @@ public class Departments extends BaceEntity {
     @ManyToOne(optional = false)
     private Facultys facultys;
 
+    @ManyToOne
+    private Category category;
 }

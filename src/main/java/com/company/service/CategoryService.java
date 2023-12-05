@@ -19,4 +19,6 @@ public interface CategoryService {
     List<Category> allCategory();
 
     List<Category> allParentcategory();
+
+    List<Category> allchildcategory(Long parentid);
 }

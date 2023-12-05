@@ -1,8 +1,11 @@
 package com.company.service;
 
 import com.company.entity.Conferences;
+import com.company.entity.GeneralPage;
 import com.company.payload.ApiResponse;
 import com.company.payload.GeneralPageDto;
+
+import java.util.List;
 
 public interface GeneralPageService {
     ApiResponse addgeneralpage(GeneralPageDto generalPageDto);
@@ -11,5 +14,7 @@ public interface GeneralPageService {
 
     ApiResponse generalpageDelete(Long id);
 
-    Conferences generalPageGetById(Long id);
+    GeneralPage generalPageGetById(Long id);
+
+    List<GeneralPage> generalPageGetBycategory(Long categoryid);
 }

@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
@@ -40,5 +41,8 @@ public class Conferences extends BaceEntity {
     @Lob
     @Column(columnDefinition="TEXT", length=10485760)
     private String descriptionKR;
+
+    @ManyToOne
+    private Category category;
 
 }

@@ -56,5 +56,7 @@ public class EmployeesDto {
 
     private Long departmentid;
 
+    private Long categoryId;
+
 
 }

@@ -6,10 +6,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Lob;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
@@ -53,4 +51,6 @@ public class InteraktivService extends BaceEntity {
 
     @OneToOne(optional = false)
     private AttachmentEntity icon;
+    @ManyToOne
+    private Category category;
 }

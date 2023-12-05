@@ -1,6 +1,7 @@
 package com.company.controller;
 
 import com.company.entity.Conferences;
+import com.company.entity.GeneralPage;
 import com.company.payload.ApiResponse;
 import com.company.payload.ConferencesDto;
 import com.company.payload.GeneralPageDto;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -38,7 +40,13 @@ public class GeneralPageController {
     }
     @GetMapping("/generalPageGetById/{id}")
     public HttpEntity<?> generalPageGetById(@PathVariable Long id){
-        Conferences conferences=generalPageService.generalPageGetById(id);
-        return ResponseEntity.ok(conferences);
+        GeneralPage generalPage=generalPageService.generalPageGetById(id);
+        return ResponseEntity.ok(generalPage);
+    }
+
+    @GetMapping("/generalPageGetByCategoryId/{categoryid}")
+    public HttpEntity<?> generalPageGetByCategory(@PathVariable Long categoryid){
+        List<GeneralPage> generalPage=generalPageService.generalPageGetBycategory(categoryid);
+        return ResponseEntity.ok(generalPage);
     }
 }

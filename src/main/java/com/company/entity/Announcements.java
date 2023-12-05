@@ -65,4 +65,7 @@ public class Announcements extends BaceEntity {
 
     @OneToMany
     private List<AttachmentEntity> images;
+
+    @ManyToOne
+    private Category category;
 }

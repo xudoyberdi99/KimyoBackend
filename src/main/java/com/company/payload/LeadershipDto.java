@@ -53,4 +53,6 @@ public class LeadershipDto {
 
 
     private String leadershipStatus;
+
+    private Long categoryId;
 }

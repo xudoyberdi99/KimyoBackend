@@ -82,4 +82,9 @@ public class CategoryServiceImpl implements CategoryService {
     public List<Category> allParentcategory() {
         return categoryRepository.parentCategorys();
     }
+
+    @Override
+    public List<Category> allchildcategory(Long parentid) {
+        return categoryRepository.findAllByParent_Id(parentid);
+    }
 }
