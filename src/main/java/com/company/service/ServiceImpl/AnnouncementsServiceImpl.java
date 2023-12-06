@@ -2,11 +2,13 @@ package com.company.service.ServiceImpl;
 
 import com.company.entity.Announcements;
 import com.company.entity.AttachmentEntity;
+import com.company.entity.Category;
 import com.company.entity.News;
 import com.company.payload.AnnouncementsDto;
 import com.company.payload.ApiResponse;
 import com.company.repository.AnnouncementRepository;
 import com.company.repository.AttachmentRepository;
+import com.company.repository.CategoryRepository;
 import com.company.service.AnnouncementsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,6 +28,8 @@ public class AnnouncementsServiceImpl implements AnnouncementsService {
 
     @Autowired
     private AttachmentRepository attachmentRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
 
 
     @Override
@@ -53,10 +57,14 @@ public class AnnouncementsServiceImpl implements AnnouncementsService {
                 images.add(optional.get());
             }
         }
-
         announcements.setImages(images);
-        announcementRepository.save(announcements);
 
+        Optional<Category> categoryOptional = categoryRepository.findById(announcementsDto.getCategoryId());
+        if (!categoryOptional.isPresent()){
+            return new ApiResponse("not found category ", false);
+        }
+        announcements.setCategory(categoryOptional.get());
+        announcementRepository.save(announcements);
         return new ApiResponse("add announcement success",true);
     }
 
@@ -90,8 +98,14 @@ public class AnnouncementsServiceImpl implements AnnouncementsService {
                 images.add(optionalimages.get());
             }
         }
-
         announcements.setImages(images);
+
+        Optional<Category> categoryOptional = categoryRepository.findById(announcementsDto.getCategoryId());
+        if (!categoryOptional.isPresent()){
+            return new ApiResponse("not found category ", false);
+        }
+        announcements.setCategory(categoryOptional.get());
+
         announcementRepository.save(announcements);
 
         return new ApiResponse("edit announcement success",true);

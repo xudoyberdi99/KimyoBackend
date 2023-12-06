@@ -62,7 +62,7 @@ public class CategoryServiceImpl implements CategoryService {
     public ApiResponse categoryDelete(Long id) {
         try{
             categoryRepository.deleteById(id);
-            return new ApiResponse("delete conferense",true);
+            return new ApiResponse("delete category",true);
         }catch (Exception e){
             return new ApiResponse("Error",false);
         }

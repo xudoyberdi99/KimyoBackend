@@ -1,15 +1,17 @@
 package com.company.entity;
 
 import com.company.entity.bace.BaceEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
@@ -28,6 +30,10 @@ public class Category extends BaceEntity {
     private String nameKR;
 
     @ManyToOne
+    @JoinColumn(name = "parent_id")
     private Category parent;
 
+    @OneToMany(mappedBy = "parent",orphanRemoval = true)
+    @JsonIgnore
+    private List<Category> subCategories = new ArrayList<>();
 }
