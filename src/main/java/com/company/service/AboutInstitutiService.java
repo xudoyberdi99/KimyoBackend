@@ -15,4 +15,6 @@ public interface AboutInstitutiService {
     ApiResponse deleteAbout(Long id);
 
     AboutInstituti AboutGetById(Long id);
+
+    AboutInstituti getByCategoryIdAboutInstituti(Long categoryid);
 }

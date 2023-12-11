@@ -39,4 +39,9 @@ public class AboutInstitutiController {
         AboutInstituti aboutInstituti=aboutInstitutiService.AboutGetById(id);
         return ResponseEntity.ok(aboutInstituti);
     }
+    @GetMapping("/getAboutInstituticategoryId/{categoryid}")
+    public ResponseEntity<?> AboutGetByIdcategoryId(@PathVariable Long categoryid){
+        AboutInstituti aboutInstituti=aboutInstitutiService.getByCategoryIdAboutInstituti(categoryid);
+        return ResponseEntity.ok(aboutInstituti);
+    }
 }

@@ -1,6 +1,7 @@
 package com.company.entity;
 
 import com.company.entity.bace.BaceEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
