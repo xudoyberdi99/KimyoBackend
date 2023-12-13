@@ -117,6 +117,6 @@ public class AboutInstitutiService implements com.company.service.AboutInstituti
 
     @Override
     public AboutInstituti getByCategoryIdAboutInstituti(Long categoryid) {
-        return aboutInstitutiRepository.findByCategory_Id(categoryid).orElse(new AboutInstituti());
+        return aboutInstitutiRepository.getbyCategoryid(categoryid);
     }
 }

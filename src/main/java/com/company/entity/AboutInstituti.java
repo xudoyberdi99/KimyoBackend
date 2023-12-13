@@ -65,9 +65,9 @@ public class AboutInstituti extends BaceEntity {
     @Column(columnDefinition="TEXT", length=10485760)
     private String descriptionKR;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<AttachmentEntity> images;
 
-    @OneToOne(optional = false,fetch = FetchType.LAZY)
+    @OneToOne(optional = false)
     private Category category;
 }

@@ -2,11 +2,13 @@ package com.company.service.ServiceImpl;
 
 import com.company.entity.ActiveStudents;
 import com.company.entity.AttachmentEntity;
+import com.company.entity.Category;
 import com.company.entity.enums.StudentStatus;
 import com.company.payload.ActiveStudentsDto;
 import com.company.payload.ApiResponse;
 import com.company.repository.ActiveStudentsRepository;
 import com.company.repository.AttachmentRepository;
+import com.company.repository.CategoryRepository;
 import com.company.service.ActiveStudentsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,7 +26,8 @@ public class ActiveStudentsServiceImpl implements ActiveStudentsService {
 
     @Autowired
     private AttachmentRepository attachmentRepository;
-
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @Override
     public ApiResponse addStudents(ActiveStudentsDto activeStudentsDto) {
@@ -49,7 +52,11 @@ public class ActiveStudentsServiceImpl implements ActiveStudentsService {
 
         AttachmentEntity attachmentEntity = optional.get();
         activeStudents.setImage(attachmentEntity);
-
+        Optional<Category> categoryOptional = categoryRepository.findById(activeStudentsDto.getCategoryid());
+        if (!categoryOptional.isPresent()){
+            return new ApiResponse("not found category", false);
+        }
+        activeStudents.setCategory(categoryOptional.get());
         activeStudentsRepository.save(activeStudents);
         return new ApiResponse("add students success", true);
     }
@@ -110,6 +117,12 @@ public class ActiveStudentsServiceImpl implements ActiveStudentsService {
     @Override
     public Page<ActiveStudents> allgraduated(int page, int size) {
         Pageable pageable= PageRequest.of(page,size);
-        return activeStudentsRepository.allgraduated(pageable    );
+        return activeStudentsRepository.allgraduated(pageable);
+    }
+
+    @Override
+    public Page<ActiveStudents> allcategory(Long categoryid, int page, int size) {
+        Pageable pageable= PageRequest.of(page,size);
+        return activeStudentsRepository.findAllByCategory_Id(categoryid,pageable);
     }
 }

@@ -17,4 +17,6 @@ public interface ActiveStudentsService {
     Page<ActiveStudents> allStudents(int page, int size);
 
     Page<ActiveStudents> allgraduated(int page, int size);
+
+    Page<ActiveStudents> allcategory(Long categoryid, int page, int size);
 }

@@ -15,5 +15,6 @@ public interface ActiveStudentsRepository extends JpaRepository<ActiveStudents,L
     @Query(value = "select * from students where status='BITIRGAN'", nativeQuery = true)
     Page<ActiveStudents> allgraduated(Pageable pageable);
 
+    Page<ActiveStudents> findAllByCategory_Id(Long categoryId,Pageable pageable);
 
 }

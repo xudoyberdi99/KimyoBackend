@@ -18,7 +18,7 @@ public class ActiveStudents extends BaceEntity {
     @Column(nullable = false)
     private String fullName;
 
-    @OneToOne(optional = false)
+    @OneToOne(optional = false,cascade = CascadeType.REFRESH)
     private AttachmentEntity image;
 
     private String degree;
@@ -44,6 +44,6 @@ public class ActiveStudents extends BaceEntity {
     @Enumerated(EnumType.STRING)
     private StudentStatus status;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Category category;
 }

@@ -49,4 +49,9 @@ public class ActiveStudentsController {
         Page<ActiveStudents> activeStudents=activeStudentsService.allgraduated(page,size);
         return ResponseEntity.ok(activeStudents);
     }
+    @GetMapping("/allStudentCategory/{categoryid}")
+    public HttpEntity<?> allcategory(@PathVariable Long categoryid,int page, int size){
+        Page<ActiveStudents> activeStudents=activeStudentsService.allcategory(categoryid,page,size);
+        return ResponseEntity.ok(activeStudents);
+    }
 }

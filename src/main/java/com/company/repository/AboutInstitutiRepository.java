@@ -11,4 +11,6 @@ import java.util.Optional;
 public interface AboutInstitutiRepository extends JpaRepository<AboutInstituti,Long> {
 
     Optional<AboutInstituti> findByCategory_Id(Long categoryid);
+    @Query(value ="select * from about where category_id=:categoryId", nativeQuery = true)
+    AboutInstituti getbyCategoryid(Long categoryId);
 }
