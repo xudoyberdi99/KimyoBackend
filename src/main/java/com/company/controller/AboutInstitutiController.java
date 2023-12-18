@@ -1,5 +1,6 @@
 package com.company.controller;
 
+import com.company.dto.AboutInstitutGetDto;
 import com.company.entity.AboutInstituti;
 import com.company.payload.AboutInstitutiDto;
 import com.company.payload.ApiResponse;
@@ -36,12 +37,12 @@ public class AboutInstitutiController {
     }
     @GetMapping("/getAboutInstituti/{id}")
     public HttpEntity<?> AboutGetById(@PathVariable Long id){
-        AboutInstituti aboutInstituti=aboutInstitutiService.AboutGetById(id);
-        return ResponseEntity.ok(aboutInstituti);
+        AboutInstitutGetDto aboutInstitutGetDto=aboutInstitutiService.AboutGetById(id);
+        return ResponseEntity.ok(aboutInstitutGetDto);
     }
     @GetMapping("/getAboutInstituticategoryId/{categoryid}")
     public ResponseEntity<?> AboutGetByIdcategoryId(@PathVariable Long categoryid){
-        AboutInstituti aboutInstituti=aboutInstitutiService.getByCategoryIdAboutInstituti(categoryid);
+        AboutInstitutGetDto aboutInstituti=aboutInstitutiService.getByCategoryIdAboutInstituti(categoryid);
         return ResponseEntity.ok(aboutInstituti);
     }
 }

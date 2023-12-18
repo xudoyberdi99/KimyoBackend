@@ -66,8 +66,4 @@ public class NewsDay extends BaceEntity {
 
     @OneToOne(optional = false)
     private AttachmentEntity images;
-
-
-
-
 }

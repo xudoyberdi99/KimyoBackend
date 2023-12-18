@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 public class ActiveStudentsDto {
     @NotBlank(message = "iltimos fullNameini kiriting")
     private String fullName;
-    @NotBlank(message = "iltimos hashidni kiriting")
+
     private String hashId;
 
     private String degree;

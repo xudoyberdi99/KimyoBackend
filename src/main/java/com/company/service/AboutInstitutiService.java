@@ -1,5 +1,6 @@
 package com.company.service;
 
+import com.company.dto.AboutInstitutGetDto;
 import com.company.entity.AboutInstituti;
 import com.company.payload.AboutInstitutiDto;
 import com.company.payload.ApiResponse;
@@ -14,7 +15,7 @@ public interface AboutInstitutiService {
 
     ApiResponse deleteAbout(Long id);
 
-    AboutInstituti AboutGetById(Long id);
+    AboutInstitutGetDto AboutGetById(Long id);
 
-    AboutInstituti getByCategoryIdAboutInstituti(Long categoryid);
+    AboutInstitutGetDto getByCategoryIdAboutInstituti(Long categoryid);
 }

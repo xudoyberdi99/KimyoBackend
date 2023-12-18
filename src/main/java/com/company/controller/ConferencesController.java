@@ -46,4 +46,10 @@ public class ConferencesController {
         Page<Conferences> getAllConferens=conferencesService.allconference(page,size);
         return ResponseEntity.ok(getAllConferens);
     }
+
+    @GetMapping("/conferenceGetByCategoryId/{categoryId}")
+    public HttpEntity<?> conferenceGetByCategoryId(@PathVariable Long categoryId,int page, int size){
+        Page<Conferences> getAllConferens=conferencesService.conferenceGetByCategoryId(categoryId,page,size);
+        return ResponseEntity.ok(getAllConferens);
+    }
 }

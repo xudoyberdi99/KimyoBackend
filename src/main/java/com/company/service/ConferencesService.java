@@ -15,4 +15,6 @@ public interface ConferencesService {
     Conferences conferenceGetById(Long id);
 
     Page<Conferences> allconference(int page, int size);
+
+    Page<Conferences> conferenceGetByCategoryId(Long categoryId, int page, int size);
 }

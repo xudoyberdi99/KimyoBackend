@@ -1,5 +1,6 @@
 package com.company.service;
 
+import com.company.dto.AnnouncementDtoGet;
 import com.company.entity.Announcements;
 import com.company.entity.News;
 import com.company.payload.AnnouncementsDto;
@@ -13,7 +14,9 @@ public interface AnnouncementsService {
 
     ApiResponse announcementDelete(Long id);
 
-    Announcements announcementGetById(Long id);
+    AnnouncementDtoGet announcementGetById(Long id);
 
-    Page<Announcements> allAnnouncement(int page, int size);
+    Page<AnnouncementDtoGet> allAnnouncement(int page, int size);
+
+    Page<AnnouncementDtoGet> allAnnouncementGetCategoryId(Long categoryid, int page, int size);
 }

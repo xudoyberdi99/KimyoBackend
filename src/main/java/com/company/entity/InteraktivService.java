@@ -51,6 +51,7 @@ public class InteraktivService extends BaceEntity {
 
     @OneToOne(optional = false)
     private AttachmentEntity icon;
+
     @ManyToOne
     private Category category;
 }

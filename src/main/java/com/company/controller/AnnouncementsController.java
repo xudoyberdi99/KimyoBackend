@@ -1,5 +1,6 @@
 package com.company.controller;
 
+import com.company.dto.AnnouncementDtoGet;
 import com.company.entity.Announcements;
 import com.company.entity.News;
 import com.company.payload.AnnouncementsDto;
@@ -10,12 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api")
+@Transactional
 public class AnnouncementsController {
 
     @Autowired
@@ -38,13 +41,18 @@ public class AnnouncementsController {
     }
     @GetMapping("/announcementGetById/{id}")
     public HttpEntity<?> announcementGetById(@PathVariable Long id){
-        Announcements announcements=announcementsService.announcementGetById(id);
+        AnnouncementDtoGet announcements=announcementsService.announcementGetById(id);
         return ResponseEntity.ok(announcements);
     }
 
     @GetMapping("/allAnnouncement")
     public HttpEntity<?> allAnnouncement(int page, int size){
-        Page<Announcements> getAllAnnouncement=announcementsService.allAnnouncement(page,size);
+        Page<AnnouncementDtoGet> getAllAnnouncement=announcementsService.allAnnouncement(page,size);
+        return ResponseEntity.ok(getAllAnnouncement);
+    }
+    @GetMapping("/allAnnouncementGetCategoryId/{categoryid}")
+    public HttpEntity<?> allAnnouncementGetCategoryId(@PathVariable Long categoryid,int page, int size){
+        Page<AnnouncementDtoGet> getAllAnnouncement=announcementsService.allAnnouncementGetCategoryId(categoryid,page,size);
         return ResponseEntity.ok(getAllAnnouncement);
     }
 

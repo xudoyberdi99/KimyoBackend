@@ -18,7 +18,7 @@ public class ActiveStudents extends BaceEntity {
     @Column(nullable = false)
     private String fullName;
 
-    @OneToOne(optional = false,cascade = CascadeType.REFRESH)
+    @OneToOne(optional = false,cascade = CascadeType.REMOVE)
     private AttachmentEntity image;
 
     private String degree;

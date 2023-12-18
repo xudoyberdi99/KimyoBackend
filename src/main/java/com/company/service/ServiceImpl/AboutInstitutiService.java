@@ -1,5 +1,6 @@
 package com.company.service.ServiceImpl;
 
+import com.company.dto.AboutInstitutGetDto;
 import com.company.entity.AboutInstituti;
 import com.company.entity.AttachmentEntity;
 import com.company.entity.Category;
@@ -10,7 +11,9 @@ import com.company.repository.AboutInstitutiRepository;
 import com.company.repository.AttachmentRepository;
 import com.company.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.Valid;
 import java.util.*;
@@ -24,8 +27,12 @@ public class AboutInstitutiService implements com.company.service.AboutInstituti
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @Value("${upload.server}")
+    private String serverPath;
+
     @Override
     public ApiResponse AboutInstitutiSave(@Valid AboutInstitutiDto aboutInstitutiDto) {
+
         AboutInstituti aboutInstituti=new AboutInstituti();
 
         aboutInstituti.setDescriptionRU(aboutInstitutiDto.getDescriptionRU());
@@ -111,12 +118,69 @@ public class AboutInstitutiService implements com.company.service.AboutInstituti
     }
 
     @Override
-    public AboutInstituti AboutGetById(Long id) {
-        return aboutInstitutiRepository.findById(id).orElse(new AboutInstituti());
+    @Transactional
+    public AboutInstitutGetDto AboutGetById(Long id) {
+        Optional<AboutInstituti> aboutInstituti = aboutInstitutiRepository.findById(id);
+        if (!aboutInstituti.isPresent()){
+            return new AboutInstitutGetDto();
+        }
+        AboutInstituti aboutInstituti1 = aboutInstituti.get();
+        AboutInstitutGetDto aboutInstitutGetDto=new AboutInstitutGetDto();
+        aboutInstitutGetDto.setDescriptionKR(aboutInstituti1.getDescriptionKR());
+        aboutInstitutGetDto.setDescriptionEN(aboutInstituti1.getDescriptionEN());
+        aboutInstitutGetDto.setDescriptionRU(aboutInstituti1.getDescriptionRU());
+        aboutInstitutGetDto.setDescriptionUZ(aboutInstituti1.getDescriptionUZ());
+        aboutInstitutGetDto.setShortdescriptionEN(aboutInstituti1.getShortdescriptionEN());
+        aboutInstitutGetDto.setShortdescriptionUZ(aboutInstituti1.getShortdescriptionUZ());
+        aboutInstitutGetDto.setShortdescriptionRU(aboutInstituti1.getShortdescriptionRU());
+        aboutInstitutGetDto.setShortdescriptionKR(aboutInstituti1.getShortdescriptionKR());
+        aboutInstitutGetDto.setTitleEN(aboutInstituti1.getTitleEN());
+        aboutInstitutGetDto.setTitleRU(aboutInstituti1.getTitleRU());
+        aboutInstitutGetDto.setTitleKR(aboutInstituti1.getTitleKR());
+        aboutInstitutGetDto.setTitleUZ(aboutInstituti1.getTitleUZ());
+
+        Category category = aboutInstituti1.getCategory();
+        aboutInstitutGetDto.setCategoryid(category.getId());
+
+        List<AttachmentEntity> images = aboutInstituti1.getImages();
+        List<String> link=new ArrayList<>();
+        for (AttachmentEntity image : images) {
+            link.add(serverPath+image.getUploadFolder());
+        }
+        aboutInstitutGetDto.setImages(link);
+
+        return aboutInstitutGetDto;
     }
 
     @Override
-    public AboutInstituti getByCategoryIdAboutInstituti(Long categoryid) {
-        return aboutInstitutiRepository.getbyCategoryid(categoryid);
+    @Transactional
+    public AboutInstitutGetDto getByCategoryIdAboutInstituti(Long categoryid) {
+        AboutInstituti aboutInstituti1 = aboutInstitutiRepository.getbyCategoryid(categoryid);
+
+        AboutInstitutGetDto aboutInstitutGetDto=new AboutInstitutGetDto();
+        aboutInstitutGetDto.setDescriptionKR(aboutInstituti1.getDescriptionKR());
+        aboutInstitutGetDto.setDescriptionEN(aboutInstituti1.getDescriptionEN());
+        aboutInstitutGetDto.setDescriptionRU(aboutInstituti1.getDescriptionRU());
+        aboutInstitutGetDto.setDescriptionUZ(aboutInstituti1.getDescriptionUZ());
+        aboutInstitutGetDto.setShortdescriptionEN(aboutInstituti1.getShortdescriptionEN());
+        aboutInstitutGetDto.setShortdescriptionUZ(aboutInstituti1.getShortdescriptionUZ());
+        aboutInstitutGetDto.setShortdescriptionRU(aboutInstituti1.getShortdescriptionRU());
+        aboutInstitutGetDto.setShortdescriptionKR(aboutInstituti1.getShortdescriptionKR());
+        aboutInstitutGetDto.setTitleEN(aboutInstituti1.getTitleEN());
+        aboutInstitutGetDto.setTitleRU(aboutInstituti1.getTitleRU());
+        aboutInstitutGetDto.setTitleKR(aboutInstituti1.getTitleKR());
+        aboutInstitutGetDto.setTitleUZ(aboutInstituti1.getTitleUZ());
+
+        Category category = aboutInstituti1.getCategory();
+        aboutInstitutGetDto.setCategoryid(category.getId());
+
+        List<AttachmentEntity> images = aboutInstituti1.getImages();
+        List<String> link=new ArrayList<>();
+        for (AttachmentEntity image : images) {
+            link.add(serverPath+image.getUploadFolder());
+        }
+        aboutInstitutGetDto.setImages(link);
+
+        return aboutInstitutGetDto;
     }
 }

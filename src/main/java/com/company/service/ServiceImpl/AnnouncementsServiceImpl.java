@@ -1,5 +1,6 @@
 package com.company.service.ServiceImpl;
 
+import com.company.dto.AnnouncementDtoGet;
 import com.company.entity.Announcements;
 import com.company.entity.AttachmentEntity;
 import com.company.entity.Category;
@@ -11,7 +12,9 @@ import com.company.repository.AttachmentRepository;
 import com.company.repository.CategoryRepository;
 import com.company.service.AnnouncementsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -31,6 +34,8 @@ public class AnnouncementsServiceImpl implements AnnouncementsService {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @Value("${upload.server}")
+    private String serverPath;
 
     @Override
     public ApiResponse announcementSave(AnnouncementsDto announcementsDto) {
@@ -122,13 +127,112 @@ public class AnnouncementsServiceImpl implements AnnouncementsService {
     }
 
     @Override
-    public Announcements announcementGetById(Long id) {
-        return announcementRepository.findById(id).orElse(new Announcements());
+    public AnnouncementDtoGet announcementGetById(Long id) {
+        Optional<Announcements> optionalAnnouncements = announcementRepository.findById(id);
+        if (!optionalAnnouncements.isPresent()){
+            return null;
+        }
+        Announcements announcementsDto = optionalAnnouncements.get();
+        AnnouncementDtoGet announcements=new AnnouncementDtoGet();
+
+        announcements.setId(announcementsDto.getId());
+        announcements.setDescriptionEN(announcementsDto.getDescriptionEN());
+        announcements.setDescriptionKR(announcementsDto.getDescriptionKR());
+        announcements.setDescriptionRU(announcementsDto.getDescriptionRU());
+        announcements.setDescriptionUZ(announcementsDto.getDescriptionUZ());
+        announcements.setShortdescriptionEN(announcementsDto.getShortdescriptionEN());
+        announcements.setShortdescriptionKR(announcementsDto.getShortdescriptionKR());
+        announcements.setShortdescriptionRU(announcementsDto.getShortdescriptionRU());
+        announcements.setShortdescriptionUZ(announcementsDto.getShortdescriptionUZ());
+        announcements.setTitleEN(announcementsDto.getTitleEN());
+        announcements.setTitleRU(announcementsDto.getTitleRU());
+        announcements.setTitleUZ(announcementsDto.getTitleUZ());
+        announcements.setTitleKR(announcementsDto.getTitleKR());
+        List<AttachmentEntity> images = announcementsDto.getImages();
+        List<String> link=new ArrayList<>();
+        for (AttachmentEntity image : images) {
+            link.add(serverPath+image.getUploadFolder());
+        }
+        announcements.setImageslink(link);
+        Category category = announcementsDto.getCategory();
+        announcements.setCategoryId(category.getId());
+
+        return announcements;
     }
 
     @Override
-    public Page<Announcements> allAnnouncement(int page, int size) {
+    public Page<AnnouncementDtoGet> allAnnouncement(int page, int size) {
         Pageable pageable= PageRequest.of(page,size);
-        return announcementRepository.findAll(pageable);
+
+        List<Announcements> allByCategoryId = announcementRepository.findAll();
+        List<AnnouncementDtoGet> announcementDtoGetList=new ArrayList<>();
+
+        for (Announcements announcementsDto : allByCategoryId) {
+            AnnouncementDtoGet announcements=new AnnouncementDtoGet();
+
+            announcements.setId(announcementsDto.getId());
+            announcements.setDescriptionEN(announcementsDto.getDescriptionEN());
+            announcements.setDescriptionKR(announcementsDto.getDescriptionKR());
+            announcements.setDescriptionRU(announcementsDto.getDescriptionRU());
+            announcements.setDescriptionUZ(announcementsDto.getDescriptionUZ());
+            announcements.setShortdescriptionEN(announcementsDto.getShortdescriptionEN());
+            announcements.setShortdescriptionKR(announcementsDto.getShortdescriptionKR());
+            announcements.setShortdescriptionRU(announcementsDto.getShortdescriptionRU());
+            announcements.setShortdescriptionUZ(announcementsDto.getShortdescriptionUZ());
+            announcements.setTitleEN(announcementsDto.getTitleEN());
+            announcements.setTitleRU(announcementsDto.getTitleRU());
+            announcements.setTitleUZ(announcementsDto.getTitleUZ());
+            announcements.setTitleKR(announcementsDto.getTitleKR());
+            List<AttachmentEntity> images = announcementsDto.getImages();
+            List<String> link=new ArrayList<>();
+            for (AttachmentEntity image : images) {
+                link.add(serverPath+image.getUploadFolder());
+            }
+            announcements.setImageslink(link);
+            Category category = announcementsDto.getCategory();
+            announcements.setCategoryId(category.getId());
+
+            announcementDtoGetList.add(announcements);
+        }
+        Page<AnnouncementDtoGet> announcementDtoGets=new PageImpl<>(announcementDtoGetList,pageable,announcementDtoGetList.size());
+        return announcementDtoGets;
+    }
+
+    @Override
+    public Page<AnnouncementDtoGet> allAnnouncementGetCategoryId(Long categoryid, int page, int size) {
+        Pageable pageable= PageRequest.of(page,size);
+
+        List<Announcements> allByCategoryId = announcementRepository.findAllByCategory_Id(categoryid);
+        List<AnnouncementDtoGet> announcementDtoGetList=new ArrayList<>();
+
+        for (Announcements announcementsDto : allByCategoryId) {
+            AnnouncementDtoGet announcements=new AnnouncementDtoGet();
+
+            announcements.setId(announcementsDto.getId());
+            announcements.setDescriptionEN(announcementsDto.getDescriptionEN());
+            announcements.setDescriptionKR(announcementsDto.getDescriptionKR());
+            announcements.setDescriptionRU(announcementsDto.getDescriptionRU());
+            announcements.setDescriptionUZ(announcementsDto.getDescriptionUZ());
+            announcements.setShortdescriptionEN(announcementsDto.getShortdescriptionEN());
+            announcements.setShortdescriptionKR(announcementsDto.getShortdescriptionKR());
+            announcements.setShortdescriptionRU(announcementsDto.getShortdescriptionRU());
+            announcements.setShortdescriptionUZ(announcementsDto.getShortdescriptionUZ());
+            announcements.setTitleEN(announcementsDto.getTitleEN());
+            announcements.setTitleRU(announcementsDto.getTitleRU());
+            announcements.setTitleUZ(announcementsDto.getTitleUZ());
+            announcements.setTitleKR(announcementsDto.getTitleKR());
+            List<AttachmentEntity> images = announcementsDto.getImages();
+            List<String> link=new ArrayList<>();
+            for (AttachmentEntity image : images) {
+                link.add(serverPath+image.getUploadFolder());
+            }
+            announcements.setImageslink(link);
+            Category category = announcementsDto.getCategory();
+            announcements.setCategoryId(category.getId());
+
+            announcementDtoGetList.add(announcements);
+        }
+        Page<AnnouncementDtoGet> announcementDtoGets=new PageImpl<>(announcementDtoGetList,pageable,announcementDtoGetList.size());
+        return announcementDtoGets;
     }
 }

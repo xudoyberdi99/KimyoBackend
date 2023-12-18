@@ -63,9 +63,10 @@ public class Announcements extends BaceEntity {
     @Column(columnDefinition="TEXT", length=10485760)
     private String descriptionKR;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.REMOVE)
     private List<AttachmentEntity> images;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Category category;
+
 }

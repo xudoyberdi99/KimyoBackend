@@ -26,6 +26,7 @@ public class ActiveStudentsServiceImpl implements ActiveStudentsService {
 
     @Autowired
     private AttachmentRepository attachmentRepository;
+
     @Autowired
     private CategoryRepository categoryRepository;
 
@@ -46,6 +47,7 @@ public class ActiveStudentsServiceImpl implements ActiveStudentsService {
         activeStudents.setDirectionUZ(activeStudentsDto.getDirectionUZ());
 
         Optional<AttachmentEntity> optional = attachmentRepository.findByHashId(activeStudentsDto.getHashId());
+
         if (!optional.isPresent()){
             return new ApiResponse("not found image", false);
         }
