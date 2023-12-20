@@ -1,13 +1,12 @@
 package com.company.service.ServiceImpl;
 
+import com.company.entity.Category;
 import com.company.entity.Departments;
 import com.company.entity.Facultys;
 import com.company.entity.Leadership;
 import com.company.payload.ApiResponse;
 import com.company.payload.DepartmentsDto;
-import com.company.repository.DepartmentsRepository;
-import com.company.repository.FacultyRepository;
-import com.company.repository.LeadershipRepository;
+import com.company.repository.*;
 import com.company.service.DepartmentsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +22,10 @@ public class DepartmentsServiceImpl implements DepartmentsService {
     private LeadershipRepository leadershipRepository;
     @Autowired
     private FacultyRepository facultyRepository;
-
+    @Autowired
+    private CategoryRepository categoryRepository;
+    @Autowired
+    private EmployeeRepository employeeRepository;
     @Override
     public ApiResponse addDepartment(DepartmentsDto departmentsDto) {
         Departments departments=new Departments();
@@ -46,6 +48,12 @@ public class DepartmentsServiceImpl implements DepartmentsService {
             return new ApiResponse("not found faculty", false);
         }
         departments.setFacultys(facultyRepositoryById.get());
+        Optional<Category> categoryOptional = categoryRepository.findById(departmentsDto.getCategoryId());
+        if (!categoryOptional.isPresent()){
+            return new ApiResponse("not found category", false);
+        }
+        departments.setCategory(categoryOptional.get());
+
         departmentsRepository.save(departments);
         return new ApiResponse("add Department success", true);
     }
@@ -76,6 +84,11 @@ public class DepartmentsServiceImpl implements DepartmentsService {
             return new ApiResponse("not found faculty", false);
         }
         departments.setFacultys(facultyRepositoryById.get());
+        Optional<Category> categoryOptional = categoryRepository.findById(departmentsDto.getCategoryId());
+        if (!categoryOptional.isPresent()){
+            return new ApiResponse("not found category", false);
+        }
+        departments.setCategory(categoryOptional.get());
         departmentsRepository.save(departments);
         return new ApiResponse("add Department success", true);
     }
@@ -103,5 +116,10 @@ public class DepartmentsServiceImpl implements DepartmentsService {
     @Override
     public List<Departments> allDepartmentsByFacultyId(Long facultyid) {
         return departmentsRepository.allDepartmentsByFacultyId(facultyid);
+    }
+
+    @Override
+    public List<Departments> allDepartmentsByCategoryId(Long categoryId) {
+        return departmentsRepository.findAllByCategory_Id(categoryId);
     }
 }

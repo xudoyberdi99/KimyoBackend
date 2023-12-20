@@ -6,10 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.Set;
@@ -34,9 +31,9 @@ public class Facultys extends BaceEntity {
     private String DescriptionEN;
     private String DescriptionKR;
 
-    @OneToOne(optional = false)
+    @OneToOne(optional = false,cascade = CascadeType.REMOVE)
     private Leadership leadership;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Category category;
 }

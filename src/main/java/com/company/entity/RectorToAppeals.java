@@ -6,10 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Lob;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
@@ -30,10 +27,11 @@ public class RectorToAppeals extends BaceEntity {
     @Column(nullable = false)
     private String phoneNumber;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     private AttachmentEntity attachment;
 
     @Lob
     @Column(columnDefinition="TEXT",nullable = false)
     private String text;
+
 }

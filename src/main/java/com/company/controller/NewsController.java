@@ -1,5 +1,6 @@
 package com.company.controller;
 
+import com.company.dto.NewsGetDto;
 import com.company.entity.News;
 import com.company.payload.ApiResponse;
 import com.company.payload.NewsDto;
@@ -36,13 +37,18 @@ public class NewsController {
     }
     @GetMapping("/newsById/{id}")
     public HttpEntity<?> newsById(@PathVariable Long id){
-       News news=newsService.newsById(id);
+        NewsGetDto news=newsService.newsById(id);
         return ResponseEntity.ok(news);
     }
 
     @GetMapping("/allnews")
     public HttpEntity<?> Allnews(int page, int size){
-        Page<News> getallService=newsService.getAllServices(page,size);
+        Page<NewsGetDto> getallService=newsService.getAllServices(page,size);
+        return ResponseEntity.ok(getallService);
+    }
+    @GetMapping("/allnewsByCategoryId/{categoryId}")
+    public HttpEntity<?> allnewsByCategoryId(@PathVariable Long categoryId,int page, int size){
+        Page<NewsGetDto> getallService=newsService.allnewsByCategoryId(categoryId,page,size);
         return ResponseEntity.ok(getallService);
     }
 }

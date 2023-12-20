@@ -1,11 +1,13 @@
 package com.company.service.ServiceImpl;
 
 import com.company.entity.AttachmentEntity;
+import com.company.entity.Category;
 import com.company.entity.InteraktivService;
 import com.company.entity.NewsDay;
 import com.company.payload.ApiResponse;
 import com.company.payload.InteraktivServiceDto;
 import com.company.repository.AttachmentRepository;
+import com.company.repository.CategoryRepository;
 import com.company.repository.InteractiveServiceRepository;
 import com.company.service.InteraktivServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,8 @@ public class InteractivServiceImpl implements InteraktivServices {
     @Autowired
     private AttachmentRepository attachmentRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @Override
     public ApiResponse addinteractiveService(InteraktivServiceDto interaktivServiceDto) {
@@ -48,6 +52,12 @@ public class InteractivServiceImpl implements InteraktivServices {
         }
 
         interaktivService.setIcon(optional.get());
+        Optional<Category> categoryOptional = categoryRepository.findById(interaktivServiceDto.getCatgeoryId());
+        if (!categoryOptional.isPresent()){
+            return new ApiResponse("not found category", false);
+        }
+        Category category = categoryOptional.get();
+        interaktivService.setCategory(category);
 
         interactiveServiceRepository.save(interaktivService);
         return new ApiResponse("add service success",true);
@@ -79,6 +89,13 @@ public class InteractivServiceImpl implements InteraktivServices {
 
         interaktivService.setIcon(optional.get());
 
+        Optional<Category> categoryOptional = categoryRepository.findById(interaktivServiceDto.getCatgeoryId());
+        if (!categoryOptional.isPresent()){
+            return new ApiResponse("not found category", false);
+        }
+        Category category = categoryOptional.get();
+        interaktivService.setCategory(category);
+
         interactiveServiceRepository.save(interaktivService);
 
         return new ApiResponse("edit service success",true);
@@ -107,5 +124,10 @@ public class InteractivServiceImpl implements InteraktivServices {
     public Page<InteraktivService> getAllServices(int page, int size) {
         Pageable pageable= PageRequest.of(page,size);
         return interactiveServiceRepository.findAll(pageable);
+    }
+
+    @Override
+    public List<InteraktivService> allServiceByCategoryId(Long categoryId) {
+        return interactiveServiceRepository.findAllByCategory_Id(categoryId);
     }
 }

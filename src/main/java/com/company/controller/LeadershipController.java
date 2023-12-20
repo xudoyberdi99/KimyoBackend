@@ -58,4 +58,9 @@ public class LeadershipController {
         List<Leadership> getallleader=leadershipService.allLeader();
         return ResponseEntity.ok(getallleader);
     }
+    @GetMapping("/allLeadershipByCategoryId/{categoryId}")
+    public HttpEntity<?> allLeadershipByCategoryId(@PathVariable Long categoryId, int page, int size){
+        Page<Leadership> getallleadership=leadershipService.allLeadershipByCategoryId(categoryId,page,size);
+        return ResponseEntity.ok(getallleadership);
+    }
 }

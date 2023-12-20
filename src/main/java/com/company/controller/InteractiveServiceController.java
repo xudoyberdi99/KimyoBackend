@@ -47,4 +47,10 @@ public class InteractiveServiceController {
         Page<InteraktivService> getallService=interaktivService.getAllServices(page,size);
         return ResponseEntity.ok(getallService);
     }
+
+    @GetMapping("/allServiceByCategoryId/{categoryId}")
+    public HttpEntity<?> allServiceByCategoryId(@PathVariable Long categoryId){
+        List<InteraktivService> getallService=interaktivService.allServiceByCategoryId(categoryId);
+        return ResponseEntity.ok(getallService);
+    }
 }

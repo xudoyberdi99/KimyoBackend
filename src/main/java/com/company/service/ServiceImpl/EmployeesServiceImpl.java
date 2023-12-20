@@ -1,12 +1,14 @@
 package com.company.service.ServiceImpl;
 
 import com.company.entity.AttachmentEntity;
+import com.company.entity.Category;
 import com.company.entity.Departments;
 import com.company.entity.Employees;
 import com.company.entity.enums.LeadershipStatus;
 import com.company.payload.ApiResponse;
 import com.company.payload.EmployeesDto;
 import com.company.repository.AttachmentRepository;
+import com.company.repository.CategoryRepository;
 import com.company.repository.DepartmentsRepository;
 import com.company.repository.EmployeeRepository;
 import com.company.service.EmployeesService;
@@ -26,6 +28,9 @@ public class EmployeesServiceImpl implements EmployeesService {
 
     @Autowired
     private DepartmentsRepository departmentsRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @Override
     public ApiResponse addEmployee(EmployeesDto employeesDto) {
@@ -64,19 +69,24 @@ public class EmployeesServiceImpl implements EmployeesService {
         if (!optionalDepartments.isPresent()){
             return new ApiResponse("not found department", false);
         }
-
         employees.setDepartments(optionalDepartments.get());
+        Optional<Category> categoryOptional = categoryRepository.findById(employeesDto.getCategoryId());
+        if (categoryOptional.isPresent()){
+            employees.setCategory(categoryOptional.get());
+        }
+        else{
+            employees.setCategory(null);
+        }
 
         employeeRepository.save(employees);
-
         return new ApiResponse("add employee success", true);
     }
 
     @Override
     public ApiResponse editEmployee(Long id, EmployeesDto employeesDto) {
-        Boolean existsByEmail = employeeRepository.existsByEmail(employeesDto.getEmail());
-        if (existsByEmail){
-            return new ApiResponse("already exists email", false);
+        Boolean emailAndIdNot = employeeRepository.existsByEmailAndIdNot(employeesDto.getEmail(), id);
+        if (emailAndIdNot){
+            return new ApiResponse("Already exists person", false);
         }
         Optional<Employees> repositoryById = employeeRepository.findById(id);
         if (!repositoryById.isPresent()){
@@ -116,6 +126,13 @@ public class EmployeesServiceImpl implements EmployeesService {
 
         employees.setDepartments(optionalDepartments.get());
 
+        Optional<Category> categoryOptional = categoryRepository.findById(employeesDto.getCategoryId());
+        if (categoryOptional.isPresent()){
+            employees.setCategory(categoryOptional.get());
+        }
+        else{
+            employees.setCategory(null);
+        }
         employeeRepository.save(employees);
 
         return new ApiResponse("edit employee success", true);
@@ -140,4 +157,5 @@ public class EmployeesServiceImpl implements EmployeesService {
     public List<Employees> allEmployeeByDepartmentId(Long id) {
         return employeeRepository.findAllByDepartments_id(id);
     }
+
 }

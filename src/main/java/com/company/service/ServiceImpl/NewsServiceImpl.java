@@ -1,25 +1,32 @@
 package com.company.service.ServiceImpl;
 
+import com.company.dto.NewsGetDto;
 import com.company.entity.AboutInstituti;
 import com.company.entity.AttachmentEntity;
+import com.company.entity.Category;
 import com.company.entity.News;
 import com.company.payload.ApiResponse;
 import com.company.payload.NewsDayDto;
 import com.company.payload.NewsDto;
 import com.company.repository.AttachmentRepository;
+import com.company.repository.CategoryRepository;
 import com.company.repository.NewsRepository;
 import com.company.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class NewsServiceImpl implements NewsService {
 
     @Autowired
@@ -27,6 +34,13 @@ public class NewsServiceImpl implements NewsService {
 
     @Autowired
     private AttachmentRepository attachmentRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
+
+
+    @Value("${upload.server}")
+    private String serverPath;
 
     @Override
     public ApiResponse saveNews(NewsDto newsDto) {
@@ -55,6 +69,11 @@ public class NewsServiceImpl implements NewsService {
         }
         news.setImages(images);
 
+        Optional<Category> categoryOptional = categoryRepository.findById(newsDto.getCategoryId());
+        if (!categoryOptional.isPresent()){
+            return new ApiResponse("not found category", false);
+        }
+        news.setCategory(categoryOptional.get());
         newsRepository.save(news);
         return new ApiResponse("add news success", true);
     }
@@ -89,6 +108,11 @@ public class NewsServiceImpl implements NewsService {
             }
         }
         news.setImages(images);
+        Optional<Category> categoryOptional = categoryRepository.findById(newsDto.getCategoryId());
+        if (!categoryOptional.isPresent()){
+            return new ApiResponse("not found category", false);
+        }
+        news.setCategory(categoryOptional.get());
         newsRepository.save(news);
         return new ApiResponse("edit news success", true);
     }
@@ -104,13 +128,109 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public News newsById(Long id) {
-        return newsRepository.findById(id).orElse(new News());
+    public NewsGetDto newsById(Long id) {
+        Optional<News> newsOptional = newsRepository.findById(id);
+        if (!newsOptional.isPresent()){
+            return null;
+        }
+        News newsDto = newsOptional.get();
+        NewsGetDto news=new NewsGetDto();
+
+        news.setId(newsDto.getId());
+        news.setTitleRU(newsDto.getTitleRU());
+        news.setTitleEN(newsDto.getTitleEN());
+        news.setTitleKR(newsDto.getTitleKR());
+        news.setTitleUZ(newsDto.getTitleUZ());
+        news.setDescriptionKR(newsDto.getDescriptionKR());
+        news.setDescriptionEN(newsDto.getDescriptionEN());
+        news.setDescriptionRU(newsDto.getDescriptionRU());
+        news.setDescriptionUZ(newsDto.getDescriptionUZ());
+        news.setShortdescriptionEN(newsDto.getShortdescriptionEN());
+        news.setShortdescriptionRU(newsDto.getShortdescriptionRU());
+        news.setShortdescriptionKR(newsDto.getShortdescriptionKR());
+        news.setShortdescriptionUZ(newsDto.getShortdescriptionUZ());
+
+        List<AttachmentEntity> images = newsDto.getImages();
+        List<String> imagelinks=new ArrayList<>();
+        for (AttachmentEntity image : images) {
+            imagelinks.add(serverPath+image.getUploadFolder());
+        }
+        news.setImagelink(imagelinks);
+        Category category = newsDto.getCategory();
+        news.setCategoryId(category.getId());
+
+        return news;
     }
 
     @Override
-    public Page<News> getAllServices(int page, int size) {
+    public Page<NewsGetDto> getAllServices(int page, int size) {
         Pageable pageable= PageRequest.of(page,size);
-        return newsRepository.findAll(pageable);
+        List<News> repositoryAll = newsRepository.findAll();
+        List<NewsGetDto> allListNews=new ArrayList<>();
+        for (News newsDto : repositoryAll) {
+            NewsGetDto news=new NewsGetDto();
+            news.setId(newsDto.getId());
+            news.setTitleRU(newsDto.getTitleRU());
+            news.setTitleEN(newsDto.getTitleEN());
+            news.setTitleKR(newsDto.getTitleKR());
+            news.setTitleUZ(newsDto.getTitleUZ());
+            news.setDescriptionKR(newsDto.getDescriptionKR());
+            news.setDescriptionEN(newsDto.getDescriptionEN());
+            news.setDescriptionRU(newsDto.getDescriptionRU());
+            news.setDescriptionUZ(newsDto.getDescriptionUZ());
+            news.setShortdescriptionEN(newsDto.getShortdescriptionEN());
+            news.setShortdescriptionRU(newsDto.getShortdescriptionRU());
+            news.setShortdescriptionKR(newsDto.getShortdescriptionKR());
+            news.setShortdescriptionUZ(newsDto.getShortdescriptionUZ());
+
+            List<AttachmentEntity> images = newsDto.getImages();
+            List<String> imagelinks=new ArrayList<>();
+            for (AttachmentEntity image : images) {
+                imagelinks.add(serverPath+image.getUploadFolder());
+            }
+            news.setImagelink(imagelinks);
+            Category category = newsDto.getCategory();
+            news.setCategoryId(category.getId());
+            allListNews.add(news);
+        }
+        Page<NewsGetDto> pagelist=new PageImpl<>(allListNews,pageable,allListNews.size());
+
+        return pagelist;
+    }
+
+    @Override
+    public Page<NewsGetDto> allnewsByCategoryId(Long categoryId, int page, int size) {
+        Pageable pageable= PageRequest.of(page,size);
+        List<News> repositoryAll = newsRepository.findAllByCategory_Id(categoryId);
+        List<NewsGetDto> allListNews=new ArrayList<>();
+        for (News newsDto : repositoryAll) {
+            NewsGetDto news=new NewsGetDto();
+            news.setId(newsDto.getId());
+            news.setTitleRU(newsDto.getTitleRU());
+            news.setTitleEN(newsDto.getTitleEN());
+            news.setTitleKR(newsDto.getTitleKR());
+            news.setTitleUZ(newsDto.getTitleUZ());
+            news.setDescriptionKR(newsDto.getDescriptionKR());
+            news.setDescriptionEN(newsDto.getDescriptionEN());
+            news.setDescriptionRU(newsDto.getDescriptionRU());
+            news.setDescriptionUZ(newsDto.getDescriptionUZ());
+            news.setShortdescriptionEN(newsDto.getShortdescriptionEN());
+            news.setShortdescriptionRU(newsDto.getShortdescriptionRU());
+            news.setShortdescriptionKR(newsDto.getShortdescriptionKR());
+            news.setShortdescriptionUZ(newsDto.getShortdescriptionUZ());
+
+            List<AttachmentEntity> images = newsDto.getImages();
+            List<String> imagelinks=new ArrayList<>();
+            for (AttachmentEntity image : images) {
+                imagelinks.add(serverPath+image.getUploadFolder());
+            }
+            news.setImagelink(imagelinks);
+            Category category = newsDto.getCategory();
+            news.setCategoryId(category.getId());
+            allListNews.add(news);
+        }
+        Page<NewsGetDto> pagelist=new PageImpl<>(allListNews,pageable,allListNews.size());
+
+        return pagelist;
     }
 }

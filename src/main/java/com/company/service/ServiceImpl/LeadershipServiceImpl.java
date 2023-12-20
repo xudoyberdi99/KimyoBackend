@@ -1,15 +1,18 @@
 package com.company.service.ServiceImpl;
 
 import com.company.entity.AttachmentEntity;
+import com.company.entity.Category;
 import com.company.entity.Leadership;
 import com.company.entity.enums.LeadershipStatus;
 import com.company.payload.ApiResponse;
 import com.company.payload.LeadershipDto;
 import com.company.repository.AttachmentRepository;
+import com.company.repository.CategoryRepository;
 import com.company.repository.LeadershipRepository;
 import com.company.service.LeadershipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -26,6 +29,9 @@ public class LeadershipServiceImpl implements LeadershipService {
 
     @Autowired
     private AttachmentRepository attachmentRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @Override
     public ApiResponse addLeadership(LeadershipDto leadershipDto) {
@@ -59,6 +65,11 @@ public class LeadershipServiceImpl implements LeadershipService {
             return new ApiResponse("not found image", false);
         }
         leadership.setImage(optional.get());
+        Optional<Category> categoryOptional = categoryRepository.findById(leadershipDto.getCategoryId());
+        if (!categoryOptional.isPresent()){
+            return new ApiResponse("not found category", false);
+        }
+        leadership.setCategory(categoryOptional.get());
 
         leadershipRepository.save(leadership);
         return new ApiResponse("add leadership success", true);
@@ -66,14 +77,15 @@ public class LeadershipServiceImpl implements LeadershipService {
 
     @Override
     public ApiResponse editLeadership(Long id, LeadershipDto leadershipDto) {
+        Boolean emailAndIdNot = leadershipRepository.existsByEmailAndIdNot(leadershipDto.getEmail(), id);
+        if (emailAndIdNot){
+            return new ApiResponse("Already exists person", false);
+        }
         Optional<Leadership> optionalLeadership = leadershipRepository.findById(id);
         if (!optionalLeadership.isPresent()){
             return new ApiResponse("not found leadership",false);
         }
         Leadership leadership = optionalLeadership.get();
-        if (leadership.getEmail().equals(leadershipDto.getEmail())){
-            return new ApiResponse("already exists person", false);
-        }
         leadership.setDegree(leadershipDto.getDegree());
         leadership.setBiographyKR(leadershipDto.getBiographyKR());
         leadership.setBiographyEN(leadershipDto.getBiographyEN());
@@ -98,7 +110,11 @@ public class LeadershipServiceImpl implements LeadershipService {
             return new ApiResponse("not found image", false);
         }
         leadership.setImage(optional.get());
-
+        Optional<Category> categoryOptional = categoryRepository.findById(leadershipDto.getCategoryId());
+        if (!categoryOptional.isPresent()){
+            return new ApiResponse("not found category", false);
+        }
+        leadership.setCategory(categoryOptional.get());
         leadershipRepository.save(leadership);
         return new ApiResponse("edit leadership success", true);
     }
@@ -127,5 +143,13 @@ public class LeadershipServiceImpl implements LeadershipService {
     @Override
     public List<Leadership> allLeader() {
         return leadershipRepository.allLeadershipRahbariyat();
+    }
+
+    @Override
+    public Page<Leadership> allLeadershipByCategoryId(Long categoryId, int page, int size) {
+        Pageable pageable=PageRequest.of(page,size);
+        List<Leadership> allByCategoryId = leadershipRepository.findAllByCategory_Id(categoryId);
+        Page<Leadership> allLeadbyCategoryId=new PageImpl<>(allByCategoryId,pageable,allByCategoryId.size());
+        return allLeadbyCategoryId;
     }
 }

@@ -16,6 +16,7 @@ import java.util.List;
 @Data
 @Entity(name = "employees")
 public class Employees extends BaceEntity {
+
     @Column(nullable = false)
     private String fullName;
 
@@ -23,8 +24,8 @@ public class Employees extends BaceEntity {
 
     @Column(nullable = false)
     private String phoneNumber;
-    @Column(nullable = false,unique = true)
-    @Email
+
+    @Column(nullable = false)
     private String email;
 
     private String Fax;
@@ -66,7 +67,7 @@ public class Employees extends BaceEntity {
     private String dutiesKR;
 
 
-    @OneToOne(optional = false)
+    @OneToOne(optional = false,cascade = CascadeType.REMOVE)
     private AttachmentEntity  image;
 
     @ManyToOne(optional = false)

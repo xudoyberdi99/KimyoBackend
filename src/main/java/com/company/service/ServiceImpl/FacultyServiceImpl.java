@@ -1,9 +1,11 @@
 package com.company.service.ServiceImpl;
 
+import com.company.entity.Category;
 import com.company.entity.Facultys;
 import com.company.entity.Leadership;
 import com.company.payload.ApiResponse;
 import com.company.payload.FacultyDto;
+import com.company.repository.CategoryRepository;
 import com.company.repository.FacultyRepository;
 import com.company.repository.LeadershipRepository;
 import com.company.service.FacultyService;
@@ -20,7 +22,8 @@ public class FacultyServiceImpl implements FacultyService {
     private FacultyRepository facultyRepository;
     @Autowired
     private LeadershipRepository leadershipRepository;
-
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @Override
     public ApiResponse addFaculty(FacultyDto facultyDto) {
@@ -38,6 +41,14 @@ public class FacultyServiceImpl implements FacultyService {
             return new ApiResponse("not found leadership", false);
         }
         facultys.setLeadership(optionalLeadership.get());
+
+        Optional<Category> categoryOptional = categoryRepository.findById(facultyDto.getCategoryId());
+
+        if (!categoryOptional.isPresent()){
+            return new ApiResponse("not found category", false);
+        }
+        facultys.setCategory(categoryOptional.get());
+
         facultyRepository.save(facultys);
         return new ApiResponse("add faculty success", true);
     }
@@ -62,6 +73,14 @@ public class FacultyServiceImpl implements FacultyService {
             return new ApiResponse("not found leadership", false);
         }
         facultys.setLeadership(optionalLeadership.get());
+
+        Optional<Category> categoryOptional = categoryRepository.findById(facultyDto.getCategoryId());
+
+        if (!categoryOptional.isPresent()){
+            return new ApiResponse("not found category", false);
+        }
+        facultys.setCategory(categoryOptional.get());
+
         facultyRepository.save(facultys);
         return new ApiResponse("edit faculty success", true);
     }
@@ -85,5 +104,10 @@ public class FacultyServiceImpl implements FacultyService {
     @Override
     public List<Facultys> allFaculty() {
         return facultyRepository.findAll();
+    }
+
+    @Override
+    public List<Facultys> facultyByCategoryId(Long categoryId) {
+        return facultyRepository.findAllByCategory_Id(categoryId);
     }
 }

@@ -6,8 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
@@ -16,10 +15,23 @@ import javax.persistence.ManyToOne;
 @Entity(name = "generalPage")
 public class GeneralPage extends BaceEntity {
 
-    private String descriptionUZ;
-    private String descriptionRU;
-    private String descriptionKR;
-    private String descriptionEN;
+    private String titleUZ;
+    private String titleRU;
+    private String titleKR;
+    private String titleEN;
+
+    @Lob
+    @Column(columnDefinition="TEXT", length=10485760)
+    private String contentUZ;
+    @Lob
+    @Column(columnDefinition="TEXT", length=10485760)
+    private String contentRU;
+    @Lob
+    @Column(columnDefinition="TEXT", length=10485760)
+    private String contentEN;
+    @Lob
+    @Column(columnDefinition="TEXT", length=10485760)
+    private String contentKR;
 
     @ManyToOne(optional = false)
     private Category category;

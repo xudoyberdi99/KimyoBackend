@@ -1,5 +1,6 @@
 package com.company.service;
 
+import com.company.dto.NewsGetDto;
 import com.company.entity.News;
 import com.company.entity.NewsDay;
 import com.company.payload.ApiResponse;
@@ -16,7 +17,9 @@ public interface NewsService {
 
     ApiResponse deleteNews(Long id);
 
-    News newsById(Long id);
+    NewsGetDto newsById(Long id);
 
-    Page<News> getAllServices(int page, int size);
+    Page<NewsGetDto> getAllServices(int page, int size);
+
+    Page<NewsGetDto> allnewsByCategoryId(Long categoryId, int page, int size);
 }

@@ -12,9 +12,10 @@ import java.util.List;
 public interface LeadershipRepository extends JpaRepository<Leadership,Long> {
 
     Boolean existsByEmail(String email);
-
+    Boolean existsByEmailAndIdNot(String email, Long id);
     @Query(value = "select * from leadership where leadership_status='RAHBARIYAT'", nativeQuery = true)
     List<Leadership> allLeadershipRahbariyat();
 
+    List<Leadership> findAllByCategory_Id(Long categoryId);
 
 }

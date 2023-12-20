@@ -16,6 +16,7 @@ import javax.validation.constraints.Email;
 @Data
 @Entity(name = "leadership")
 public class Leadership extends BaceEntity {
+
     @Column(nullable = false)
     private String fullName;
 
@@ -23,8 +24,8 @@ public class Leadership extends BaceEntity {
 
     @Column(nullable = false)
     private String phoneNumber;
-    @Column(nullable = false,unique = true)
-    @Email
+
+    @Column(nullable = false)
     private String email;
 
     private String Fax;
@@ -63,7 +64,7 @@ public class Leadership extends BaceEntity {
     private String dutiesKR;
 
 
-    @OneToOne(optional = false)
+    @OneToOne(optional = false,cascade = CascadeType.REMOVE)
     private AttachmentEntity  image;
 
     @Enumerated(EnumType.STRING)
@@ -71,4 +72,5 @@ public class Leadership extends BaceEntity {
 
     @ManyToOne(optional = false)
     private Category category;
+
 }

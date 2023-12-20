@@ -18,4 +18,6 @@ public interface InteraktivServices {
     InteraktivService getinteractiveService(Long id);
 
     Page<InteraktivService> getAllServices(int page, int size);
+
+    List<InteraktivService> allServiceByCategoryId(Long categoryId);
 }

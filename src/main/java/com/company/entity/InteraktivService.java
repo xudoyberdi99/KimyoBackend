@@ -14,6 +14,7 @@ import javax.persistence.*;
 @Data
 @Entity(name = "interactive_service")
 public class InteraktivService extends BaceEntity {
+
     @Column(nullable = false)
     private String link;
 
@@ -49,9 +50,9 @@ public class InteraktivService extends BaceEntity {
     @Column(columnDefinition="TEXT", length=10485760)
     private String descriptionKR;
 
-    @OneToOne(optional = false)
+    @OneToOne(optional = false,cascade = CascadeType.REMOVE)
     private AttachmentEntity icon;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Category category;
 }

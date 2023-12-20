@@ -25,10 +25,14 @@ public class GeneralPageServiceImpl implements GeneralPageService {
     @Override
     public ApiResponse addgeneralpage(GeneralPageDto generalPageDto) {
         GeneralPage generalPage=new GeneralPage();
-        generalPage.setDescriptionKR(generalPageDto.getDescriptionKR());
-        generalPage.setDescriptionEN(generalPageDto.getDescriptionEN());
-        generalPage.setDescriptionUZ(generalPageDto.getDescriptionUZ());
-        generalPage.setDescriptionRU(generalPageDto.getDescriptionRU());
+        generalPage.setContentKR(generalPageDto.getContentKR());
+        generalPage.setContentUZ(generalPageDto.getContentUZ());
+        generalPage.setContentEN(generalPageDto.getContentEN());
+        generalPage.setContentRU(generalPageDto.getContentRU());
+        generalPage.setTitleEN(generalPageDto.getTitleEN());
+        generalPage.setTitleRU(generalPageDto.getTitleRU());
+        generalPage.setTitleUZ(generalPageDto.getTitleUZ());
+        generalPage.setTitleKR(generalPageDto.getTitleKR());
         Optional<Category> categoryOptional = categoryRepository.findById(generalPageDto.getCategoryId());
         if (!categoryOptional.isPresent()){
             return new ApiResponse("not found category",false);
@@ -45,10 +49,14 @@ public class GeneralPageServiceImpl implements GeneralPageService {
             return new ApiResponse("not found repository", false);
         }
         GeneralPage generalPage = repositoryById.get();
-        generalPage.setDescriptionKR(generalPageDto.getDescriptionKR());
-        generalPage.setDescriptionEN(generalPageDto.getDescriptionEN());
-        generalPage.setDescriptionUZ(generalPageDto.getDescriptionUZ());
-        generalPage.setDescriptionRU(generalPageDto.getDescriptionRU());
+        generalPage.setContentKR(generalPageDto.getContentKR());
+        generalPage.setContentUZ(generalPageDto.getContentUZ());
+        generalPage.setContentEN(generalPageDto.getContentEN());
+        generalPage.setContentRU(generalPageDto.getContentRU());
+        generalPage.setTitleEN(generalPageDto.getTitleEN());
+        generalPage.setTitleRU(generalPageDto.getTitleRU());
+        generalPage.setTitleUZ(generalPageDto.getTitleUZ());
+        generalPage.setTitleKR(generalPageDto.getTitleKR());
         Optional<Category> categoryOptional = categoryRepository.findById(generalPageDto.getCategoryId());
         if (!categoryOptional.isPresent()){
             return new ApiResponse("not found category",false);
@@ -77,4 +85,5 @@ public class GeneralPageServiceImpl implements GeneralPageService {
     public List<GeneralPage> generalPageGetBycategory(Long categoryid) {
         return generalPageRepository.findAllByCategory_Id(categoryid);
     }
+
 }

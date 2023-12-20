@@ -6,16 +6,15 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Lob;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity(name = "news_day")
 public class NewsDay extends BaceEntity {
+
     @Lob
     @Column(columnDefinition="TEXT", length=10485760, nullable = false)
     private String titleUZ;
@@ -64,6 +63,6 @@ public class NewsDay extends BaceEntity {
     @Column(columnDefinition="TEXT")
     private String descriptionKR;
 
-    @OneToOne(optional = false)
+    @OneToOne(optional = false,cascade = CascadeType.REMOVE)
     private AttachmentEntity images;
 }

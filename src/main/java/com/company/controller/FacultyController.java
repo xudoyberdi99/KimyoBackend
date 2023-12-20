@@ -48,4 +48,9 @@ public class FacultyController {
         List<Facultys> getAllFaculty=facultyService.allFaculty();
         return ResponseEntity.ok(getAllFaculty);
     }
+    @GetMapping("/facultyByCategoryId/{categoryId}")
+    public HttpEntity<?> facultyByCategoryId(@PathVariable Long categoryId){
+        List<Facultys> faculty=facultyService.facultyByCategoryId(categoryId);
+        return ResponseEntity.ok(faculty);
+    }
 }

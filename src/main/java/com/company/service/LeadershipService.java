@@ -19,4 +19,7 @@ public interface LeadershipService {
     Page<Leadership> allLeadership(int page, int size);
 
     List<Leadership> allLeader();
+
+    Page<Leadership> allLeadershipByCategoryId(Long categoryId, int page, int size);
+
 }

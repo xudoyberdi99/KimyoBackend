@@ -16,4 +16,6 @@ public interface FacultyService {
     Facultys facultyById(Long id);
 
     List<Facultys> allFaculty();
+
+    List<Facultys> facultyByCategoryId(Long categoryId);
 }

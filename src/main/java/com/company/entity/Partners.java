@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 
@@ -15,7 +16,7 @@ import javax.persistence.OneToOne;
 @Data
 @Entity(name = "partners")
 public class Partners extends BaceEntity {
-    @OneToOne(optional = false)
+    @OneToOne(optional = false,cascade = CascadeType.REMOVE)
     private AttachmentEntity icon;
     private String description;
 }
