@@ -22,32 +22,32 @@ public class EmployeesController {
     @Autowired
     private EmployeesService employeesService;
 
-    @PostMapping("/addEmployee")
+    @PostMapping("/user/addEmployee")
     public ResponseEntity<?> addEmployee(@Valid @RequestBody EmployeesDto employeesDto){
         ApiResponse apiResponse=employeesService.addEmployee(employeesDto);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
 
-    @PutMapping("/editEmployee/{id}")
+    @PutMapping("/user/editEmployee/{id}")
     public HttpEntity<?> editEmployee(@Valid @PathVariable Long id, @RequestBody EmployeesDto employeesDto){
         ApiResponse apiResponse=employeesService.editEmployee(id,employeesDto);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
 
-    @DeleteMapping("/deleteEmployee/{id}")
+    @DeleteMapping("/user/deleteEmployee/{id}")
     public HttpEntity<?> deleteEmployee(@PathVariable Long id){
         ApiResponse apiResponse=employeesService.deleteEmployee(id);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
 
-    @GetMapping("/employeeByid/{id}")
+    @GetMapping("/public/employeeByid/{id}")
     public HttpEntity<?> employeeByid(@PathVariable Long id){
         Employees employees=employeesService.employeeByid(id);
         return ResponseEntity.ok(employees);
     }
 
 
-    @GetMapping("/allEmployeeByDepartmentId/{id}")
+    @GetMapping("/public/allEmployeeByDepartmentId/{id}")
     public HttpEntity<?> allEmployeeByDepartmentId(@PathVariable Long id){
         List<Employees> employees=employeesService.allEmployeeByDepartmentId(id);
         return ResponseEntity.ok(employees);

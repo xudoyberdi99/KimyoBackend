@@ -24,33 +24,33 @@ public class AnnouncementsController {
     @Autowired
     private AnnouncementsService announcementsService;
 
-    @PostMapping("/announcementSave")
+    @PostMapping("/user/announcementSave")
     public ResponseEntity<?> announcementSave(@Valid @RequestBody AnnouncementsDto announcementsDto){
         ApiResponse apiResponse=announcementsService.announcementSave(announcementsDto);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
-    @PutMapping("/announcementEdit/{id}")
+    @PutMapping("/user/announcementEdit/{id}")
     public HttpEntity<?> announcementEdit(@Valid @PathVariable Long id, @RequestBody AnnouncementsDto announcementsDto){
         ApiResponse apiResponse=announcementsService.announcementEdit(id,announcementsDto);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
-    @DeleteMapping("/announcementDelete/{id}")
+    @DeleteMapping("/user/announcementDelete/{id}")
     public HttpEntity<?> announcementDelete(@PathVariable Long id){
         ApiResponse apiResponse=announcementsService.announcementDelete(id);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
-    @GetMapping("/announcementGetById/{id}")
+    @GetMapping("/public/announcementGetById/{id}")
     public HttpEntity<?> announcementGetById(@PathVariable Long id){
         AnnouncementDtoGet announcements=announcementsService.announcementGetById(id);
         return ResponseEntity.ok(announcements);
     }
 
-    @GetMapping("/allAnnouncement")
+    @GetMapping("/public/allAnnouncement")
     public HttpEntity<?> allAnnouncement(int page, int size){
         Page<AnnouncementDtoGet> getAllAnnouncement=announcementsService.allAnnouncement(page,size);
         return ResponseEntity.ok(getAllAnnouncement);
     }
-    @GetMapping("/allAnnouncementGetCategoryId/{categoryid}")
+    @GetMapping("/public/allAnnouncementGetCategoryId/{categoryid}")
     public HttpEntity<?> allAnnouncementGetCategoryId(@PathVariable Long categoryid,int page, int size){
         Page<AnnouncementDtoGet> getAllAnnouncement=announcementsService.allAnnouncementGetCategoryId(categoryid,page,size);
         return ResponseEntity.ok(getAllAnnouncement);

@@ -21,28 +21,28 @@ public class PartnersController {
     @Autowired
     private PartnersService partnersService;
 
-    @PostMapping("/partner")
+    @PostMapping("/user/partner")
     public ResponseEntity<?> addpartner(@Valid @RequestBody PartnersDto partnersDto){
         ApiResponse apiResponse=partnersService.savepartner(partnersDto);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
-    @PutMapping("/editpartner/{id}")
+    @PutMapping("/user/editpartner/{id}")
     public HttpEntity<?> editpartner(@Valid @PathVariable Long id, @RequestBody PartnersDto partnersDto){
         ApiResponse apiResponse=partnersService.editpartner(id,partnersDto);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
-    @DeleteMapping("/deletepartner/{id}")
+    @DeleteMapping("/user/deletepartner/{id}")
     public HttpEntity<?> deletepartner(@PathVariable Long id){
         ApiResponse apiResponse=partnersService.deletepartner(id);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
-    @GetMapping("/partnerById/{id}")
+    @GetMapping("/public/partnerById/{id}")
     public HttpEntity<?> partnersById(@PathVariable Long id){
         Partners partner=partnersService.partnerById(id);
         return ResponseEntity.ok(partner);
     }
 
-    @GetMapping("/allpartner")
+    @GetMapping("/public/allpartner")
     public HttpEntity<?> AllPartners(int page, int size){
         Page<Partners> partners=partnersService.getAllpartner(page,size);
         return ResponseEntity.ok(partners);

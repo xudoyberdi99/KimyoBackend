@@ -24,39 +24,39 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    @PostMapping("/addCategory")
+    @PostMapping("/user/addCategory")
     public ResponseEntity<?> addCategory(@Valid @RequestBody CategoryDto categoryDto){
         ApiResponse apiResponse=categoryService.addCategory(categoryDto);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
-    @PutMapping("/categoryEdit/{id}")
+    @PutMapping("/user/categoryEdit/{id}")
     public HttpEntity<?> categoryEdit(@Valid @PathVariable Long id, @RequestBody CategoryDto categoryDto){
         ApiResponse apiResponse=categoryService.categoryEdit(id,categoryDto);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
-    @DeleteMapping("/categoryDelete/{id}")
+    @DeleteMapping("/user/categoryDelete/{id}")
     public HttpEntity<?> categoryDelete(@PathVariable Long id){
         ApiResponse apiResponse=categoryService.categoryDelete(id);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
-    @GetMapping("/categoryGetById/{id}")
+    @GetMapping("/public/categoryGetById/{id}")
     public HttpEntity<?> categoryGetById(@PathVariable Long id){
         Category category=categoryService.categoryGetById(id);
         return ResponseEntity.ok(category);
     }
 
-    @GetMapping("/allcategory")
+    @GetMapping("/public/allcategory")
     public HttpEntity<?> allcategory(){
         List<Category> getAllCategory=categoryService.allCategory();
         return ResponseEntity.ok(getAllCategory);
     }
-    @GetMapping("/allParentcategory")
+    @GetMapping("/public/allParentcategory")
     public HttpEntity<?> allParentcategory(){
         List<Category> getAllCategory=categoryService.allParentcategory();
         return ResponseEntity.ok(getAllCategory);
     }
 
-    @GetMapping("/childcategorys/{parentid}")
+    @GetMapping("/public/childcategorys/{parentid}")
     public HttpEntity<?> allchildcategory(@PathVariable Long parentid){
         List<Category> getAllCategory=categoryService.allchildcategory(parentid);
         return ResponseEntity.ok(getAllCategory);

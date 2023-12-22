@@ -23,24 +23,24 @@ public class RectorToAppealsController {
     private RectorToAppealsService rectorToAppealsService;
 
 
-    @PostMapping("/appealtorectorAdd")
+    @PostMapping("/public/appealtorectorAdd")
     public ResponseEntity<?> appealAdd(@Valid @RequestBody RectorToAppealsDto rectorToAppealsDto){
         ApiResponse apiResponse=rectorToAppealsService.appealAdd(rectorToAppealsDto);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
 
-    @DeleteMapping("/deleteAppealstoRector/{id}")
+    @DeleteMapping("/user/deleteAppealstoRector/{id}")
     public HttpEntity<?> deleteAppeals(@PathVariable Long id){
         ApiResponse apiResponse=rectorToAppealsService.deleteAppeals(id);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
-    @GetMapping("/appealsTorectorById/{id}")
+    @GetMapping("/user/appealsTorectorById/{id}")
     public HttpEntity<?> appealsById(@PathVariable Long id){
         RectorToAppeals rectorToAppeals=rectorToAppealsService.appealsById(id);
         return ResponseEntity.ok(rectorToAppeals);
     }
 
-    @GetMapping("/allAppealstoRectors")
+    @GetMapping("/user/allAppealstoRectors")
     public HttpEntity<?> Allappeals(int page, int size){
         Page<RectorToAppeals> rectorToAppeals=rectorToAppealsService.Allappeals(page,size);
         return ResponseEntity.ok(rectorToAppeals);

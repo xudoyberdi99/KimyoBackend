@@ -23,28 +23,28 @@ public class GeneralPageController {
     @Autowired
     private GeneralPageService generalPageService;
 
-    @PostMapping("/addgeneralpage")
+    @PostMapping("/user/addgeneralpage")
     public ResponseEntity<?> addgeneralpage(@Valid @RequestBody GeneralPageDto generalPageDto){
         ApiResponse apiResponse=generalPageService.addgeneralpage(generalPageDto);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
-    @PutMapping("/editGeneralPage/{id}")
+    @PutMapping("/user/editGeneralPage/{id}")
     public HttpEntity<?> editGeneralPage(@Valid @PathVariable Long id, @RequestBody GeneralPageDto generalPageDto){
         ApiResponse apiResponse=generalPageService.editGeneralPage(id,generalPageDto);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
-    @DeleteMapping("/generalpageDelete/{id}")
+    @DeleteMapping("/user/generalpageDelete/{id}")
     public HttpEntity<?> generalpageDelete(@PathVariable Long id){
         ApiResponse apiResponse=generalPageService.generalpageDelete(id);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
-    @GetMapping("/generalPageGetById/{id}")
+    @GetMapping("/public/generalPageGetById/{id}")
     public HttpEntity<?> generalPageGetById(@PathVariable Long id){
         GeneralPage generalPage=generalPageService.generalPageGetById(id);
         return ResponseEntity.ok(generalPage);
     }
 
-    @GetMapping("/generalPageGetByCategoryId/{categoryid}")
+    @GetMapping("/public/generalPageGetByCategoryId/{categoryid}")
     public HttpEntity<?> generalPageGetByCategory(@PathVariable Long categoryid){
         List<GeneralPage> generalPage=generalPageService.generalPageGetBycategory(categoryid);
         return ResponseEntity.ok(generalPage);

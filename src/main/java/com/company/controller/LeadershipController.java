@@ -22,43 +22,43 @@ public class LeadershipController {
     @Autowired
     private LeadershipService leadershipService;
 
-    @PostMapping("/addLeadership")
+    @PostMapping("/user/addLeadership")
     public ResponseEntity<?> addLeadership(@Valid @RequestBody LeadershipDto leadershipDto){
         ApiResponse apiResponse=leadershipService.addLeadership(leadershipDto);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
 
-    @PutMapping("/editLeadership/{id}")
+    @PutMapping("/user/editLeadership/{id}")
     public HttpEntity<?> editLeadership(@Valid @PathVariable Long id, @RequestBody LeadershipDto leadershipDto){
         ApiResponse apiResponse=leadershipService.editLeadership(id,leadershipDto);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
 
-    @DeleteMapping("/deleteLeadership/{id}")
+    @DeleteMapping("/user/deleteLeadership/{id}")
     public HttpEntity<?> deleteLeadership(@PathVariable Long id){
         ApiResponse apiResponse=leadershipService.deleteLeadership(id);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
 
-    @GetMapping("/leaderShipById/{id}")
+    @GetMapping("/public/leaderShipById/{id}")
     public HttpEntity<?> leaderShipById(@PathVariable Long id){
         Leadership leadership=leadershipService.leaderShipById(id);
         return ResponseEntity.ok(leadership);
     }
 
 
-    @GetMapping("/allLeadership")
+    @GetMapping("/public/allLeadership")
     public HttpEntity<?> allLeadership(int page, int size){
         Page<Leadership> getallleadership=leadershipService.allLeadership(page,size);
         return ResponseEntity.ok(getallleadership);
     }
 
-    @GetMapping("/allLeader")
+    @GetMapping("/public/allLeader")
     public HttpEntity<?> allLeader(){
         List<Leadership> getallleader=leadershipService.allLeader();
         return ResponseEntity.ok(getallleader);
     }
-    @GetMapping("/allLeadershipByCategoryId/{categoryId}")
+    @GetMapping("/public/allLeadershipByCategoryId/{categoryId}")
     public HttpEntity<?> allLeadershipByCategoryId(@PathVariable Long categoryId, int page, int size){
         Page<Leadership> getallleadership=leadershipService.allLeadershipByCategoryId(categoryId,page,size);
         return ResponseEntity.ok(getallleadership);

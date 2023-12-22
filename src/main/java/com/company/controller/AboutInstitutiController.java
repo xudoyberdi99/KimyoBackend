@@ -20,27 +20,27 @@ public class AboutInstitutiController {
     @Autowired
     private AboutInstitutiService aboutInstitutiService;
 
-    @PostMapping("/aboutInstituti")
+    @PostMapping("/admin/aboutInstituti")
     public ResponseEntity<?> AboutInstitutiSave(@Valid @RequestBody AboutInstitutiDto aboutInstitutiDto){
         ApiResponse apiResponse=aboutInstitutiService.AboutInstitutiSave(aboutInstitutiDto);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
-    @PutMapping("/editAboutInstituti/{id}")
+    @PutMapping("/user/editAboutInstituti/{id}")
     public HttpEntity<?> editAboutInstituti(@Valid @PathVariable Long id, @RequestBody AboutInstitutiDto aboutInstitutiDto){
         ApiResponse apiResponse=aboutInstitutiService.editAboutInstituti(id,aboutInstitutiDto);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
-    @DeleteMapping("/deleteAboutInstituti/{id}")
+    @DeleteMapping("/admin/deleteAboutInstituti/{id}")
     public HttpEntity<?> deleteAbout(@PathVariable Long id){
         ApiResponse apiResponse=aboutInstitutiService.deleteAbout(id);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
-    @GetMapping("/getAboutInstituti/{id}")
+    @GetMapping("/public/getAboutInstituti/{id}")
     public HttpEntity<?> AboutGetById(@PathVariable Long id){
         AboutInstitutGetDto aboutInstitutGetDto=aboutInstitutiService.AboutGetById(id);
         return ResponseEntity.ok(aboutInstitutGetDto);
     }
-    @GetMapping("/getAboutInstituticategoryId/{categoryid}")
+    @GetMapping("/public/getAboutInstituticategoryId/{categoryid}")
     public ResponseEntity<?> AboutGetByIdcategoryId(@PathVariable Long categoryid){
         AboutInstitutGetDto aboutInstituti=aboutInstitutiService.getByCategoryIdAboutInstituti(categoryid);
         return ResponseEntity.ok(aboutInstituti);

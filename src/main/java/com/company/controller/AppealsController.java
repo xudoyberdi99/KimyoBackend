@@ -22,24 +22,24 @@ public class AppealsController {
     private AppealsService appealsService;
 
 
-    @PostMapping("/appealAdd")
+    @PostMapping("/public/appealAdd")
     public ResponseEntity<?> appealAdd(@Valid @RequestBody AppealsDto appealsDto){
         ApiResponse apiResponse=appealsService.appealAdd(appealsDto);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
 
-    @DeleteMapping("/deleteAppeals/{id}")
+    @DeleteMapping("/user/deleteAppeals/{id}")
     public HttpEntity<?> deleteAppeals(@PathVariable Long id){
         ApiResponse apiResponse=appealsService.deleteAppeals(id);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
-    @GetMapping("/appealsById/{id}")
+    @GetMapping("/user/appealsById/{id}")
     public HttpEntity<?> appealsById(@PathVariable Long id){
         Appeals  appeals=appealsService.appealsById(id);
         return ResponseEntity.ok(appeals);
     }
 
-    @GetMapping("/allAppeals")
+    @GetMapping("/user/allAppeals")
     public HttpEntity<?> Allappeals(int page, int size){
         Page<Appeals> appeals=appealsService.Allappeals(page,size);
         return ResponseEntity.ok(appeals);

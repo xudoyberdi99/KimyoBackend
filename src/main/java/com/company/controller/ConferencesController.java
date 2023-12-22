@@ -20,34 +20,34 @@ public class ConferencesController {
     @Autowired
     private ConferencesService conferencesService;
 
-    @PostMapping("/conferenceSave")
+    @PostMapping("/user/conferenceSave")
     public ResponseEntity<?> conferenceSave(@Valid @RequestBody ConferencesDto conferencesDto){
         ApiResponse apiResponse=conferencesService.conferenceSave(conferencesDto);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
-    @PutMapping("/conferenceEdit/{id}")
+    @PutMapping("/user/conferenceEdit/{id}")
     public HttpEntity<?> conferenceEdit(@Valid @PathVariable Long id, @RequestBody ConferencesDto conferencesDto){
         ApiResponse apiResponse=conferencesService.conferenceEdit(id,conferencesDto);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
-    @DeleteMapping("/conferenceDelete/{id}")
+    @DeleteMapping("/user/conferenceDelete/{id}")
     public HttpEntity<?> conferenceDelete(@PathVariable Long id){
         ApiResponse apiResponse=conferencesService.conferenceDelete(id);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
-    @GetMapping("/conferenceGetById/{id}")
+    @GetMapping("/public/conferenceGetById/{id}")
     public HttpEntity<?> conferenceGetById(@PathVariable Long id){
         Conferences conferences=conferencesService.conferenceGetById(id);
         return ResponseEntity.ok(conferences);
     }
 
-    @GetMapping("/allconference")
+    @GetMapping("/public/allconference")
     public HttpEntity<?> allconference(int page, int size){
         Page<Conferences> getAllConferens=conferencesService.allconference(page,size);
         return ResponseEntity.ok(getAllConferens);
     }
 
-    @GetMapping("/conferenceGetByCategoryId/{categoryId}")
+    @GetMapping("/public/conferenceGetByCategoryId/{categoryId}")
     public HttpEntity<?> conferenceGetByCategoryId(@PathVariable Long categoryId,int page, int size){
         Page<Conferences> getAllConferens=conferencesService.conferenceGetByCategoryId(categoryId,page,size);
         return ResponseEntity.ok(getAllConferens);

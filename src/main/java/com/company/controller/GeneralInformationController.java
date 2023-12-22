@@ -19,22 +19,22 @@ public class GeneralInformationController {
     @Autowired
     private GeneralInformationService generalInformationService;
 
-    @PostMapping("/GeneralInformatsave")
+    @PostMapping("/admin/GeneralInformatsave")
     public ResponseEntity<?> addGeneralInformat(@Valid @RequestBody GeneralInformationDto generalInformationDto){
         ApiResponse apiResponse=generalInformationService.saveGeneralInformat(generalInformationDto);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
-    @PutMapping("/editGeneralInformat/{id}")
+    @PutMapping("/user/editGeneralInformat/{id}")
     public HttpEntity<?> editGeneralInformat(@Valid @PathVariable Long id, @RequestBody GeneralInformationDto generalInformationDto){
         ApiResponse apiResponse=generalInformationService.editGeneralInformat(id,generalInformationDto);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
-    @DeleteMapping("/deleteGeneralInformat/{id}")
+    @DeleteMapping("/admin/deleteGeneralInformat/{id}")
     public HttpEntity<?> deleteGeneralInformat(@PathVariable Long id){
         ApiResponse apiResponse=generalInformationService.deleteGeneralInformat(id);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
-    @GetMapping("/GeneralInformatById/{id}")
+    @GetMapping("/public/GeneralInformatById/{id}")
     public HttpEntity<?> GeneralInformatById(@PathVariable Long id){
         GeneralInformation generalInformation=generalInformationService.GeneralInformatById(id);
         return ResponseEntity.ok(generalInformation);

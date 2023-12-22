@@ -18,38 +18,38 @@ public class ActiveStudentsController {
     @Autowired
     private ActiveStudentsService activeStudentsService;
 
-    @PostMapping("/addStudents")
+    @PostMapping("/user/addStudents")
     public ResponseEntity<?> addStudents(@Valid @RequestBody ActiveStudentsDto activeStudentsDto){
         ApiResponse apiResponse=activeStudentsService.addStudents(activeStudentsDto);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
-    @PutMapping("/editStudents/{id}")
+    @PutMapping("/user/editStudents/{id}")
     public HttpEntity<?> editStudents(@Valid @PathVariable Long id, @RequestBody ActiveStudentsDto activeStudentsDto){
         ApiResponse apiResponse=activeStudentsService.editStudents(id,activeStudentsDto);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
-    @DeleteMapping("/deleteStudent/{id}")
+    @DeleteMapping("/user/deleteStudent/{id}")
     public HttpEntity<?> deleteStudent(@PathVariable Long id){
         ApiResponse apiResponse=activeStudentsService.deleteStudent(id);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
-    @GetMapping("/getByIdStudents/{id}")
+    @GetMapping("/public/getByIdStudents/{id}")
     public HttpEntity<?> getByIdStudents(@PathVariable Long id){
         ActiveStudents activeStudents=activeStudentsService.getByIdStudents(id);
         return ResponseEntity.ok(activeStudents);
     }
-    @GetMapping("/allStudents")
+    @GetMapping("/public/allStudents")
     public HttpEntity<?> allStudents(int page, int size){
         Page<ActiveStudents> activeStudents=activeStudentsService.allStudents(page,size);
         return ResponseEntity.ok(activeStudents);
     }
 
-    @GetMapping("/allgraduated")
+    @GetMapping("/public/allgraduated")
     public HttpEntity<?> allgraduated(int page, int size){
         Page<ActiveStudents> activeStudents=activeStudentsService.allgraduated(page,size);
         return ResponseEntity.ok(activeStudents);
     }
-    @GetMapping("/allStudentCategory/{categoryid}")
+    @GetMapping("/public/allStudentCategory/{categoryid}")
     public HttpEntity<?> allcategory(@PathVariable Long categoryid,int page, int size){
         Page<ActiveStudents> activeStudents=activeStudentsService.allcategory(categoryid,page,size);
         return ResponseEntity.ok(activeStudents);

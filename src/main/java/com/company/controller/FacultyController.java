@@ -18,37 +18,37 @@ public class FacultyController {
     @Autowired
     private FacultyService facultyService;
 
-    @PostMapping("/addFaculty")
+    @PostMapping("/user/addFaculty")
     public ResponseEntity<?> addFaculty(@Valid @RequestBody FacultyDto facultyDto){
         ApiResponse apiResponse=facultyService.addFaculty(facultyDto);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
 
-    @PutMapping("/editFaculty/{id}")
+    @PutMapping("/user/editFaculty/{id}")
     public HttpEntity<?> editFaculty(@Valid @PathVariable Long id, @RequestBody FacultyDto facultyDto){
         ApiResponse apiResponse=facultyService.editFaculty(id,facultyDto);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
 
-    @DeleteMapping("/deleteFaculty/{id}")
+    @DeleteMapping("/user/deleteFaculty/{id}")
     public HttpEntity<?> deleteFaculty(@PathVariable Long id){
         ApiResponse apiResponse=facultyService.deleteFaculty(id);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
 
-    @GetMapping("/facultyById/{id}")
+    @GetMapping("/public/facultyById/{id}")
     public HttpEntity<?> facultyById(@PathVariable Long id){
         Facultys faculty=facultyService.facultyById(id);
         return ResponseEntity.ok(faculty);
     }
 
 
-    @GetMapping("/allFaculty")
+    @GetMapping("/public/allFaculty")
     public HttpEntity<?> allFaculty(){
         List<Facultys> getAllFaculty=facultyService.allFaculty();
         return ResponseEntity.ok(getAllFaculty);
     }
-    @GetMapping("/facultyByCategoryId/{categoryId}")
+    @GetMapping("/public/facultyByCategoryId/{categoryId}")
     public HttpEntity<?> facultyByCategoryId(@PathVariable Long categoryId){
         List<Facultys> faculty=facultyService.facultyByCategoryId(categoryId);
         return ResponseEntity.ok(faculty);

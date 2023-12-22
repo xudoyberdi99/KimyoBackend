@@ -20,33 +20,33 @@ public class NewsController {
     @Autowired
     private NewsService newsService;
 
-    @PostMapping("/Newssave")
+    @PostMapping("/user/Newssave")
     public ResponseEntity<?> addNews(@Valid @RequestBody NewsDto newsDto){
         ApiResponse apiResponse=newsService.saveNews(newsDto);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
-    @PutMapping("/editNews/{id}")
+    @PutMapping("/user/editNews/{id}")
     public HttpEntity<?> editNews(@Valid @PathVariable Long id, @RequestBody NewsDto newsDto){
         ApiResponse apiResponse=newsService.editNews(id,newsDto);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
-    @DeleteMapping("/deleteNews/{id}")
+    @DeleteMapping("/user/deleteNews/{id}")
     public HttpEntity<?> deleteNews(@PathVariable Long id){
         ApiResponse apiResponse=newsService.deleteNews(id);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
-    @GetMapping("/newsById/{id}")
+    @GetMapping("/public/newsById/{id}")
     public HttpEntity<?> newsById(@PathVariable Long id){
         NewsGetDto news=newsService.newsById(id);
         return ResponseEntity.ok(news);
     }
 
-    @GetMapping("/allnews")
+    @GetMapping("/public/allnews")
     public HttpEntity<?> Allnews(int page, int size){
         Page<NewsGetDto> getallService=newsService.getAllServices(page,size);
         return ResponseEntity.ok(getallService);
     }
-    @GetMapping("/allnewsByCategoryId/{categoryId}")
+    @GetMapping("/public/allnewsByCategoryId/{categoryId}")
     public HttpEntity<?> allnewsByCategoryId(@PathVariable Long categoryId,int page, int size){
         Page<NewsGetDto> getallService=newsService.allnewsByCategoryId(categoryId,page,size);
         return ResponseEntity.ok(getallService);

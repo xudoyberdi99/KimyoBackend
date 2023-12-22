@@ -22,44 +22,44 @@ public class DepartmentsController {
     @Autowired
     private DepartmentsService departmentsService;
 
-    @PostMapping("/addDepartment")
+    @PostMapping("/user/addDepartment")
     public ResponseEntity<?> addDepartment(@Valid @RequestBody DepartmentsDto departmentsDto){
         ApiResponse apiResponse=departmentsService.addDepartment(departmentsDto);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
 
-    @PutMapping("/editDepartment/{id}")
+    @PutMapping("/user/editDepartment/{id}")
     public HttpEntity<?> editDepartment(@Valid @PathVariable Long id, @RequestBody DepartmentsDto departmentsDto){
         ApiResponse apiResponse=departmentsService.editDepartment(id,departmentsDto);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
 
-    @DeleteMapping("/deleteDepartment/{id}")
+    @DeleteMapping("/user/deleteDepartment/{id}")
     public HttpEntity<?> deleteDepartment(@PathVariable Long id){
         ApiResponse apiResponse=departmentsService.deleteDepartment(id);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
 
-    @GetMapping("/departmentById/{id}")
+    @GetMapping("/public/departmentById/{id}")
     public HttpEntity<?> departmentById(@PathVariable Long id){
         Departments departments=departmentsService.departmentById(id);
         return ResponseEntity.ok(departments);
     }
 
 
-    @GetMapping("/allDepartments")
+    @GetMapping("/public/allDepartments")
     public HttpEntity<?> allDepartments(){
         List<Departments> getalldepartments=departmentsService.allDepartments();
         return ResponseEntity.ok(getalldepartments);
     }
 
-    @GetMapping("/allDepartmentsByFacultyId/{facultyId}")
+    @GetMapping("/public/allDepartmentsByFacultyId/{facultyId}")
     public HttpEntity<?> allDepartmentsByFacultyId(@PathVariable Long facultyId){
         List<Departments> getalldepartmentsByFacultyId=departmentsService.allDepartmentsByFacultyId(facultyId);
         return ResponseEntity.ok(getalldepartmentsByFacultyId);
     }
 
-    @GetMapping("/allDepartmentsByCategoryId/{categoryId}")
+    @GetMapping("/public/allDepartmentsByCategoryId/{categoryId}")
     public HttpEntity<?> allDepartmentsByCategoryId(@PathVariable Long categoryId){
         List<Departments> getalldepartmentsByFacultyId=departmentsService.allDepartmentsByCategoryId(categoryId);
         return ResponseEntity.ok(getalldepartmentsByFacultyId);

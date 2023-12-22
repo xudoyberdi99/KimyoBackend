@@ -22,33 +22,33 @@ public class InteractiveServiceController {
     @Autowired
     private InteraktivServices interaktivService;
 
-    @PostMapping("/addService")
+    @PostMapping("/user/addService")
     public ResponseEntity<?> addinteractiveService(@Valid @RequestBody InteraktivServiceDto interaktivServiceDto){
         ApiResponse apiResponse=interaktivService.addinteractiveService(interaktivServiceDto);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
-    @PutMapping("/editservice/{id}")
+    @PutMapping("/user/editservice/{id}")
     public HttpEntity<?> editinteractiveService(@Valid @PathVariable Long id, @RequestBody InteraktivServiceDto interaktivServiceDto){
         ApiResponse apiResponse=interaktivService.editinteractiveService(id,interaktivServiceDto);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
-    @DeleteMapping("/deleteservice/{id}")
+    @DeleteMapping("/user/deleteservice/{id}")
     public HttpEntity<?> deleteinteractiveService(@PathVariable Long id){
         ApiResponse apiResponse=interaktivService.deleteinteractiveService(id);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
-    @GetMapping("/getByIdService/{id}")
+    @GetMapping("/public/getByIdService/{id}")
     public HttpEntity<?> getinteractiveService(@PathVariable Long id){
         InteraktivService getByidinteraktivService=interaktivService.getinteractiveService(id);
         return ResponseEntity.ok(getByidinteraktivService);
     }
-    @GetMapping("/allService")
+    @GetMapping("/public/allService")
     public HttpEntity<?> getAllService(int page, int size){
         Page<InteraktivService> getallService=interaktivService.getAllServices(page,size);
         return ResponseEntity.ok(getallService);
     }
 
-    @GetMapping("/allServiceByCategoryId/{categoryId}")
+    @GetMapping("/public/allServiceByCategoryId/{categoryId}")
     public HttpEntity<?> allServiceByCategoryId(@PathVariable Long categoryId){
         List<InteraktivService> getallService=interaktivService.allServiceByCategoryId(categoryId);
         return ResponseEntity.ok(getallService);
