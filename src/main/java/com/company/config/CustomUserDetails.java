@@ -1,84 +1,59 @@
 package com.company.config;
 
-import com.company.entity.ProfileEntity;
+import com.company.entity.User;
+import com.company.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 
-public class CustomUserDetails implements UserDetails {
-    private Long id;
-    private String userName;
-    private String password;
-    private boolean enabled;
-    private String role;
-
-    private List<GrantedAuthority> authorityList;
-
-    public CustomUserDetails(ProfileEntity profile) {
-        this.id = profile.getId();
-        userName = profile.getUserName();
-        password = profile.getPassword();
-        enabled = profile.isEnabled();
-        role = profile.getRole();
-
-        this.authorityList = Arrays.asList(new SimpleGrantedAuthority(role));
-    }
-
+@Service
+@RequiredArgsConstructor
+public class CustomUserDetails implements UserDetailsService {
+    private final UserRepository userRepository;
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.authorityList;
-    }
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user=userRepository.findByUserName(username);
 
-    @Override
-    public String getPassword() {
-        System.out.println("CustomUserDetails: getPassword()");
-        return password;
-    }
+        return new UserDetails() {
+            @Override
+            public Collection<?extends GrantedAuthority> getAuthorities() {
+                return user.getRoleList();
+            }
 
-    @Override
-    public String getUsername() {
-        System.out.println("CustomUserDetails: getUsername()");
-        return userName;
-    }
+            @Override
+            public String getPassword() {
+                return user.getPassword();
+            }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
+            @Override
+            public String getUsername() {
+                return user.getUserName();
+            }
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
+            @Override
+            public boolean isAccountNonExpired() {
+                return true;
+            }
 
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
+            @Override
+            public boolean isAccountNonLocked() {
+                return true;
+            }
 
-    @Override
-    public boolean isEnabled() {
-        return enabled;
-    }
+            @Override
+            public boolean isCredentialsNonExpired() {
+                return true;
+            }
 
-
-    @Override
-    public String toString() {
-        return "CustomUserDetails{" +
-                "id=" + id +
-                ", userName='" + userName + '\'' +
-                ", password='" + password + '\'' +
-                ", enabled=" + enabled +
-                ", role='" + role + '\'' +
-                ", authorityList=" + authorityList +
-                '}';
-    }
-
-    public Long getId() {
-        return id;
+            @Override
+            public boolean isEnabled() {
+                return true;
+            }
+        };
     }
 }

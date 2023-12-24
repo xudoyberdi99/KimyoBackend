@@ -1,54 +1,38 @@
 package com.company.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
-import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.web.filter.GenericFilterBean;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
-public class JwtTokenFilter extends OncePerRequestFilter {
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
-    @Autowired
-    private CustomUserDetailService customUserDetailService;
+@RequiredArgsConstructor
+@Slf4j
+public class JwtTokenFilter extends GenericFilterBean {
 
-
+    private final JwtTokenProvider jwtTokenProvider;
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
-            throws ServletException, IOException {
-        System.out.println("Filterga keldi");
-        // Get authorization header and validate
-        final String header = request.getHeader("Authorization"); // (HttpHeaders.AUTHORIZATION);
-        if (header == null || header.isEmpty() || !header.startsWith("Bearer ")) {
-            chain.doFilter(request, response);
-            return;
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+        try {
+            String token= jwtTokenProvider.resolveToken((HttpServletRequest) servletRequest);
+            if(token!=null){
+                Authentication authentication= jwtTokenProvider.getAuthentication(token);
+                if (authentication!=null&& jwtTokenProvider.validateToken(token)){
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                }
+            }
+        }catch (Exception e){
+            log.error("user can't login - {}",e.getMessage());
         }
-
-        // Get jwt token and validate
-        final String token = header.split(" ")[1].trim();
-        if (!jwtTokenUtil.validate(token)) {
-            chain.doFilter(request, response);
-            return;
-        }
-
-        // Get user identity and set it on the spring security context
-        String userName = jwtTokenUtil.getUsername(token);
-        UserDetails userDetails = customUserDetailService.loadUserByUsername(userName);
-
-        UsernamePasswordAuthenticationToken
-                authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        chain.doFilter(request, response);
+        filterChain.doFilter(servletRequest, servletResponse);
     }
 }

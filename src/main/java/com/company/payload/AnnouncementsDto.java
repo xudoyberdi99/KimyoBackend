@@ -35,6 +35,6 @@ public class AnnouncementsDto {
     private String descriptionKR;
 
     private List<String> images;
-    @NotNull
-    private Long categoryId;
+//    @NotNull
+//    private Long categoryId;
 }

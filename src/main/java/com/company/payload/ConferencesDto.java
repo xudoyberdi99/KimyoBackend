@@ -25,6 +25,6 @@ public class ConferencesDto {
     private String descriptionEN;
     @NotBlank(message="Please provide a descriptionKR" )
     private String descriptionKR;
-    @NotNull
-    private Long categoryId;
+//    @NotNull
+//    private Long categoryId;
 }

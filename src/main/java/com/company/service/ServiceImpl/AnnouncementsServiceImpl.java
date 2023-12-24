@@ -2,9 +2,7 @@ package com.company.service.ServiceImpl;
 
 import com.company.dto.AnnouncementDtoGet;
 import com.company.entity.Announcements;
-import com.company.entity.AttachmentEntity;
-import com.company.entity.Category;
-import com.company.entity.News;
+import com.company.entity.AttachmentEntity;;
 import com.company.payload.AnnouncementsDto;
 import com.company.payload.ApiResponse;
 import com.company.repository.AnnouncementRepository;
@@ -63,12 +61,6 @@ public class AnnouncementsServiceImpl implements AnnouncementsService {
             }
         }
         announcements.setImages(images);
-
-        Optional<Category> categoryOptional = categoryRepository.findById(announcementsDto.getCategoryId());
-        if (!categoryOptional.isPresent()){
-            return new ApiResponse("not found category ", false);
-        }
-        announcements.setCategory(categoryOptional.get());
         announcementRepository.save(announcements);
         return new ApiResponse("add announcement success",true);
     }
@@ -104,12 +96,6 @@ public class AnnouncementsServiceImpl implements AnnouncementsService {
             }
         }
         announcements.setImages(images);
-
-        Optional<Category> categoryOptional = categoryRepository.findById(announcementsDto.getCategoryId());
-        if (!categoryOptional.isPresent()){
-            return new ApiResponse("not found category ", false);
-        }
-        announcements.setCategory(categoryOptional.get());
 
         announcementRepository.save(announcements);
 
@@ -154,8 +140,6 @@ public class AnnouncementsServiceImpl implements AnnouncementsService {
             link.add(serverPath+image.getUploadFolder());
         }
         announcements.setImageslink(link);
-        Category category = announcementsDto.getCategory();
-        announcements.setCategoryId(category.getId());
 
         return announcements;
     }
@@ -189,8 +173,6 @@ public class AnnouncementsServiceImpl implements AnnouncementsService {
                 link.add(serverPath+image.getUploadFolder());
             }
             announcements.setImageslink(link);
-            Category category = announcementsDto.getCategory();
-            announcements.setCategoryId(category.getId());
 
             announcementDtoGetList.add(announcements);
         }
@@ -198,41 +180,5 @@ public class AnnouncementsServiceImpl implements AnnouncementsService {
         return announcementDtoGets;
     }
 
-    @Override
-    public Page<AnnouncementDtoGet> allAnnouncementGetCategoryId(Long categoryid, int page, int size) {
-        Pageable pageable= PageRequest.of(page,size);
 
-        List<Announcements> allByCategoryId = announcementRepository.findAllByCategory_Id(categoryid);
-        List<AnnouncementDtoGet> announcementDtoGetList=new ArrayList<>();
-
-        for (Announcements announcementsDto : allByCategoryId) {
-            AnnouncementDtoGet announcements=new AnnouncementDtoGet();
-
-            announcements.setId(announcementsDto.getId());
-            announcements.setDescriptionEN(announcementsDto.getDescriptionEN());
-            announcements.setDescriptionKR(announcementsDto.getDescriptionKR());
-            announcements.setDescriptionRU(announcementsDto.getDescriptionRU());
-            announcements.setDescriptionUZ(announcementsDto.getDescriptionUZ());
-            announcements.setShortdescriptionEN(announcementsDto.getShortdescriptionEN());
-            announcements.setShortdescriptionKR(announcementsDto.getShortdescriptionKR());
-            announcements.setShortdescriptionRU(announcementsDto.getShortdescriptionRU());
-            announcements.setShortdescriptionUZ(announcementsDto.getShortdescriptionUZ());
-            announcements.setTitleEN(announcementsDto.getTitleEN());
-            announcements.setTitleRU(announcementsDto.getTitleRU());
-            announcements.setTitleUZ(announcementsDto.getTitleUZ());
-            announcements.setTitleKR(announcementsDto.getTitleKR());
-            List<AttachmentEntity> images = announcementsDto.getImages();
-            List<String> link=new ArrayList<>();
-            for (AttachmentEntity image : images) {
-                link.add(serverPath+image.getUploadFolder());
-            }
-            announcements.setImageslink(link);
-            Category category = announcementsDto.getCategory();
-            announcements.setCategoryId(category.getId());
-
-            announcementDtoGetList.add(announcements);
-        }
-        Page<AnnouncementDtoGet> announcementDtoGets=new PageImpl<>(announcementDtoGetList,pageable,announcementDtoGetList.size());
-        return announcementDtoGets;
-    }
 }

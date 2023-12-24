@@ -1,8 +1,16 @@
 package com.company.dto;
 
+import com.company.entity.enums.ROLES;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProfileDetailDTO {
     private String userName;
-    private String role;
+    private ROLES role;
     private String token;
 
     public ProfileDetailDTO() {
@@ -17,11 +25,11 @@ public class ProfileDetailDTO {
         this.userName = userName;
     }
 
-    public String getRole() {
+    public ROLES getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(ROLES role) {
         this.role = role;
     }
 

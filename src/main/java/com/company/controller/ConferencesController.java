@@ -47,9 +47,9 @@ public class ConferencesController {
         return ResponseEntity.ok(getAllConferens);
     }
 
-    @GetMapping("/public/conferenceGetByCategoryId/{categoryId}")
-    public HttpEntity<?> conferenceGetByCategoryId(@PathVariable Long categoryId,int page, int size){
-        Page<Conferences> getAllConferens=conferencesService.conferenceGetByCategoryId(categoryId,page,size);
-        return ResponseEntity.ok(getAllConferens);
-    }
+//    @GetMapping("/public/conferenceGetByCategoryId/{categoryId}")
+//    public HttpEntity<?> conferenceGetByCategoryId(@PathVariable Long categoryId,int page, int size){
+//        Page<Conferences> getAllConferens=conferencesService.conferenceGetByCategoryId(categoryId,page,size);
+//        return ResponseEntity.ok(getAllConferens);
+//    }
 }

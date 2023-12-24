@@ -42,7 +42,7 @@ public class Conferences extends BaceEntity {
     @Column(columnDefinition="TEXT", length=10485760)
     private String descriptionKR;
 
-    @ManyToOne(optional = false)
-    private Category category;
+//    @ManyToOne(optional = false)
+//    private Category category;
 
 }

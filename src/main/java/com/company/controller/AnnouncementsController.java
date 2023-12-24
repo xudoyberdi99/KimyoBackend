@@ -50,10 +50,5 @@ public class AnnouncementsController {
         Page<AnnouncementDtoGet> getAllAnnouncement=announcementsService.allAnnouncement(page,size);
         return ResponseEntity.ok(getAllAnnouncement);
     }
-    @GetMapping("/public/allAnnouncementGetCategoryId/{categoryid}")
-    public HttpEntity<?> allAnnouncementGetCategoryId(@PathVariable Long categoryid,int page, int size){
-        Page<AnnouncementDtoGet> getAllAnnouncement=announcementsService.allAnnouncementGetCategoryId(categoryid,page,size);
-        return ResponseEntity.ok(getAllAnnouncement);
-    }
 
 }

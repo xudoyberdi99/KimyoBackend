@@ -18,5 +18,4 @@ public interface AnnouncementsService {
 
     Page<AnnouncementDtoGet> allAnnouncement(int page, int size);
 
-    Page<AnnouncementDtoGet> allAnnouncementGetCategoryId(Long categoryid, int page, int size);
 }

@@ -1,8 +1,12 @@
 package com.company.controller;
 
-import com.company.config.JwtTokenUtil;
+import com.company.config.JwtTokenProvider;
 import com.company.dto.AuthorizationDTO;
 import com.company.dto.ProfileDetailDTO;
+import com.company.entity.Role;
+import com.company.entity.User;
+import com.company.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -12,37 +16,42 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
-@RequestMapping(path = "/auth")
+@CrossOrigin(value = "*",maxAge = 3600)
+@RequestMapping("/api/auth")
+@RequiredArgsConstructor
 public class AutController {
-    @Autowired
-    private AuthenticationManager authenticationManager;
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
+    private final UserRepository userRepository;
+    private final JwtTokenProvider jwtTokenProvider;
+
+    private final AuthenticationManager authenticationManager;
 
     @PostMapping("/login")
-    public ResponseEntity<ProfileDetailDTO> login(@RequestBody AuthorizationDTO request) {
-        try {
-            Authentication authenticate = authenticationManager
-                    .authenticate(new UsernamePasswordAuthenticationToken(request.getUserName(), request.getPassword()));
+    public ResponseEntity<?> getLogin(@RequestBody AuthorizationDTO loginPayload){
 
-            UserDetails user = (UserDetails) authenticate.getPrincipal();
+        User user=userRepository.findByUserName(loginPayload.getUserName());
 
-            String jwtToken = jwtTokenUtil.generateAccessToken(user);
+        if (user==null)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("user not found");
 
-            ProfileDetailDTO dto = new ProfileDetailDTO();
-            dto.setUserName(user.getUsername());
-            dto.setToken(jwtToken);
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginPayload.getUserName(),loginPayload.getPassword()));
 
-            return ResponseEntity.ok().header(HttpHeaders.AUTHORIZATION, jwtToken)
-                    .body(dto);
-        } catch (BadCredentialsException ex) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
+        String token=jwtTokenProvider.createToken(user.getUserName(),user.getRoleList());
+        if(token==null)
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Nimadir xato");
+        Map<String,Object> result=new HashMap<>();
+        result.put("status",true);
+        result.put("userName",user.getUserName());
+        result.put("token",token);
+
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(result);
     }
+
+
 }

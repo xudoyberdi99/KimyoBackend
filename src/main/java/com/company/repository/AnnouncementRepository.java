@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface AnnouncementRepository extends JpaRepository<Announcements,Long> {
-    List<Announcements> findAllByCategory_Id(Long categoryId);
+//    List<Announcements> findAllByCategory_Id(Long categoryId);
 
 }

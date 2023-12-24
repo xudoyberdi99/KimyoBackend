@@ -20,8 +20,6 @@ public class ConferencesServiceImpl implements ConferencesService {
 
     @Autowired
     private ConferencesRepository conferencesRepository;
-    @Autowired
-    private CategoryRepository categoryRepository;
 
     @Override
     public ApiResponse conferenceSave(ConferencesDto conferencesDto) {
@@ -36,13 +34,6 @@ public class ConferencesServiceImpl implements ConferencesService {
         conferences.setDescriptionEN(conferencesDto.getDescriptionEN());
         conferences.setDescriptionUZ(conferencesDto.getDescriptionUZ());
         conferences.setDescriptionRU(conferencesDto.getDescriptionRU());
-        Optional<Category> optionalCategory = categoryRepository.findById(conferencesDto.getCategoryId());
-        if (!optionalCategory.isPresent()){
-            return new ApiResponse("not found category", false);
-        }
-        Category category = optionalCategory.get();
-        conferences.setCategory(category);
-
         conferencesRepository.save(conferences);
 
         return new ApiResponse("add conferense success", true);
@@ -65,12 +56,6 @@ public class ConferencesServiceImpl implements ConferencesService {
         conferences.setDescriptionEN(conferencesDto.getDescriptionEN());
         conferences.setDescriptionUZ(conferencesDto.getDescriptionUZ());
         conferences.setDescriptionRU(conferencesDto.getDescriptionRU());
-        Optional<Category> optionalCategory = categoryRepository.findById(conferencesDto.getCategoryId());
-        if (!optionalCategory.isPresent()){
-            return new ApiResponse("not found category", false);
-        }
-        Category category = optionalCategory.get();
-        conferences.setCategory(category);
         conferencesRepository.save(conferences);
         return new ApiResponse("edit conferense success", true);
     }
@@ -96,9 +81,9 @@ public class ConferencesServiceImpl implements ConferencesService {
         return conferencesRepository.findAll(pageable);
     }
 
-    @Override
-    public Page<Conferences> conferenceGetByCategoryId(Long categoryId, int page, int size) {
-        Pageable pageable= PageRequest.of(page,size);
-        return conferencesRepository.findAllByCategory_Id(categoryId,pageable);
-    }
+//    @Override
+//    public Page<Conferences> conferenceGetByCategoryId(Long categoryId, int page, int size) {
+//        Pageable pageable= PageRequest.of(page,size);
+//        return conferencesRepository.findAllByCategory_Id(categoryId,pageable);
+//    }
 }
