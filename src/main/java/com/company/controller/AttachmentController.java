@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @RestController
+@CrossOrigin(value = "*",maxAge = 3600)
 @RequestMapping("/api")
 public class AttachmentController {
     @Autowired

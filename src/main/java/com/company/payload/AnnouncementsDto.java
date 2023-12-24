@@ -33,8 +33,5 @@ public class AnnouncementsDto {
     private String descriptionEN;
     @NotBlank(message="Please provide a descriptionKR" )
     private String descriptionKR;
-
     private List<String> images;
-//    @NotNull
-//    private Long categoryId;
 }

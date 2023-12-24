@@ -46,9 +46,9 @@ public class NewsController {
         Page<NewsGetDto> getallService=newsService.getAllServices(page,size);
         return ResponseEntity.ok(getallService);
     }
-    @GetMapping("/public/allnewsByCategoryId/{categoryId}")
-    public HttpEntity<?> allnewsByCategoryId(@PathVariable Long categoryId,int page, int size){
-        Page<NewsGetDto> getallService=newsService.allnewsByCategoryId(categoryId,page,size);
+    @GetMapping("/public/allnewsByList")
+    public HttpEntity<?> allnewsByList(){
+        List<NewsGetDto> getallService=newsService.allnewsByList();
         return ResponseEntity.ok(getallService);
     }
 }

@@ -7,6 +7,8 @@ import com.company.payload.AnnouncementsDto;
 import com.company.payload.ApiResponse;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
+
 public interface AnnouncementsService {
     ApiResponse announcementSave(AnnouncementsDto announcementsDto);
 
@@ -18,4 +20,5 @@ public interface AnnouncementsService {
 
     Page<AnnouncementDtoGet> allAnnouncement(int page, int size);
 
+    List<AnnouncementDtoGet> allAnnouncements();
 }

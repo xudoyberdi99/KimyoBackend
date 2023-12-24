@@ -110,7 +110,7 @@ public class AttachmentServiceImpl implements AttachmentService {
                 attachment.setFileSize(file.getSize());
                 attachment.setContentType(file.getContentType());
                 attachment.setOrginalName(file.getOriginalFilename());
-                attachment.setFileEnum(FileEnum.DRAFT);
+                attachment.setFileEnum(FileEnum.ACTIVE);
                 attachment.setExtension(getExtinons(file.getOriginalFilename()));
                 AttachmentEntity attachmentEntity = attachmentRepository.save(attachment);
 

@@ -7,6 +7,4 @@ import java.util.List;
 
 public interface NewsRepository extends JpaRepository<News,Long> {
 
-    List<News> findAllByCategory_Id(Long categoryId);
-
 }

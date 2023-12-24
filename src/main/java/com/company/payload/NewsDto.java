@@ -47,6 +47,4 @@ public class NewsDto {
 
     @NotEmpty(message = "Please provide a images")
     private List<String> hashIds;
-
-    private Long categoryId;
 }

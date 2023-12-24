@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -48,6 +49,12 @@ public class AnnouncementsController {
     @GetMapping("/public/allAnnouncement")
     public HttpEntity<?> allAnnouncement(int page, int size){
         Page<AnnouncementDtoGet> getAllAnnouncement=announcementsService.allAnnouncement(page,size);
+        return ResponseEntity.ok(getAllAnnouncement);
+    }
+
+    @GetMapping("/public/allAnnouncements")
+    public HttpEntity<?> allAnnouncements(){
+        List<AnnouncementDtoGet> getAllAnnouncement=announcementsService.allAnnouncements();
         return ResponseEntity.ok(getAllAnnouncement);
     }
 

@@ -1,6 +1,7 @@
 package com.company.service.ServiceImpl;
 
 import com.company.dto.AnnouncementDtoGet;
+import com.company.dto.AttachDto;
 import com.company.entity.Announcements;
 import com.company.entity.AttachmentEntity;;
 import com.company.payload.AnnouncementsDto;
@@ -135,11 +136,17 @@ public class AnnouncementsServiceImpl implements AnnouncementsService {
         announcements.setTitleUZ(announcementsDto.getTitleUZ());
         announcements.setTitleKR(announcementsDto.getTitleKR());
         List<AttachmentEntity> images = announcementsDto.getImages();
-        List<String> link=new ArrayList<>();
+        List<AttachDto> imageslist=new ArrayList<>();
+
         for (AttachmentEntity image : images) {
-            link.add(serverPath+image.getUploadFolder());
+            AttachDto attachDto=new AttachDto();
+            attachDto.setOrginalName(image.getOrginalName());
+            attachDto.setId(image.getId());
+            attachDto.setLink(serverPath+image.getUploadFolder());
+            attachDto.setHashId(image.getHashId());
+            imageslist.add(attachDto);
         }
-        announcements.setImageslink(link);
+        announcements.setImages(imageslist);
 
         return announcements;
     }
@@ -168,11 +175,17 @@ public class AnnouncementsServiceImpl implements AnnouncementsService {
             announcements.setTitleUZ(announcementsDto.getTitleUZ());
             announcements.setTitleKR(announcementsDto.getTitleKR());
             List<AttachmentEntity> images = announcementsDto.getImages();
-            List<String> link=new ArrayList<>();
+            List<AttachDto> imageslist=new ArrayList<>();
+
             for (AttachmentEntity image : images) {
-                link.add(serverPath+image.getUploadFolder());
+                AttachDto attachDto=new AttachDto();
+                attachDto.setOrginalName(image.getOrginalName());
+                attachDto.setId(image.getId());
+                attachDto.setLink(serverPath+image.getUploadFolder());
+                attachDto.setHashId(image.getHashId());
+                imageslist.add(attachDto);
             }
-            announcements.setImageslink(link);
+            announcements.setImages(imageslist);
 
             announcementDtoGetList.add(announcements);
         }
@@ -180,5 +193,42 @@ public class AnnouncementsServiceImpl implements AnnouncementsService {
         return announcementDtoGets;
     }
 
+    @Override
+    public List<AnnouncementDtoGet> allAnnouncements() {
+        List<Announcements> allByCategoryId = announcementRepository.findAll();
+        List<AnnouncementDtoGet> announcementDtoGetList=new ArrayList<>();
 
+        for (Announcements announcementsDto : allByCategoryId) {
+            AnnouncementDtoGet announcements=new AnnouncementDtoGet();
+
+            announcements.setId(announcementsDto.getId());
+            announcements.setDescriptionEN(announcementsDto.getDescriptionEN());
+            announcements.setDescriptionKR(announcementsDto.getDescriptionKR());
+            announcements.setDescriptionRU(announcementsDto.getDescriptionRU());
+            announcements.setDescriptionUZ(announcementsDto.getDescriptionUZ());
+            announcements.setShortdescriptionEN(announcementsDto.getShortdescriptionEN());
+            announcements.setShortdescriptionKR(announcementsDto.getShortdescriptionKR());
+            announcements.setShortdescriptionRU(announcementsDto.getShortdescriptionRU());
+            announcements.setShortdescriptionUZ(announcementsDto.getShortdescriptionUZ());
+            announcements.setTitleEN(announcementsDto.getTitleEN());
+            announcements.setTitleRU(announcementsDto.getTitleRU());
+            announcements.setTitleUZ(announcementsDto.getTitleUZ());
+            announcements.setTitleKR(announcementsDto.getTitleKR());
+            List<AttachmentEntity> images = announcementsDto.getImages();
+            List<AttachDto> imageslist=new ArrayList<>();
+
+            for (AttachmentEntity image : images) {
+                AttachDto attachDto=new AttachDto();
+                attachDto.setOrginalName(image.getOrginalName());
+                attachDto.setId(image.getId());
+                attachDto.setLink(serverPath+image.getUploadFolder());
+                attachDto.setHashId(image.getHashId());
+                imageslist.add(attachDto);
+            }
+            announcements.setImages(imageslist);
+
+            announcementDtoGetList.add(announcements);
+        }
+        return announcementDtoGetList;
+    }
 }

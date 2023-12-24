@@ -65,7 +65,4 @@ public class News extends BaceEntity {
 
     @OneToMany(cascade = CascadeType.REMOVE,orphanRemoval = true)
     private List<AttachmentEntity> images;
-
-    @ManyToOne
-    private Category category;
 }

@@ -1,5 +1,6 @@
 package com.company.service.ServiceImpl;
 
+import com.company.dto.AttachDto;
 import com.company.dto.NewsGetDto;
 import com.company.entity.AboutInstituti;
 import com.company.entity.AttachmentEntity;
@@ -68,12 +69,6 @@ public class NewsServiceImpl implements NewsService {
             }
         }
         news.setImages(images);
-
-        Optional<Category> categoryOptional = categoryRepository.findById(newsDto.getCategoryId());
-        if (!categoryOptional.isPresent()){
-            return new ApiResponse("not found category", false);
-        }
-        news.setCategory(categoryOptional.get());
         newsRepository.save(news);
         return new ApiResponse("add news success", true);
     }
@@ -108,11 +103,6 @@ public class NewsServiceImpl implements NewsService {
             }
         }
         news.setImages(images);
-        Optional<Category> categoryOptional = categoryRepository.findById(newsDto.getCategoryId());
-        if (!categoryOptional.isPresent()){
-            return new ApiResponse("not found category", false);
-        }
-        news.setCategory(categoryOptional.get());
         newsRepository.save(news);
         return new ApiResponse("edit news success", true);
     }
@@ -151,13 +141,17 @@ public class NewsServiceImpl implements NewsService {
         news.setShortdescriptionUZ(newsDto.getShortdescriptionUZ());
 
         List<AttachmentEntity> images = newsDto.getImages();
-        List<String> imagelinks=new ArrayList<>();
+        List<AttachDto> imageslist=new ArrayList<>();
+
         for (AttachmentEntity image : images) {
-            imagelinks.add(serverPath+image.getUploadFolder());
+            AttachDto attachDto=new AttachDto();
+            attachDto.setOrginalName(image.getOrginalName());
+            attachDto.setId(image.getId());
+            attachDto.setLink(serverPath+image.getUploadFolder());
+            attachDto.setHashId(image.getHashId());
+            imageslist.add(attachDto);
         }
-        news.setImagelink(imagelinks);
-        Category category = newsDto.getCategory();
-        news.setCategoryId(category.getId());
+        news.setImages(imageslist);
 
         return news;
     }
@@ -184,13 +178,18 @@ public class NewsServiceImpl implements NewsService {
             news.setShortdescriptionUZ(newsDto.getShortdescriptionUZ());
 
             List<AttachmentEntity> images = newsDto.getImages();
-            List<String> imagelinks=new ArrayList<>();
+            List<AttachDto> imageslist=new ArrayList<>();
+
             for (AttachmentEntity image : images) {
-                imagelinks.add(serverPath+image.getUploadFolder());
+                AttachDto attachDto=new AttachDto();
+                attachDto.setOrginalName(image.getOrginalName());
+                attachDto.setId(image.getId());
+                attachDto.setLink(serverPath+image.getUploadFolder());
+                attachDto.setHashId(image.getHashId());
+                imageslist.add(attachDto);
             }
-            news.setImagelink(imagelinks);
-            Category category = newsDto.getCategory();
-            news.setCategoryId(category.getId());
+            news.setImages(imageslist);
+
             allListNews.add(news);
         }
         Page<NewsGetDto> pagelist=new PageImpl<>(allListNews,pageable,allListNews.size());
@@ -199,9 +198,8 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public Page<NewsGetDto> allnewsByCategoryId(Long categoryId, int page, int size) {
-        Pageable pageable= PageRequest.of(page,size);
-        List<News> repositoryAll = newsRepository.findAllByCategory_Id(categoryId);
+    public List<NewsGetDto> allnewsByList(){
+        List<News> repositoryAll = newsRepository.findAll();
         List<NewsGetDto> allListNews=new ArrayList<>();
         for (News newsDto : repositoryAll) {
             NewsGetDto news=new NewsGetDto();
@@ -220,17 +218,21 @@ public class NewsServiceImpl implements NewsService {
             news.setShortdescriptionUZ(newsDto.getShortdescriptionUZ());
 
             List<AttachmentEntity> images = newsDto.getImages();
-            List<String> imagelinks=new ArrayList<>();
+            List<AttachDto> imageslist=new ArrayList<>();
+
             for (AttachmentEntity image : images) {
-                imagelinks.add(serverPath+image.getUploadFolder());
+                AttachDto attachDto=new AttachDto();
+                attachDto.setOrginalName(image.getOrginalName());
+                attachDto.setId(image.getId());
+                attachDto.setLink(serverPath+image.getUploadFolder());
+                attachDto.setHashId(image.getHashId());
+                imageslist.add(attachDto);
             }
-            news.setImagelink(imagelinks);
-            Category category = newsDto.getCategory();
-            news.setCategoryId(category.getId());
+            news.setImages(imageslist);
             allListNews.add(news);
         }
-        Page<NewsGetDto> pagelist=new PageImpl<>(allListNews,pageable,allListNews.size());
 
-        return pagelist;
+
+        return allListNews;
     }
 }

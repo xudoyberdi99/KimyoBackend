@@ -35,7 +35,7 @@ public class AnnouncementDtoGet {
 
     private String descriptionKR;
 
-    private List<String> imageslink;
+    private List<AttachDto> images;
 
-    private Long categoryId;
+
 }

@@ -47,7 +47,6 @@ public class NewsGetDto {
     private String descriptionKR;
 
 
-    private List<String> imagelink;
+    private List<AttachDto> images;
 
-    private Long categoryId;
 }

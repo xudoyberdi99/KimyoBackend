@@ -21,5 +21,5 @@ public interface NewsService {
 
     Page<NewsGetDto> getAllServices(int page, int size);
 
-    Page<NewsGetDto> allnewsByCategoryId(Long categoryId, int page, int size);
+    List<NewsGetDto> allnewsByList();
 }
