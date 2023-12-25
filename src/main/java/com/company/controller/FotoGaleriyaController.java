@@ -1,5 +1,6 @@
 package com.company.controller;
 
+import com.company.dto.FotoGaleryaDtoGet;
 import com.company.entity.Facultys;
 import com.company.entity.FotoGaleriya;
 import com.company.payload.ApiResponse;
@@ -41,15 +42,20 @@ public class FotoGaleriyaController {
 
     @GetMapping("/public/fotogetByid/{id}")
     public HttpEntity<?> fotogetByid(@PathVariable Long id){
-        FotoGaleriya fotoGaleriya=fotoGaleriyaService.fotogetByid(id);
+        FotoGaleryaDtoGet fotoGaleriya=fotoGaleriyaService.fotogetByid(id);
         return ResponseEntity.ok(fotoGaleriya);
     }
 
 
     @GetMapping("/public/allFoto")
+    public HttpEntity<?> allFotos(){
+        List<FotoGaleryaDtoGet> getAll=fotoGaleriyaService.allFotos();
+        return ResponseEntity.ok(getAll);
+    }
+
+    @GetMapping("/public/allFotoByPage")
     public HttpEntity<?> allFoto(int page, int size){
         Page<FotoGaleriya> getAll=fotoGaleriyaService.allFoto(page,size);
         return ResponseEntity.ok(getAll);
     }
-
 }

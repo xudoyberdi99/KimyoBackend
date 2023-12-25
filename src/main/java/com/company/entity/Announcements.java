@@ -65,8 +65,5 @@ public class Announcements extends BaceEntity {
 
     @OneToMany(cascade = CascadeType.REMOVE)
     private List<AttachmentEntity> images;
-//
-//    @ManyToOne(optional = false)
-//    private Category category;
 
 }

@@ -21,41 +21,41 @@ import java.util.List;
 public class RegulationsDocumentsController {
 
     @Autowired
-    private RegulationsDocumentsService regulationsService;
+    private RegulationsDocumentsService regulationsServices;
 
     @PostMapping("/user/addRegulationdocument")
     public ResponseEntity<?> addRegulationdocument(@Valid @RequestBody RegulatoryDocumentsDto regulationsDto){
-        ApiResponse apiResponse=regulationsService.addRegulationdocument(regulationsDto);
+        ApiResponse apiResponse=regulationsServices.addRegulationdocument(regulationsDto);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
 
-    @PutMapping("/user/editRegulation/{id}")
+    @PutMapping("/user/editRegulationdocument/{id}")
     public HttpEntity<?> editRegulationdocument(@Valid @PathVariable Long id, @RequestBody RegulatoryDocumentsDto regulationsDto){
-        ApiResponse apiResponse=regulationsService.editRegulationdocument(id,regulationsDto);
+        ApiResponse apiResponse=regulationsServices.editRegulationdocument(id,regulationsDto);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
 
-    @DeleteMapping("/user/deleteRegulation/{id}")
+    @DeleteMapping("/user/deleteRegulationdocument/{id}")
     public HttpEntity<?> deleteRegulationdocument(@PathVariable Long id){
-        ApiResponse apiResponse=regulationsService.deleteRegulationdocument(id);
+        ApiResponse apiResponse=regulationsServices.deleteRegulationdocument(id);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
     }
 
     @GetMapping("/public/RegulationdocumentgetByid/{id}")
     public HttpEntity<?> regulationdocumentgetByid(@PathVariable Long id){
-        RegulatoryDocumentsDtoGet regulations=regulationsService.regulationdocumentByid(id);
+        RegulatoryDocumentsDtoGet regulations=regulationsServices.regulationdocumentByid(id);
         return ResponseEntity.ok(regulations);
     }
 
 
-    @GetMapping("/public/allRegulationgetPage")
+    @GetMapping("/public/allRegulationgetPagedocument")
     public HttpEntity<?> allregulationdocumentPage(int page, int size){
-        Page<RegulatoryDocumentsDtoGet> getAll=regulationsService.allregulationdocumentPage(page,size);
+        Page<RegulatoryDocumentsDtoGet> getAll=regulationsServices.allregulationdocumentPage(page,size);
         return ResponseEntity.ok(getAll);
     }
-    @GetMapping("/public/allRegulation")
+    @GetMapping("/public/allRegulationdocument")
     public HttpEntity<?> allregulationdocument(){
-        List<RegulatoryDocumentsDtoGet> getAll=regulationsService.regulationdocument();
+        List<RegulatoryDocumentsDtoGet> getAll=regulationsServices.regulationdocument();
         return ResponseEntity.ok(getAll);
     }
 }

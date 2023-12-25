@@ -63,6 +63,6 @@ public class News extends BaceEntity {
     @Column(columnDefinition="TEXT", length=10485760)
     private String descriptionKR;
 
-    @OneToMany(cascade = CascadeType.REMOVE,orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.REMOVE)
     private List<AttachmentEntity> images;
 }

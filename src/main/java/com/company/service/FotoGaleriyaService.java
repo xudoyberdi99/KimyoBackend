@@ -1,5 +1,6 @@
 package com.company.service;
 
+import com.company.dto.FotoGaleryaDtoGet;
 import com.company.entity.FotoGaleriya;
 import com.company.payload.ApiResponse;
 import com.company.payload.FotoGaleriyaDto;
@@ -14,7 +15,9 @@ public interface FotoGaleriyaService {
 
     ApiResponse deleteFoto(Long id);
 
-    FotoGaleriya fotogetByid(Long id);
+    FotoGaleryaDtoGet fotogetByid(Long id);
 
     Page<FotoGaleriya> allFoto(int page, int size);
+
+    List<FotoGaleryaDtoGet> allFotos();
 }

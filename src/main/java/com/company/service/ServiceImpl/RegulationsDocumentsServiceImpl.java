@@ -29,6 +29,7 @@ public class RegulationsDocumentsServiceImpl implements RegulationsDocumentsServ
     private RegulationsDocumentsRepository regulationsDocumentsRepository;
     @Autowired
     private AttachmentRepository attachmentRepository;
+
     @Value("${upload.server}")
     private String serverPath;
     @Override
