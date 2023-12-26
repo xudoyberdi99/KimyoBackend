@@ -95,6 +95,7 @@ public class RegulationsDocumentsServiceImpl implements RegulationsDocumentsServ
         }
         RegulatoryDocuments regulationsDto = regulationsRepositoryById.get();
         RegulatoryDocumentsDtoGet regulations=new RegulatoryDocumentsDtoGet();
+        regulations.setId(regulationsDto.getId());
         regulations.setDescriptionRU(regulationsDto.getDescriptionRU());
         regulations.setDescriptionKR(regulationsDto.getDescriptionKR());
         regulations.setDescriptionEN(regulationsDto.getDescriptionEN());
@@ -123,6 +124,7 @@ public class RegulationsDocumentsServiceImpl implements RegulationsDocumentsServ
         List<RegulatoryDocumentsDtoGet> allList=new ArrayList<>();
         for (RegulatoryDocuments regulationsDto : all) {
             RegulatoryDocumentsDtoGet regulations=new RegulatoryDocumentsDtoGet();
+            regulations.setId(regulationsDto.getId());
             regulations.setDescriptionRU(regulationsDto.getDescriptionRU());
             regulations.setDescriptionKR(regulationsDto.getDescriptionKR());
             regulations.setDescriptionEN(regulationsDto.getDescriptionEN());
@@ -152,6 +154,7 @@ public class RegulationsDocumentsServiceImpl implements RegulationsDocumentsServ
         List<RegulatoryDocumentsDtoGet> allList=new ArrayList<>();
         for (RegulatoryDocuments regulationsDto : repositoryAll) {
             RegulatoryDocumentsDtoGet regulations=new RegulatoryDocumentsDtoGet();
+            regulations.setId(regulationsDto.getId());
             regulations.setDescriptionRU(regulationsDto.getDescriptionRU());
             regulations.setDescriptionKR(regulationsDto.getDescriptionKR());
             regulations.setDescriptionEN(regulationsDto.getDescriptionEN());

@@ -1,13 +1,14 @@
-package com.company.dto;
+package com.company.payload;
 
+import com.company.entity.AttachmentEntity;
 import lombok.Data;
 
-import java.sql.Timestamp;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.OneToOne;
 
 @Data
-public class RegulationDtoGet {
-
-    private Long id;
+public class AntiCorruptionDto {
 
     private String nameUZ;
 
@@ -25,7 +26,6 @@ public class RegulationDtoGet {
 
     private String descriptionKR;
 
-    private Timestamp createdDate;
+    private AttachmentEntity attachment;
 
-    private AttachDto file;
 }

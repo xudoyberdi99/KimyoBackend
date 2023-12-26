@@ -95,6 +95,7 @@ public class RegulationsServiceImpl implements RegulationsService {
         }
         Regulations regulationsDto = regulationsRepositoryById.get();
         RegulationDtoGet regulations=new RegulationDtoGet();
+        regulations.setId(regulationsDto.getId());
         regulations.setDescriptionRU(regulationsDto.getDescriptionRU());
         regulations.setDescriptionKR(regulationsDto.getDescriptionKR());
         regulations.setDescriptionEN(regulationsDto.getDescriptionEN());
@@ -123,6 +124,7 @@ public class RegulationsServiceImpl implements RegulationsService {
         List<RegulationDtoGet> allList=new ArrayList<>();
         for (Regulations regulationsDto : all) {
             RegulationDtoGet regulations=new RegulationDtoGet();
+            regulations.setId(regulationsDto.getId());
             regulations.setDescriptionRU(regulationsDto.getDescriptionRU());
             regulations.setDescriptionKR(regulationsDto.getDescriptionKR());
             regulations.setDescriptionEN(regulationsDto.getDescriptionEN());
@@ -152,6 +154,7 @@ public class RegulationsServiceImpl implements RegulationsService {
         List<RegulationDtoGet> allList=new ArrayList<>();
         for (Regulations regulationsDto : repositoryAll) {
             RegulationDtoGet regulations=new RegulationDtoGet();
+            regulations.setId(regulationsDto.getId());
             regulations.setDescriptionRU(regulationsDto.getDescriptionRU());
             regulations.setDescriptionKR(regulationsDto.getDescriptionKR());
             regulations.setDescriptionEN(regulationsDto.getDescriptionEN());
