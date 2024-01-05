@@ -30,8 +30,6 @@ public class LeadershipServiceImpl implements LeadershipService {
     @Autowired
     private AttachmentRepository attachmentRepository;
 
-    @Autowired
-    private CategoryRepository categoryRepository;
 
     @Override
     public ApiResponse addLeadership(LeadershipDto leadershipDto) {
@@ -65,11 +63,6 @@ public class LeadershipServiceImpl implements LeadershipService {
             return new ApiResponse("not found image", false);
         }
         leadership.setImage(optional.get());
-        Optional<Category> categoryOptional = categoryRepository.findById(leadershipDto.getCategoryId());
-        if (!categoryOptional.isPresent()){
-            return new ApiResponse("not found category", false);
-        }
-        leadership.setCategory(categoryOptional.get());
 
         leadershipRepository.save(leadership);
         return new ApiResponse("add leadership success", true);
@@ -110,11 +103,6 @@ public class LeadershipServiceImpl implements LeadershipService {
             return new ApiResponse("not found image", false);
         }
         leadership.setImage(optional.get());
-        Optional<Category> categoryOptional = categoryRepository.findById(leadershipDto.getCategoryId());
-        if (!categoryOptional.isPresent()){
-            return new ApiResponse("not found category", false);
-        }
-        leadership.setCategory(categoryOptional.get());
         leadershipRepository.save(leadership);
         return new ApiResponse("edit leadership success", true);
     }
@@ -145,11 +133,14 @@ public class LeadershipServiceImpl implements LeadershipService {
         return leadershipRepository.allLeadershipRahbariyat();
     }
 
+
     @Override
-    public Page<Leadership> allLeadershipByCategoryId(Long categoryId, int page, int size) {
-        Pageable pageable=PageRequest.of(page,size);
-        List<Leadership> allByCategoryId = leadershipRepository.findAllByCategory_Id(categoryId);
-        Page<Leadership> allLeadbyCategoryId=new PageImpl<>(allByCategoryId,pageable,allByCategoryId.size());
-        return allLeadbyCategoryId;
+    public List<Leadership> allLeaderShipstatusDekanat() {
+        return leadershipRepository.findAllByLeadershipStatus_Dekanat();
+    }
+
+    @Override
+    public List<Leadership> allLeaderShipstatusFacultet() {
+        return leadershipRepository.findAllByLeadershipStatus_Kafedra();
     }
 }

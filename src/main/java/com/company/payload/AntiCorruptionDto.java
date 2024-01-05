@@ -3,10 +3,6 @@ package com.company.payload;
 import com.company.entity.AttachmentEntity;
 import lombok.Data;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.OneToOne;
-
 @Data
 public class AntiCorruptionDto {
 
@@ -26,6 +22,6 @@ public class AntiCorruptionDto {
 
     private String descriptionKR;
 
-    private AttachmentEntity attachment;
+    private String  hashId;
 
 }

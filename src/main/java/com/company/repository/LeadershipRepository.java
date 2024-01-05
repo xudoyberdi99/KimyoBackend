@@ -15,7 +15,9 @@ public interface LeadershipRepository extends JpaRepository<Leadership,Long> {
     Boolean existsByEmailAndIdNot(String email, Long id);
     @Query(value = "select * from leadership where leadership_status='RAHBARIYAT'", nativeQuery = true)
     List<Leadership> allLeadershipRahbariyat();
-
-    List<Leadership> findAllByCategory_Id(Long categoryId);
+    @Query(value = "select * from leadership where leadership_status='DEKANAT'", nativeQuery = true)
+    List<Leadership> findAllByLeadershipStatus_Dekanat();
+    @Query(value = "select * from leadership where leadership_status='KAFEDRA'", nativeQuery = true)
+    List<Leadership> findAllByLeadershipStatus_Kafedra();
 
 }

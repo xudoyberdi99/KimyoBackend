@@ -20,6 +20,7 @@ public interface LeadershipService {
 
     List<Leadership> allLeader();
 
-    Page<Leadership> allLeadershipByCategoryId(Long categoryId, int page, int size);
+    List<Leadership> allLeaderShipstatusDekanat();
 
+    List<Leadership> allLeaderShipstatusFacultet();
 }

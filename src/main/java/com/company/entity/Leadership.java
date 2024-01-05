@@ -69,8 +69,4 @@ public class Leadership extends BaceEntity {
 
     @Enumerated(EnumType.STRING)
     private LeadershipStatus leadershipStatus;
-
-    @ManyToOne(optional = false)
-    private Category category;
-
 }
