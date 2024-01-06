@@ -1,5 +1,6 @@
 package com.company.service;
 
+import com.company.dto.FacultyGet;
 import com.company.entity.Facultys;
 import com.company.payload.ApiResponse;
 import com.company.payload.FacultyDto;
@@ -13,9 +14,7 @@ public interface FacultyService {
 
     ApiResponse deleteFaculty(Long id);
 
-    Facultys facultyById(Long id);
+    FacultyGet facultyById(Long id);
 
-    List<Facultys> allFaculty();
-
-    List<Facultys> facultyByCategoryId(Long categoryId);
+    List<FacultyGet> allFaculty();
 }

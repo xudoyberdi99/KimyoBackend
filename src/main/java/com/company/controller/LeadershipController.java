@@ -1,5 +1,6 @@
 package com.company.controller;
 
+import com.company.dto.LeadershipGet;
 import com.company.entity.Leadership;
 import com.company.entity.News;
 import com.company.payload.ApiResponse;
@@ -42,7 +43,7 @@ public class LeadershipController {
 
     @GetMapping("/public/leaderShipById/{id}")
     public HttpEntity<?> leaderShipById(@PathVariable Long id){
-        Leadership leadership=leadershipService.leaderShipById(id);
+        LeadershipGet leadership=leadershipService.leaderShipById(id);
         return ResponseEntity.ok(leadership);
     }
 
@@ -55,17 +56,17 @@ public class LeadershipController {
 
     @GetMapping("/public/allLeader")
     public HttpEntity<?> allLeader(){
-        List<Leadership> getallleader=leadershipService.allLeader();
+        List<LeadershipGet> getallleader=leadershipService.allLeader();
         return ResponseEntity.ok(getallleader);
     }
     @GetMapping("/public/allLeaderShipstatusDekanat")
     public HttpEntity<?> allLeaderShipstatusDekanat(){
-        List<Leadership> getallleader=leadershipService.allLeaderShipstatusDekanat();
+        List<LeadershipGet> getallleader=leadershipService.allLeaderShipstatusDekanat();
         return ResponseEntity.ok(getallleader);
     }
     @GetMapping("/public/allLeaderShipstatusFacultet")
     public HttpEntity<?> allLeaderShipstatusFacultet(){
-        List<Leadership> getallleader=leadershipService.allLeaderShipstatusFacultet();
+        List<LeadershipGet> getallleader=leadershipService.allLeaderShipstatusFacultet();
         return ResponseEntity.ok(getallleader);
     }
 

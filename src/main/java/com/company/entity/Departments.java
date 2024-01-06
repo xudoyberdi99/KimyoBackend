@@ -15,15 +15,30 @@ import java.util.List;
 @Data
 @Entity(name = "departments")
 public class Departments extends BaceEntity {
+
+    @Column(nullable = false)
     private String nameUZ;
+    @Column(nullable = false)
     private String nameRU;
+    @Column(nullable = false)
     private String nameEN;
+    @Column(nullable = false)
     private String nameKR;
-
-
+    @Column(nullable = false)
+    private String titleUZ;
+    @Column(nullable = false)
+    private String titleRU;
+    @Column(nullable = false)
+    private String titleEN;
+    @Column(nullable = false)
+    private String titleKR;
+    @Column(nullable = false)
     private String DescriptionUZ;
+    @Column(nullable = false)
     private String DescriptionRU;
+    @Column(nullable = false)
     private String DescriptionEN;
+    @Column(nullable = false)
     private String DescriptionKR;
 
     @OneToOne(optional = false,cascade = CascadeType.REMOVE)
@@ -32,6 +47,4 @@ public class Departments extends BaceEntity {
     @ManyToOne(optional = false)
     private Facultys facultys;
 
-    @ManyToOne(optional = false)
-    private Category category;
 }

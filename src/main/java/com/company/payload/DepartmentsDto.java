@@ -17,6 +17,14 @@ public class DepartmentsDto {
     @NotBlank(message = "Iltimos Kafedra nomini kiriting")
     private String nameKR;
 
+    private String titleUZ;
+
+    private String titleRU;
+
+    private String titleEN;
+
+    private String titleKR;
+
     @NotBlank(message = "Kafedra Tarixi Majburiy kiritish")
     private String DescriptionUZ;
     @NotBlank(message = "Kafedra Tarixi Majburiy kiritish")
@@ -30,6 +38,4 @@ public class DepartmentsDto {
     private Long  leadershipId;
 
     private Long facultyId;
-
-    private Long categoryId;
 }

@@ -7,6 +7,7 @@ import java.sql.Timestamp;
 public class RegulatoryDocumentsDtoGet {
 
     private Long id;
+
     private String nameUZ;
 
     private String nameRU;

@@ -70,14 +70,6 @@ public class EmployeesServiceImpl implements EmployeesService {
             return new ApiResponse("not found department", false);
         }
         employees.setDepartments(optionalDepartments.get());
-        Optional<Category> categoryOptional = categoryRepository.findById(employeesDto.getCategoryId());
-        if (categoryOptional.isPresent()){
-            employees.setCategory(categoryOptional.get());
-        }
-        else{
-            employees.setCategory(null);
-        }
-
         employeeRepository.save(employees);
         return new ApiResponse("add employee success", true);
     }
@@ -126,13 +118,6 @@ public class EmployeesServiceImpl implements EmployeesService {
 
         employees.setDepartments(optionalDepartments.get());
 
-        Optional<Category> categoryOptional = categoryRepository.findById(employeesDto.getCategoryId());
-        if (categoryOptional.isPresent()){
-            employees.setCategory(categoryOptional.get());
-        }
-        else{
-            employees.setCategory(null);
-        }
         employeeRepository.save(employees);
 
         return new ApiResponse("edit employee success", true);

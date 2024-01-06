@@ -73,7 +73,4 @@ public class Employees extends BaceEntity {
     @ManyToOne(optional = false)
     private Departments departments;
 
-    @ManyToOne
-    private Category category;
-
 }

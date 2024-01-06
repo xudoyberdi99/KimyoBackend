@@ -1,5 +1,7 @@
 package com.company.service.ServiceImpl;
 
+import com.company.dto.AttachDto;
+import com.company.dto.LeadershipGet;
 import com.company.entity.AttachmentEntity;
 import com.company.entity.Category;
 import com.company.entity.Leadership;
@@ -11,12 +13,14 @@ import com.company.repository.CategoryRepository;
 import com.company.repository.LeadershipRepository;
 import com.company.service.LeadershipService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,6 +34,8 @@ public class LeadershipServiceImpl implements LeadershipService {
     @Autowired
     private AttachmentRepository attachmentRepository;
 
+    @Value("${upload.server}")
+    private String serverPath;
 
     @Override
     public ApiResponse addLeadership(LeadershipDto leadershipDto) {
@@ -118,8 +124,44 @@ public class LeadershipServiceImpl implements LeadershipService {
     }
 
     @Override
-    public Leadership leaderShipById(Long id) {
-        return leadershipRepository.findById(id).orElse(new Leadership());
+    public LeadershipGet leaderShipById(Long id) {
+        Optional<Leadership> optionalLeadership = leadershipRepository.findById(id);
+        if (!optionalLeadership.isPresent()){
+            return  new LeadershipGet();
+        }
+        Leadership leadershipDto = optionalLeadership.get();
+        LeadershipGet leadership=new LeadershipGet();
+
+        leadership.setId(leadershipDto.getId());
+        leadership.setDegree(leadershipDto.getDegree());
+        leadership.setBiographyKR(leadershipDto.getBiographyKR());
+        leadership.setBiographyEN(leadershipDto.getBiographyEN());
+        leadership.setBiographyRU(leadershipDto.getBiographyRU());
+        leadership.setBiographyUZ(leadershipDto.getBiographyUZ());
+        leadership.setDutiesEN(leadershipDto.getDutiesEN());
+        leadership.setDutiesKR(leadershipDto.getDutiesKR());
+        leadership.setDutiesUZ(leadershipDto.getDutiesUZ());
+        leadership.setDutiesRU(leadershipDto.getDutiesRU());
+        leadership.setEmail(leadershipDto.getEmail());
+        leadership.setFax(leadershipDto.getFax());
+        leadership.setLeadershipStatus(String.valueOf(leadershipDto.getLeadershipStatus()));
+        leadership.setFacebooklink(leadershipDto.getFacebooklink());
+        leadership.setInstagramlink(leadershipDto.getInstagramlink());
+        leadership.setTelegramlink(leadershipDto.getTelegramlink());
+        leadership.setTwitterlink(leadershipDto.getTwitterlink());
+        leadership.setFullName(leadershipDto.getFullName());
+        leadership.setPhoneNumber(leadershipDto.getPhoneNumber());
+
+        AttachmentEntity image = leadershipDto.getImage();
+        AttachDto attachDto=new AttachDto();
+        attachDto.setId(image.getId());
+        attachDto.setHashId(image.getHashId());
+        attachDto.setOrginalName(image.getOrginalName());
+        attachDto.setLink(serverPath+image.getUploadFolder());
+
+        leadership.setFile(attachDto);
+
+        return leadership;
     }
 
     @Override
@@ -129,18 +171,132 @@ public class LeadershipServiceImpl implements LeadershipService {
     }
 
     @Override
-    public List<Leadership> allLeader() {
-        return leadershipRepository.allLeadershipRahbariyat();
+    public List<LeadershipGet> allLeader() {
+        List<Leadership> leaderships = leadershipRepository.allLeadershipRahbariyat();
+
+        List<LeadershipGet> leadershipGetList=new ArrayList<>();
+
+        for (Leadership leadershipDto : leaderships) {
+            LeadershipGet leadership=new LeadershipGet();
+
+            leadership.setId(leadershipDto.getId());
+            leadership.setDegree(leadershipDto.getDegree());
+            leadership.setBiographyKR(leadershipDto.getBiographyKR());
+            leadership.setBiographyEN(leadershipDto.getBiographyEN());
+            leadership.setBiographyRU(leadershipDto.getBiographyRU());
+            leadership.setBiographyUZ(leadershipDto.getBiographyUZ());
+            leadership.setDutiesEN(leadershipDto.getDutiesEN());
+            leadership.setDutiesKR(leadershipDto.getDutiesKR());
+            leadership.setDutiesUZ(leadershipDto.getDutiesUZ());
+            leadership.setDutiesRU(leadershipDto.getDutiesRU());
+            leadership.setEmail(leadershipDto.getEmail());
+            leadership.setFax(leadershipDto.getFax());
+            leadership.setLeadershipStatus(String.valueOf(leadershipDto.getLeadershipStatus()));
+            leadership.setFacebooklink(leadershipDto.getFacebooklink());
+            leadership.setInstagramlink(leadershipDto.getInstagramlink());
+            leadership.setTelegramlink(leadershipDto.getTelegramlink());
+            leadership.setTwitterlink(leadershipDto.getTwitterlink());
+            leadership.setFullName(leadershipDto.getFullName());
+            leadership.setPhoneNumber(leadershipDto.getPhoneNumber());
+
+            AttachmentEntity image = leadershipDto.getImage();
+            AttachDto attachDto=new AttachDto();
+            attachDto.setId(image.getId());
+            attachDto.setHashId(image.getHashId());
+            attachDto.setOrginalName(image.getOrginalName());
+            attachDto.setLink(serverPath+image.getUploadFolder());
+
+            leadership.setFile(attachDto);
+
+            leadershipGetList.add(leadership);
+        }
+        return leadershipGetList;
     }
 
 
     @Override
-    public List<Leadership> allLeaderShipstatusDekanat() {
-        return leadershipRepository.findAllByLeadershipStatus_Dekanat();
+    public List<LeadershipGet> allLeaderShipstatusDekanat() {
+        List<Leadership> allByLeadershipStatusDekanat = leadershipRepository.findAllByLeadershipStatus_Dekanat();
+
+        List<LeadershipGet> leadershipGetList=new ArrayList<>();
+
+        for (Leadership leadershipDto : allByLeadershipStatusDekanat) {
+            LeadershipGet leadership=new LeadershipGet();
+
+            leadership.setId(leadershipDto.getId());
+            leadership.setDegree(leadershipDto.getDegree());
+            leadership.setBiographyKR(leadershipDto.getBiographyKR());
+            leadership.setBiographyEN(leadershipDto.getBiographyEN());
+            leadership.setBiographyRU(leadershipDto.getBiographyRU());
+            leadership.setBiographyUZ(leadershipDto.getBiographyUZ());
+            leadership.setDutiesEN(leadershipDto.getDutiesEN());
+            leadership.setDutiesKR(leadershipDto.getDutiesKR());
+            leadership.setDutiesUZ(leadershipDto.getDutiesUZ());
+            leadership.setDutiesRU(leadershipDto.getDutiesRU());
+            leadership.setEmail(leadershipDto.getEmail());
+            leadership.setFax(leadershipDto.getFax());
+            leadership.setLeadershipStatus(String.valueOf(leadershipDto.getLeadershipStatus()));
+            leadership.setFacebooklink(leadershipDto.getFacebooklink());
+            leadership.setInstagramlink(leadershipDto.getInstagramlink());
+            leadership.setTelegramlink(leadershipDto.getTelegramlink());
+            leadership.setTwitterlink(leadershipDto.getTwitterlink());
+            leadership.setFullName(leadershipDto.getFullName());
+            leadership.setPhoneNumber(leadershipDto.getPhoneNumber());
+
+            AttachmentEntity image = leadershipDto.getImage();
+            AttachDto attachDto=new AttachDto();
+            attachDto.setId(image.getId());
+            attachDto.setHashId(image.getHashId());
+            attachDto.setOrginalName(image.getOrginalName());
+            attachDto.setLink(serverPath+image.getUploadFolder());
+
+            leadership.setFile(attachDto);
+
+            leadershipGetList.add(leadership);
+        }
+        return leadershipGetList;
     }
 
     @Override
-    public List<Leadership> allLeaderShipstatusFacultet() {
-        return leadershipRepository.findAllByLeadershipStatus_Kafedra();
+    public List<LeadershipGet> allLeaderShipstatusFacultet() {
+        List<Leadership> allByLeadershipStatusKafedra = leadershipRepository.findAllByLeadershipStatus_Kafedra();
+
+        List<LeadershipGet> leadershipGetList=new ArrayList<>();
+
+        for (Leadership leadershipDto : allByLeadershipStatusKafedra) {
+            LeadershipGet leadership=new LeadershipGet();
+
+            leadership.setId(leadershipDto.getId());
+            leadership.setDegree(leadershipDto.getDegree());
+            leadership.setBiographyKR(leadershipDto.getBiographyKR());
+            leadership.setBiographyEN(leadershipDto.getBiographyEN());
+            leadership.setBiographyRU(leadershipDto.getBiographyRU());
+            leadership.setBiographyUZ(leadershipDto.getBiographyUZ());
+            leadership.setDutiesEN(leadershipDto.getDutiesEN());
+            leadership.setDutiesKR(leadershipDto.getDutiesKR());
+            leadership.setDutiesUZ(leadershipDto.getDutiesUZ());
+            leadership.setDutiesRU(leadershipDto.getDutiesRU());
+            leadership.setEmail(leadershipDto.getEmail());
+            leadership.setFax(leadershipDto.getFax());
+            leadership.setLeadershipStatus(String.valueOf(leadershipDto.getLeadershipStatus()));
+            leadership.setFacebooklink(leadershipDto.getFacebooklink());
+            leadership.setInstagramlink(leadershipDto.getInstagramlink());
+            leadership.setTelegramlink(leadershipDto.getTelegramlink());
+            leadership.setTwitterlink(leadershipDto.getTwitterlink());
+            leadership.setFullName(leadershipDto.getFullName());
+            leadership.setPhoneNumber(leadershipDto.getPhoneNumber());
+
+            AttachmentEntity image = leadershipDto.getImage();
+            AttachDto attachDto=new AttachDto();
+            attachDto.setId(image.getId());
+            attachDto.setHashId(image.getHashId());
+            attachDto.setOrginalName(image.getOrginalName());
+            attachDto.setLink(serverPath+image.getUploadFolder());
+
+            leadership.setFile(attachDto);
+
+            leadershipGetList.add(leadership);
+        }
+        return leadershipGetList;
     }
 }

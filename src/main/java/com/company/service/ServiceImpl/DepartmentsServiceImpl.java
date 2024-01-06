@@ -48,12 +48,6 @@ public class DepartmentsServiceImpl implements DepartmentsService {
             return new ApiResponse("not found faculty", false);
         }
         departments.setFacultys(facultyRepositoryById.get());
-        Optional<Category> categoryOptional = categoryRepository.findById(departmentsDto.getCategoryId());
-        if (!categoryOptional.isPresent()){
-            return new ApiResponse("not found category", false);
-        }
-        departments.setCategory(categoryOptional.get());
-
         departmentsRepository.save(departments);
         return new ApiResponse("add Department success", true);
     }
@@ -84,11 +78,6 @@ public class DepartmentsServiceImpl implements DepartmentsService {
             return new ApiResponse("not found faculty", false);
         }
         departments.setFacultys(facultyRepositoryById.get());
-        Optional<Category> categoryOptional = categoryRepository.findById(departmentsDto.getCategoryId());
-        if (!categoryOptional.isPresent()){
-            return new ApiResponse("not found category", false);
-        }
-        departments.setCategory(categoryOptional.get());
         departmentsRepository.save(departments);
         return new ApiResponse("add Department success", true);
     }
@@ -116,10 +105,5 @@ public class DepartmentsServiceImpl implements DepartmentsService {
     @Override
     public List<Departments> allDepartmentsByFacultyId(Long facultyid) {
         return departmentsRepository.allDepartmentsByFacultyId(facultyid);
-    }
-
-    @Override
-    public List<Departments> allDepartmentsByCategoryId(Long categoryId) {
-        return departmentsRepository.findAllByCategory_Id(categoryId);
     }
 }

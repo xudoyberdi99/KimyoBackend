@@ -1,5 +1,6 @@
 package com.company.service;
 
+import com.company.dto.LeadershipGet;
 import com.company.entity.Leadership;
 import com.company.payload.ApiResponse;
 import com.company.payload.LeadershipDto;
@@ -14,13 +15,13 @@ public interface LeadershipService {
 
     ApiResponse deleteLeadership(Long id);
 
-    Leadership leaderShipById(Long id);
+    LeadershipGet leaderShipById(Long id);
 
     Page<Leadership> allLeadership(int page, int size);
 
-    List<Leadership> allLeader();
+    List<LeadershipGet> allLeader();
 
-    List<Leadership> allLeaderShipstatusDekanat();
+    List<LeadershipGet> allLeaderShipstatusDekanat();
 
-    List<Leadership> allLeaderShipstatusFacultet();
+    List<LeadershipGet> allLeaderShipstatusFacultet();
 }

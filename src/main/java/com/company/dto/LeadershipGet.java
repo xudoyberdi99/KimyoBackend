@@ -5,39 +5,30 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 
 @Data
-public class CenterAndDepartmentsEmployeesGet {
-
+public class LeadershipGet {
     private Long id;
 
     private String fullName;
 
     private String degree;
 
-
     private String phoneNumber;
-
 
     private String email;
 
     private String Fax;
-
     private String telegramlink;
     private String facebooklink;
     private String instagramlink;
     private String twitterlink;
 
-
     private String biographyUZ;
-
 
     private String biographyRU;
 
-
     private String biographyEN;
 
-
     private String biographyKR;
-
 
     private String dutiesUZ;
 
@@ -49,5 +40,5 @@ public class CenterAndDepartmentsEmployeesGet {
 
     private AttachDto file;
 
-    private Long centerAndDepartmentId;
+    private String leadershipStatus;
 }

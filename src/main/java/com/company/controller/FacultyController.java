@@ -1,5 +1,6 @@
 package com.company.controller;
 
+import com.company.dto.FacultyGet;
 import com.company.entity.Facultys;
 import com.company.payload.ApiResponse;
 import com.company.payload.FacultyDto;
@@ -38,19 +39,14 @@ public class FacultyController {
 
     @GetMapping("/public/facultyById/{id}")
     public HttpEntity<?> facultyById(@PathVariable Long id){
-        Facultys faculty=facultyService.facultyById(id);
+        FacultyGet faculty=facultyService.facultyById(id);
         return ResponseEntity.ok(faculty);
     }
 
 
     @GetMapping("/public/allFaculty")
     public HttpEntity<?> allFaculty(){
-        List<Facultys> getAllFaculty=facultyService.allFaculty();
+        List<FacultyGet> getAllFaculty=facultyService.allFaculty();
         return ResponseEntity.ok(getAllFaculty);
-    }
-    @GetMapping("/public/facultyByCategoryId/{categoryId}")
-    public HttpEntity<?> facultyByCategoryId(@PathVariable Long categoryId){
-        List<Facultys> faculty=facultyService.facultyByCategoryId(categoryId);
-        return ResponseEntity.ok(faculty);
     }
 }
